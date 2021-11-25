@@ -26,6 +26,211 @@ namespace PLC_Var_Management_App
         static string plc319_IPAddress = "192.168.10.2";
         static Int16 plc319_Rack = 0;
         static Int16 plc319_Slot = 2;
+        double SetPointLecitina = -1;
+
+        #region DBS_GuardadoBines
+        string dbLecina_done = "DB607.DBX0.0";
+        string dbLecina_real = "DB607.DBD6";
+        string dbLecina_plan = "DB607.DBD2";
+        string dbLecina_binid = "DB607.DBW30";
+
+
+        string dbOil1_done = "DB550.DBX430.0";
+        string dbOil1_real = "DB550.DBD426";
+        string dbOil1_plan = "DB550.DBD422";
+        string dbOil1_binid = "DB550.DBW420";
+
+        string dbOil2_done = "DB550.DBX442.0";
+        string dbOil2_real = "DB550.DBD438";
+        string dbOil2_plan = "DB550.DBD434";
+        string dbOil2_binid = "DB550.DBW432";
+
+        string dbOil3_done = "DB550.DBX454.0";
+        string dbOil3_real = "DB550.DBD450";
+        string dbOil3_plan = "DB550.DBD446";
+        string dbOil3_binid = "DB550.DBW444";
+
+        string dbOil4_done = "DB550.DBX466.0";
+        string dbOil4_real = "DB550.DBD462";
+        string dbOil4_plan = "DB550.DBD458";
+        string dbOil4_binid = "DB550.DBW456";
+
+        string dbFD1_done = "DB550.DBX10.0";
+        string dbFD1_real = "DB550.DBD6";
+        string dbFD1_plan = "DB550.DBD2";
+        string dbFD1_binid = "DB550.DBW0";
+
+        string dbFD2_done = "DB550.DBX22.0";
+        string dbFD2_real = "DB550.DBD18";
+        string dbFD2_plan = "DB550.DBD14";
+        string dbFD2_binid = "DB550.DBW12";
+
+        string dbFD3_done = "DB550.DBX34.0";
+        string dbFD3_real = "DB550.DBD30";
+        string dbFD3_plan = "DB550.DBD26";
+        string dbFD3_binid = "DB550.DBW24";
+
+        string dbFD4_done = "DB550.DBX46.0";
+        string dbFD4_real = "DB550.DBD42";
+        string dbFD4_plan = "DB550.DBD38";
+        string dbFD4_binid = "DB550.DBW36";
+
+        string dbFD5_binid = "DB550.DBW48";
+        string dbFD5_plan = "DB550.DBD50";
+        string dbFD5_real = "DB550.DBD54";
+        string dbFD5_done = "DB550.DBX58.0";
+
+        string dbFD6_binid = "DB550.DBW60";
+        string dbFD6_plan = "DB550.DBD62";
+        string dbFD6_real = "DB550.DBD66";
+        string dbFD6_done = "DB550.DBX70.0";
+
+        string dbFD7_binid = "DB550.DBW72";
+        string dbFD7_plan = "DB550.DBD74";
+        string dbFD7_real = "DB550.DBD78";
+        string dbFD7_done = "DB550.DBX82.0";
+
+        string dbFD8_binid = "DB550.DBW84";
+        string dbFD8_plan = "DB550.DBD86";
+        string dbFD8_real = "DB550.DBD90";
+        string dbFD8_done = "DB550.DBX94.0";
+
+        string dbFD9_binid = "DB550.DBW96";
+        string dbFD9_plan = "DB550.DBD98";
+        string dbFD9_real = "DB550.DBD102";
+        string dbFD9_done = "DB550.DBX106.0";
+
+        string dbFD10_binid = "DB550.DBW108";
+        string dbFD10_plan = "DB550.DBD110";
+        string dbFD10_real = "DB550.DBD114";
+        string dbFD10_done = "DB550.DBX118.0";
+
+        string dbFD11_binid = "DB550.DBW120";
+        string dbFD11_plan = "DB550.DBD122";
+        string dbFD11_real = "DB550.DBD126";
+        string dbFD11_done = "DB550.DBX130.0";
+
+        string dbFD12_binid = "DB550.DBW132";
+        string dbFD12_plan = "DB550.DBD134";
+        string dbFD12_real = "DB550.DBD138";
+        string dbFD12_done = "DB550.DBX142.0";
+
+        string dbFD13_binid = "DB550.DBW144";
+        string dbFD13_plan = "DB550.DBD146";
+        string dbFD13_real = "DB550.DBD150";
+        string dbFD13_done = "DB550.DBX154.0";
+
+        string dbFD14_binid = "DB550.DBW156";
+        string dbFD14_plan = "DB550.DBD158";
+        string dbFD14_real = "DB550.DBD162";
+        string dbFD14_done = "DB550.DBX166.0";
+
+        string dbFD15_binid = "DB550.DBW168";
+        string dbFD15_plan = "DB550.DBD170";
+        string dbFD15_real = "DB550.DBD174";
+        string dbFD15_done = "DB550.DBX178.0";
+
+        string dbFylax_binid = "DB550.DBW360";
+        string dbFylax_plan = "DB550.DBD362";
+        string dbFylax_real = "DB550.DBD366";
+        string dbFylax_done = "DB550.DBX370.0";
+
+        string dbSD1_binid = "DB550.DBW180";
+        string dbSD1_plan = "DB550.DBD182";
+        string dbSD1_real = "DB550.DBD186";
+        string dbSD1_done = "DB550.DBX190.0";
+
+        string dbSD2_binid = "DB550.DBW192";
+        string dbSD2_plan = "DB550.DBD194";
+        string dbSD2_real = "DB550.DBD198";
+        string dbSD2_done = "DB550.DBX202.0";
+
+        string dbSD3_binid = "DB550.DBW204";
+        string dbSD3_plan = "DB550.DBD206";
+        string dbSD3_real = "DB550.DBD210";
+        string dbSD3_done = "DB550.DBX214.0";
+
+        string dbWL1M1_binid = "DB550.DBW288";
+        string dbWL1M1_plan = "DB550.DBD290";
+        string dbWL1M1_real = "DB550.DBD294";
+        string dbWL1M1_done = "DB550.DBX298.0";
+
+        string dbWL1M2_binid = "DB550.DBW216";
+        string dbWL1M2_plan = "DB550.DBD218";
+        string dbWL1M2_real = "DB550.DBD222";
+        string dbWL1M2_done = "DB550.DBX226.0";
+
+        string dbWL2M1_binid = "DB550.DBW300";
+        string dbWL2M1_plan = "DB550.DBD302";
+        string dbWL2M1_real = "DB550.DBD306";
+        string dbWL2M1_done = "DB550.DBX310.0";
+
+        string dbWL2M2_binid = "DB550.DBW228";
+        string dbWL2M2_plan = "DB550.DBD230";
+        string dbWL2M2_real = "DB550.DBD234";
+        string dbWL2M2_done = "DB550.DBX238.0";
+
+        string dbWL3M1_binid = "DB550.DBW312";
+        string dbWL3M1_plan = "DB550.DBD314";
+        string dbWL3M1_real = "DB550.DBD318";
+        string dbWL3M1_done = "DB550.DBX322.0";
+
+        string dbWL3M2_binid = "DB550.DBW240";
+        string dbWL3M2_plan = "DB550.DBD242";
+        string dbWL3M2_real = "DB550.DBD246";
+        string dbWL3M2_done = "DB550.DBX250.0";
+
+        string dbWL4M1_binid = "DB550.DBW324";
+        string dbWL4M1_plan = "DB550.DBD326";
+        string dbWL4M1_real = "DB550.DBD330";
+        string dbWL4M1_done = "DB550.DBX334.0";
+
+        string dbWL4M2_binid = "DB550.DBW252";
+        string dbWL4M2_plan = "DB550.DBD254";
+        string dbWL4M2_real = "DB550.DBD258";
+        string dbWL4M2_done = "DB550.DBX262.0";
+
+        string dbWL5M1_binid = "DB550.DBW336";
+        string dbWL5M1_plan = "DB550.DBD338";
+        string dbWL5M1_real = "DB550.DBD342";
+        string dbWL5M1_done = "DB550.DBX346.0";
+
+        string dbWL5M2_binid = "DB550.DBW264";
+        string dbWL5M2_plan = "DB550.DBD266";
+        string dbWL5M2_real = "DB550.DBD270";
+        string dbWL5M2_done = "DB550.DBX274.0";
+
+        string dbWL6M1_binid = "DB550.DBW348";
+        string dbWL6M1_plan = "DB550.DBD350";
+        string dbWL6M1_real = "DB550.DBD354";
+        string dbWL6M1_done = "DB550.DBX358.0";
+
+        string dbWL6M2_binid = "DB550.DBW276";
+        string dbWL6M2_plan = "DB550.DBD278";
+        string dbWL6M2_real = "DB550.DBD282";
+        string dbWL6M2_done = "DB550.DBX286.0";
+
+        string dbWL7M1_binid = "DB550.DBW396";
+        string dbWL7M1_plan = "DB550.DBD398";
+        string dbWL7M1_real = "DB550.DBD402";
+        string dbWL7M1_done = "DB550.DBX406.0";
+
+        string dbWL7M2_binid = "DB550.DBW372";
+        string dbWL7M2_plan = "DB550.DBD374";
+        string dbWL7M2_real = "DB550.DBD378";
+        string dbWL7M2_done = "DB550.DBX382.0";
+
+        string dbWL8M1_binid = "DB550.DBW408";
+        string dbWL8M1_plan = "DB550.DBD410";
+        string dbWL8M1_real = "DB550.DBD414";
+        string dbWL8M1_done = "DB550.DBX418.0";
+
+        string dbWL8M2_binid = "DB550.DBW384";
+        string dbWL8M2_plan = "DB550.DBD386";
+        string dbWL8M2_real = "DB550.DBD390";
+        string dbWL8M2_done = "DB550.DBX394.0";
+
+        #endregion
 
         #endregion
 
@@ -282,8 +487,17 @@ namespace PLC_Var_Management_App
                 MainTimer.Enabled = true;
                 MainTimer.Start();
 
+                TimerGuardadoBines.Enabled = true;
+                TimerGuardadoBines.Start();
+
+                TimerHorasMolinos.Enabled = true;
+                TimerHorasMolinos.Start();
+
                 VarReaderMonitor.Enabled = true;
                 VarReaderMonitor.Start();
+
+                timerBinActivoAlimentacion.Enabled = true;
+                timerBinActivoAlimentacion.Start();
 
                 Connect_PLC();
                 txt_ServiceStatus.Caption = "Service Started";
@@ -310,10 +524,20 @@ namespace PLC_Var_Management_App
                 MainTimer.Enabled = false;
                 MainTimer.Stop();
 
+                TimerGuardadoBines.Enabled = false;
+                TimerGuardadoBines.Stop();
+
+                TimerHorasMolinos.Enabled = false;
+                TimerHorasMolinos.Stop();
+
                 VarReaderMonitor.Enabled = false;
                 VarReaderMonitor.Stop();
                 conteoBatch.Stop();
-                
+
+                timerBinActivoAlimentacion.Enabled = false;
+                timerBinActivoAlimentacion.Stop();
+
+
                 Disconect_PLC();
                 txt_ServiceStatus.Caption = "Service Stopped";
                 txt_ServiceStatus.Appearance.ForeColor = System.Drawing.Color.Red;
@@ -374,6 +598,40 @@ namespace PLC_Var_Management_App
                     int id_rm_fg1 = fn.GetRM_ID_APMS_from_Bin_id(2);//DB551.DBW0;
                     int id_rm_fg2 = fn.GetRM_ID_APMS_from_Bin_id(3);//DB551.DBW2;
 
+
+                    try
+                    {
+                        string sql = "sp_get_setpoint_lecitina_orden_activa";
+                        SqlConnection conn = new SqlConnection(dp.ConnectionStringAPMS);
+                        conn.Open();
+                        SqlCommand cmd = new SqlCommand(sql, conn);
+                        cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                        double val = Convert.ToDouble(cmd.ExecuteScalar());
+                        lblSetPoinDB.Text = string.Format("{0:##0.00}", val);
+                        if (val > 0)
+                            SetPointLecitina = val;
+                        else
+                            SetPointLecitina = -1;
+
+                        txtSPLecitina.Text = string.Format("{0:##0.00}", SetPointLecitina);
+                        double TotalBatch = ((uint)plc319.Read(txtBloqueLec.Text +spinBloqueLec.Value + "."+txtArrayLec.Text + spinArregloLec.Value)).ConvertToDouble();
+                        lblValorDBLecitina.Text = string.Format("{0:##0.00}", TotalBatch);
+                        conn.Close();
+                    }
+                    catch (Exception ec)
+                    {
+                        //throw new Exception(ec.Message);
+                    }
+
+                    //Si esta encendido el toggle switch vamos a escribir en la db 
+                    if (tggLecitinaEncendido.IsOn)
+                    {
+                        int dbn = Convert.ToInt32(spinBloqueLec.Value);
+                        int dbarray = Convert.ToInt32(spinArregloLec.Value);
+                        plc319.Write(DataType.DataBlock, dbn, dbarray, SetPointLecitina);
+                        //plc319.Write(txtDBSetPoint.Text, SetPointLecitina);
+                    }
+
                     //Escribir en el plc los id de materia prima que estan en los bin
                     plc319.Write("DB551.DBW0", id_rm_fg1);//Bin FG1
                     plc319.Write("DB551.DBW2", id_rm_fg2);//Bin FG2
@@ -392,6 +650,7 @@ namespace PLC_Var_Management_App
                     int bin_idx = 4;//id de la base de datos
                     //Los id estan ordenados de forma ascendente de la fd1 = 4, fd2 = 5 ..... hasta fd12 = 15 
                     //Incrementaremos de 1 en 1 
+                    
                     
                     while (Multiplicador <= 132)//Es la coleccion proporcionada de PLC. Mantiene una secuencia de 12 char en el db por lo que concatenamos el nombre del db sumando +12
                     {
@@ -754,8 +1013,10 @@ namespace PLC_Var_Management_App
                                                                             ({0},{1},{2})", linea_id, Batch_IdMix, teoric);
                                    SqlCommand cmd1 = new SqlCommand(sql1, conn);
                                    cmd1.ExecuteNonQuery();
+                                   
                                }
-                           }
+                                conn.Close();
+                            }
 
 
                         }
@@ -1120,6 +1381,7 @@ namespace PLC_Var_Management_App
                     conn.Open();
                     SqlCommand cmd = new SqlCommand(sql, conn);
                     cmd.ExecuteNonQuery();
+                    conn.Close();
                 }
                 catch (Exception ec)
                 {
@@ -1362,7 +1624,7 @@ namespace PLC_Var_Management_App
                 SqlCommand cmd = new SqlCommand(sql, conn);
                 Convert.ToDecimal(cmd.ExecuteScalar());
                 conn.Close();
-
+                
                 AcumularHoras(pid_maquina, HoraActual.Hour, pLectura_Actual);
                 
             }
@@ -1483,9 +1745,11 @@ namespace PLC_Var_Management_App
 
                     switch (_Hour)
                     {
-                        case 6://si son las 6 am
-                        case 14://si son las 7 pm
-                        case 22://si son las 10 pm
+                        //case 6://si son las 6 am
+                        //case 14://si son las 2 pm
+                        //case 22://si son las 10 pm
+                        case 7://si son las 7 am
+                        case 19://si son las 7 pm
                             //Cerrar el periodo
 
                             bool EjecutoUpdate = false;
@@ -1516,19 +1780,25 @@ namespace PLC_Var_Management_App
                             if (!EjecutoUpdate)
                             {
                                 double dif = _LecturaActual - ultima_lectura;
-                                if (horas_edad >= 8 && dif <= 0)
+                                if (horas_edad >= 12 && dif <= 0)
                                 {
+                                    if (_LecturaActual <= 0)
+                                    {
+                                        _LecturaActual = ultima_lectura;
+                                    }
+                                    
                                     sql = @"UPDATE [dbo].[EQ_Maquinas_Horas_Periodo]
-                                                           SET [cerrado] = 1,
-                                                               [fechaf] = getdate(),
-                                                               [ultima_lectura] = @lectura
-                                                         WHERE id = " + id_periodo;
+                                            SET [cerrado] = 1,
+                                                [fechaf] = getdate() /*,
+                                                [ultima_lectura] = @lectura*/
+                                            WHERE id = " + id_periodo;
                                     SqlConnection connz = new SqlConnection(dp.ConnectionStringAPMS);
                                     connz.Open();
                                     SqlCommand cmdz = new SqlCommand(sql, connz);
-                                    cmdz.Parameters.Add("lectura", SqlDbType.Decimal).Value = _LecturaActual;
+                                    //cmdz.Parameters.Add("lectura", SqlDbType.Decimal).Value = _LecturaActual;
                                     cmdz.ExecuteScalar();
                                     connz.Close();
+                                    
                                 }
                             }
                             
@@ -1660,6 +1930,1955 @@ namespace PLC_Var_Management_App
                 {
                 }
                 
+            }
+        }
+
+        private void GuardadoBines_Tick(object sender, EventArgs e)
+        {
+            if (tggGuardadoBines.IsOn)
+            {
+                #region Lecitina
+                //Bin lecitina
+                if (Convert.ToBoolean(plc319.Read(dbLecina_done)))//Done de Oil1
+                {
+                    //double TotalBatch = ((uint)plc319.Read(txtBloqueLec.Text + spinBloqueLec.Value + "." + txtArrayLec.Text + spinArregloLec.Value)).ConvertToDouble();
+                    double batch_kg = ((uint)plc319.Read(dbLecina_real)).ConvertToDouble();
+
+                    double batch_plankg = ((uint)plc319.Read(dbLecina_plan)).ConvertToDouble();
+                    short binID = ((ushort)plc319.Read(dbLecina_binid)).ConvertToShort();
+                    if (batch_kg > 0)
+                    {
+                        GuardarBatchBin(batch_kg, binID, batch_plankg);
+                    }
+                    //Hacemos el reset del bit de guardado
+                    plc319.Write(dbLecina_done, 0);
+                }
+                #endregion
+
+
+                #region OIL 1
+                //Oil 1
+                if (Convert.ToBoolean(plc319.Read(dbOil1_done)))//Done de Oil1
+                {
+                    //double TotalBatch = ((uint)plc319.Read(txtBloqueLec.Text + spinBloqueLec.Value + "." + txtArrayLec.Text + spinArregloLec.Value)).ConvertToDouble();
+                    double batch_kg = ((uint)plc319.Read(dbOil1_real)).ConvertToDouble();
+                    
+                    double batch_plankg = ((uint)plc319.Read(dbOil1_plan)).ConvertToDouble();
+                    short binID = ((ushort)plc319.Read(dbOil1_binid)).ConvertToShort();
+                    if (batch_kg > 0)
+                    {
+                        GuardarBatchBin(batch_kg, binID, batch_plankg);
+                    }
+                    //Hacemos el reset del bit de guardado
+                    plc319.Write(dbOil1_done, 0);
+                }
+                #endregion
+
+                #region OIL 2
+                if (Convert.ToBoolean(plc319.Read(dbOil2_done)))//Done de Bin
+                {
+                    double batch_kg = ((uint)plc319.Read(dbOil2_real)).ConvertToDouble();
+                    double batch_plankg = ((uint)plc319.Read(dbOil2_plan)).ConvertToDouble();
+                    short binID = ((ushort)plc319.Read(dbOil2_binid)).ConvertToShort();
+                    if (batch_kg > 0)
+                    {
+                        GuardarBatchBin(batch_kg, binID, batch_plankg);
+                    }
+                    //Hacemos el reset del bit de guardado
+                    plc319.Write(dbOil2_done, 0);
+                }
+                #endregion
+
+                #region OIL 3
+                if (Convert.ToBoolean(plc319.Read(dbOil3_done)))//Done de Bin
+                {
+                    double batch_kg = ((uint)plc319.Read(dbOil3_real)).ConvertToDouble();
+                    double batch_plankg = ((uint)plc319.Read(dbOil3_plan)).ConvertToDouble();
+                    short binID = ((ushort)plc319.Read(dbOil3_binid)).ConvertToShort();
+                    if (batch_kg > 0)
+                    {
+                        GuardarBatchBin(batch_kg, binID, batch_plankg);
+                    }
+                    //Hacemos el reset del bit de guardado
+                    plc319.Write(dbOil3_done, 0);
+                }
+                #endregion
+
+                #region OIL 4
+                if (Convert.ToBoolean(plc319.Read(dbOil4_done)))//Done de Bin
+                {
+                    double batch_kg = ((uint)plc319.Read(dbOil4_real)).ConvertToDouble();
+                    double batch_plankg = ((uint)plc319.Read(dbOil4_plan)).ConvertToDouble();
+                    short binID = ((ushort)plc319.Read(dbOil4_binid)).ConvertToShort();
+                    if (batch_kg > 0)
+                    {
+                        GuardarBatchBin(batch_kg, binID, batch_plankg);
+                    }
+                    //Hacemos el reset del bit de guardado
+                    plc319.Write(dbOil4_done, 0);
+                }
+                #endregion
+
+                #region FD1
+                if (Convert.ToBoolean(plc319.Read(dbFD1_done)))//Done de Bin
+                {
+                    double batch_kg = ((uint)plc319.Read(dbFD1_real)).ConvertToDouble();
+                    double batch_plankg = ((uint)plc319.Read(dbFD1_plan)).ConvertToDouble();
+                    short binID = ((ushort)plc319.Read(dbFD1_binid)).ConvertToShort();
+                    if (batch_kg > 0)
+                    {
+                        GuardarBatchBin(batch_kg, binID, batch_plankg);
+                    }
+                    //Hacemos el reset del bit de guardado
+                    plc319.Write(dbFD1_done, 0);
+                }
+                #endregion
+
+                #region FD2
+                if (Convert.ToBoolean(plc319.Read(dbFD2_done)))//Done de Bin
+                {
+                    double batch_kg = ((uint)plc319.Read(dbFD2_real)).ConvertToDouble();
+                    double batch_plankg = ((uint)plc319.Read(dbFD2_plan)).ConvertToDouble();
+                    short binID = ((ushort)plc319.Read(dbFD2_binid)).ConvertToShort();
+                    if (batch_kg > 0)
+                    {
+                        GuardarBatchBin(batch_kg, binID, batch_plankg);
+                    }
+                    //Hacemos el reset del bit de guardado
+                    plc319.Write(dbFD2_done, 0);
+                }
+                #endregion
+
+                #region FD3
+                if (Convert.ToBoolean(plc319.Read(dbFD3_done)))//Done de Bin
+                {
+                    double batch_kg = ((uint)plc319.Read(dbFD3_real)).ConvertToDouble();
+                    double batch_plankg = ((uint)plc319.Read(dbFD3_plan)).ConvertToDouble();
+                    short binID = ((ushort)plc319.Read(dbFD3_binid)).ConvertToShort();
+                    if (batch_kg > 0)
+                    {
+                        GuardarBatchBin(batch_kg, binID, batch_plankg);
+                    }
+                    //Hacemos el reset del bit de guardado
+                    plc319.Write(dbFD3_done, 0);
+                }
+                #endregion
+
+                #region FD4
+                if (Convert.ToBoolean(plc319.Read(dbFD4_done)))//Done de Bin
+                {
+                    double batch_kg = ((uint)plc319.Read(dbFD4_real)).ConvertToDouble();
+                    double batch_plankg = ((uint)plc319.Read(dbFD4_plan)).ConvertToDouble();
+                    short binID = ((ushort)plc319.Read(dbFD4_binid)).ConvertToShort();
+                    if (batch_kg > 0)
+                    {
+                        GuardarBatchBin(batch_kg, binID, batch_plankg);
+                    }
+                    //Hacemos el reset del bit de guardado
+                    plc319.Write(dbFD4_done, 0);
+                }
+                #endregion
+
+                #region FD5
+                if (Convert.ToBoolean(plc319.Read(dbFD5_done)))//Done de Bin
+                {
+                    double batch_kg = ((uint)plc319.Read(dbFD5_real)).ConvertToDouble();
+                    double batch_plankg = ((uint)plc319.Read(dbFD5_plan)).ConvertToDouble();
+                    short binID = ((ushort)plc319.Read(dbFD5_binid)).ConvertToShort();
+                    if (batch_kg > 0)
+                    {
+                        GuardarBatchBin(batch_kg, binID, batch_plankg);
+                    }
+                    //Hacemos el reset del bit de guardado
+                    plc319.Write(dbFD5_done, 0);
+                }
+                #endregion
+
+                #region FD6
+                if (Convert.ToBoolean(plc319.Read(dbFD6_done)))//Done de Bin
+                {
+                    double batch_kg = ((uint)plc319.Read(dbFD6_real)).ConvertToDouble();
+                    double batch_plankg = ((uint)plc319.Read(dbFD6_plan)).ConvertToDouble();
+                    short binID = ((ushort)plc319.Read(dbFD6_binid)).ConvertToShort();
+                    if (batch_kg > 0)
+                    {
+                        GuardarBatchBin(batch_kg, binID, batch_plankg);
+                    }
+                    //Hacemos el reset del bit de guardado
+                    plc319.Write(dbFD6_done, 0);
+                }
+                #endregion
+
+                #region FD7
+                if (Convert.ToBoolean(plc319.Read(dbFD7_done)))//Done de Bin
+                {
+                    double batch_kg = ((uint)plc319.Read(dbFD7_real)).ConvertToDouble();
+                    double batch_plankg = ((uint)plc319.Read(dbFD7_plan)).ConvertToDouble();
+                    short binID = ((ushort)plc319.Read(dbFD7_binid)).ConvertToShort();
+                    if (batch_kg > 0)
+                    {
+                        GuardarBatchBin(batch_kg, binID, batch_plankg);
+                    }
+                    //Hacemos el reset del bit de guardado
+                    plc319.Write(dbFD7_done, 0);
+                }
+                #endregion
+
+                #region FD8
+                if (Convert.ToBoolean(plc319.Read(dbFD8_done)))//Done de Bin
+                {
+                    double batch_kg = ((uint)plc319.Read(dbFD8_real)).ConvertToDouble();
+                    double batch_plankg = ((uint)plc319.Read(dbFD8_plan)).ConvertToDouble();
+                    short binID = ((ushort)plc319.Read(dbFD8_binid)).ConvertToShort();
+                    if (batch_kg > 0)
+                    {
+                        GuardarBatchBin(batch_kg, binID, batch_plankg);
+                    }
+                    //Hacemos el reset del bit de guardado
+                    plc319.Write(dbFD8_done, 0);
+                }
+                #endregion
+
+                #region FD9
+                if (Convert.ToBoolean(plc319.Read(dbFD9_done)))//Done de Bin
+                {
+                    double batch_kg = ((uint)plc319.Read(dbFD9_real)).ConvertToDouble();
+                    double batch_plankg = ((uint)plc319.Read(dbFD9_plan)).ConvertToDouble();
+                    short binID = ((ushort)plc319.Read(dbFD9_binid)).ConvertToShort();
+                    if (batch_kg > 0)
+                    {
+                        GuardarBatchBin(batch_kg, binID, batch_plankg);
+                    }
+                    //Hacemos el reset del bit de guardado
+                    plc319.Write(dbFD9_done, 0);
+                }
+                #endregion
+
+                #region FD10
+                if (Convert.ToBoolean(plc319.Read(dbFD10_done)))//Done de Bin
+                {
+                    double batch_kg = ((uint)plc319.Read(dbFD10_real)).ConvertToDouble();
+                    double batch_plankg = ((uint)plc319.Read(dbFD10_plan)).ConvertToDouble();
+                    short binID = ((ushort)plc319.Read(dbFD10_binid)).ConvertToShort();
+                    if (batch_kg > 0)
+                    {
+                        GuardarBatchBin(batch_kg, binID, batch_plankg);
+                    }
+                    //Hacemos el reset del bit de guardado
+                    plc319.Write(dbFD10_done, 0);
+                }
+                #endregion
+
+                #region FD11
+                if (Convert.ToBoolean(plc319.Read(dbFD11_done)))//Done de Bin
+                {
+                    double batch_kg = ((uint)plc319.Read(dbFD11_real)).ConvertToDouble();
+                    double batch_plankg = ((uint)plc319.Read(dbFD11_plan)).ConvertToDouble();
+                    short binID = ((ushort)plc319.Read(dbFD11_binid)).ConvertToShort();
+                    if (batch_kg > 0)
+                    {
+                        GuardarBatchBin(batch_kg, binID, batch_plankg);
+                    }
+                    //Hacemos el reset del bit de guardado
+                    plc319.Write(dbFD11_done, 0);
+                }
+                #endregion
+
+                #region FD12
+                if (Convert.ToBoolean(plc319.Read(dbFD12_done)))//Done de Bin
+                {
+                    double batch_kg = ((uint)plc319.Read(dbFD12_real)).ConvertToDouble();
+                    double batch_plankg = ((uint)plc319.Read(dbFD12_plan)).ConvertToDouble();
+                    short binID = ((ushort)plc319.Read(dbFD12_binid)).ConvertToShort();
+                    if (batch_kg > 0)
+                    {
+                        GuardarBatchBin(batch_kg, binID, batch_plankg);
+                    }
+                    //Hacemos el reset del bit de guardado
+                    plc319.Write(dbFD12_done, 0);
+                }
+                #endregion
+
+                #region FD13
+                if (Convert.ToBoolean(plc319.Read(dbFD13_done)))//Done de Bin
+                {
+                    double batch_kg = ((uint)plc319.Read(dbFD13_real)).ConvertToDouble();
+                    double batch_plankg = ((uint)plc319.Read(dbFD13_plan)).ConvertToDouble();
+                    short binID = ((ushort)plc319.Read(dbFD13_binid)).ConvertToShort();
+                    if (batch_kg > 0)
+                    {
+                        GuardarBatchBin(batch_kg, binID, batch_plankg);
+                    }
+                    //Hacemos el reset del bit de guardado
+                    plc319.Write(dbFD13_done, 0);
+                }
+                #endregion
+
+                #region FD14
+                if (Convert.ToBoolean(plc319.Read(dbFD14_done)))//Done de Bin
+                {
+                    double batch_kg = ((uint)plc319.Read(dbFD14_real)).ConvertToDouble();
+                    double batch_plankg = ((uint)plc319.Read(dbFD14_plan)).ConvertToDouble();
+                    short binID = ((ushort)plc319.Read(dbFD14_binid)).ConvertToShort();
+                    if (batch_kg > 0)
+                    {
+                        GuardarBatchBin(batch_kg, binID, batch_plankg);
+                    }
+                    //Hacemos el reset del bit de guardado
+                    plc319.Write(dbFD14_done, 0);
+                }
+                #endregion
+
+                #region FD15
+                if (Convert.ToBoolean(plc319.Read(dbFD15_done)))//Done de Bin
+                {
+                    double batch_kg = ((uint)plc319.Read(dbFD15_real)).ConvertToDouble();
+                    double batch_plankg = ((uint)plc319.Read(dbFD15_plan)).ConvertToDouble();
+                    short binID = ((ushort)plc319.Read(dbFD15_binid)).ConvertToShort();
+                    if (batch_kg > 0)
+                    {
+                        GuardarBatchBin(batch_kg, binID, batch_plankg);
+                    }
+                    //Hacemos el reset del bit de guardado
+                    plc319.Write(dbFD15_done, 0);
+                }
+                #endregion
+
+                #region FYLAX
+                if (Convert.ToBoolean(plc319.Read(dbFylax_done)))//Done de Bin
+                {
+                    double batch_kg = ((uint)plc319.Read(dbFylax_real)).ConvertToDouble();
+                    double batch_plankg = ((uint)plc319.Read(dbFylax_plan)).ConvertToDouble();
+                    short binID = ((ushort)plc319.Read(dbFylax_binid)).ConvertToShort();
+                    if (batch_kg > 0)
+                    {
+                        GuardarBatchBin(batch_kg, binID, batch_plankg);
+                    }
+                    //Hacemos el reset del bit de guardado
+                    plc319.Write(dbFylax_done, 0);
+                }
+                #endregion
+
+                #region SD1
+                if (Convert.ToBoolean(plc319.Read(dbSD1_done)))//Done de Bin
+                {
+                    double batch_kg = ((uint)plc319.Read(dbSD1_real)).ConvertToDouble();
+                    double batch_plankg = ((uint)plc319.Read(dbSD1_plan)).ConvertToDouble();
+                    short binID = ((ushort)plc319.Read(dbSD1_binid)).ConvertToShort();
+                    if (batch_kg > 0)
+                    {
+                        GuardarBatchBin(batch_kg, binID, batch_plankg);
+                    }
+                    //Hacemos el reset del bit de guardado
+                    plc319.Write(dbSD1_done, 0);
+                }
+                #endregion
+
+                #region SD2
+                if (Convert.ToBoolean(plc319.Read(dbSD2_done)))//Done de Bin
+                {
+                    double batch_kg = ((uint)plc319.Read(dbSD2_real)).ConvertToDouble();
+                    double batch_plankg = ((uint)plc319.Read(dbSD2_plan)).ConvertToDouble();
+                    short binID = ((ushort)plc319.Read(dbSD2_binid)).ConvertToShort();
+                    if (batch_kg > 0)
+                    {
+                        GuardarBatchBin(batch_kg, binID, batch_plankg);
+                    }
+                    //Hacemos el reset del bit de guardado
+                    plc319.Write(dbSD2_done, 0);
+                }
+                #endregion
+
+                #region SD3
+                if (Convert.ToBoolean(plc319.Read(dbSD3_done)))//Done de Bin
+                {
+                    double batch_kg = ((uint)plc319.Read(dbSD3_real)).ConvertToDouble();
+                    double batch_plankg = ((uint)plc319.Read(dbSD3_plan)).ConvertToDouble();
+                    short binID = ((ushort)plc319.Read(dbSD3_binid)).ConvertToShort();
+                    if (batch_kg > 0)
+                    {
+                        GuardarBatchBin(batch_kg, binID, batch_plankg);
+                    }
+                    //Hacemos el reset del bit de guardado
+                    plc319.Write(dbSD3_done, 0);
+                }
+                #endregion
+
+                #region WL1M1
+                if (Convert.ToBoolean(plc319.Read(dbWL1M1_done)))//Done de Bin
+                {
+                    double batch_kg = ((uint)plc319.Read(dbWL1M1_real)).ConvertToDouble();
+                    double batch_plankg = ((uint)plc319.Read(dbWL1M1_plan)).ConvertToDouble();
+                    short binID = ((ushort)plc319.Read(dbWL1M1_binid)).ConvertToShort();
+                    if (batch_kg > 0)
+                    {
+                        GuardarBatchBin(batch_kg, binID, batch_plankg);
+                    }
+                    //Hacemos el reset del bit de guardado
+                    plc319.Write(dbWL1M1_done, 0);
+                }
+                #endregion
+
+                #region WL1M2
+                if (Convert.ToBoolean(plc319.Read(dbWL1M2_done)))//Done de Bin
+                {
+                    double batch_kg = ((uint)plc319.Read(dbWL1M2_real)).ConvertToDouble();
+                    double batch_plankg = ((uint)plc319.Read(dbWL1M2_plan)).ConvertToDouble();
+                    short binID = ((ushort)plc319.Read(dbWL1M2_binid)).ConvertToShort();
+                    if (batch_kg > 0)
+                    {
+                        GuardarBatchBin(batch_kg, binID, batch_plankg);
+                    }
+                    //Hacemos el reset del bit de guardado
+                    plc319.Write(dbWL1M2_done, 0);
+                }
+                #endregion
+
+                #region WL2M1
+                if (Convert.ToBoolean(plc319.Read(dbWL2M1_done)))//Done de Bin
+                {
+                    double batch_kg = ((uint)plc319.Read(dbWL2M1_real)).ConvertToDouble();
+                    double batch_plankg = ((uint)plc319.Read(dbWL2M1_plan)).ConvertToDouble();
+                    short binID = ((ushort)plc319.Read(dbWL2M1_binid)).ConvertToShort();
+                    if (batch_kg > 0)
+                    {
+                        GuardarBatchBin(batch_kg, binID, batch_plankg);
+                    }
+                    //Hacemos el reset del bit de guardado
+                    plc319.Write(dbWL2M1_done, 0);
+
+                }
+                #endregion
+
+                #region WL2M2
+                if (Convert.ToBoolean(plc319.Read(dbWL2M2_done)))//Done de Bin
+                {
+                    double batch_kg = ((uint)plc319.Read(dbWL2M2_real)).ConvertToDouble();
+                    double batch_plankg = ((uint)plc319.Read(dbWL2M2_plan)).ConvertToDouble();
+                    short binID = ((ushort)plc319.Read(dbWL2M2_binid)).ConvertToShort();
+                    if (batch_kg > 0)
+                    {
+                        GuardarBatchBin(batch_kg, binID, batch_plankg);
+                    }
+                    //Hacemos el reset del bit de guardado
+                    plc319.Write(dbWL2M2_done, 0);
+                }
+                #endregion
+
+                #region WL3M1
+                if (Convert.ToBoolean(plc319.Read(dbWL3M1_done)))//Done de Bin
+                {
+                    double batch_kg = ((uint)plc319.Read(dbWL3M1_real)).ConvertToDouble();
+                    double batch_plankg = ((uint)plc319.Read(dbWL3M1_plan)).ConvertToDouble();
+                    short binID = ((ushort)plc319.Read(dbWL3M1_binid)).ConvertToShort();
+                    if (batch_kg > 0)
+                    {
+                        GuardarBatchBin(batch_kg, binID, batch_plankg);
+                    }
+                    //Hacemos el reset del bit de guardado
+                    plc319.Write(dbWL3M1_done, 0);
+                }
+                #endregion
+
+                #region WL3M2
+                if (Convert.ToBoolean(plc319.Read(dbWL3M2_done)))//Done de Bin
+                {
+                    double batch_kg = ((uint)plc319.Read(dbWL3M2_real)).ConvertToDouble();
+                    double batch_plankg = ((uint)plc319.Read(dbWL3M2_plan)).ConvertToDouble();
+                    short binID = ((ushort)plc319.Read(dbWL3M2_binid)).ConvertToShort();
+                    if (batch_kg > 0)
+                    {
+                        GuardarBatchBin(batch_kg, binID, batch_plankg);
+                    }
+                    //Hacemos el reset del bit de guardado
+                    plc319.Write(dbWL3M2_done, 0);
+                }
+                #endregion
+
+                #region WL4M1
+                if (Convert.ToBoolean(plc319.Read(dbWL4M1_done)))//Done de Bin
+                {
+                    double batch_kg = ((uint)plc319.Read(dbWL4M1_real)).ConvertToDouble();
+                    double batch_plankg = ((uint)plc319.Read(dbWL4M1_plan)).ConvertToDouble();
+                    short binID = ((ushort)plc319.Read(dbWL4M1_binid)).ConvertToShort();
+                    if (batch_kg > 0)
+                    {
+                        GuardarBatchBin(batch_kg, binID, batch_plankg);
+                    }
+                    //Hacemos el reset del bit de guardado
+                    plc319.Write(dbWL4M1_done, 0);
+                }
+                #endregion
+
+                #region WL4M2
+                if (Convert.ToBoolean(plc319.Read(dbWL4M2_done)))//Done de Bin
+                {
+                    double batch_kg = ((uint)plc319.Read(dbWL4M2_real)).ConvertToDouble();
+                    double batch_plankg = ((uint)plc319.Read(dbWL4M2_plan)).ConvertToDouble();
+                    short binID = ((ushort)plc319.Read(dbWL4M2_binid)).ConvertToShort();
+                    if (batch_kg > 0)
+                    {
+                        GuardarBatchBin(batch_kg, binID, batch_plankg);
+                    }
+                    //Hacemos el reset del bit de guardado
+                    plc319.Write(dbWL4M2_done, 0);
+                }
+                #endregion
+
+                #region WL5M1
+                if (Convert.ToBoolean(plc319.Read(dbWL5M1_done)))//Done de Bin
+                {
+                    double batch_kg = ((uint)plc319.Read(dbWL5M1_real)).ConvertToDouble();
+                    double batch_plankg = ((uint)plc319.Read(dbWL5M1_plan)).ConvertToDouble();
+                    short binID = ((ushort)plc319.Read(dbWL5M1_binid)).ConvertToShort();
+                    if (batch_kg > 0)
+                    {
+                        GuardarBatchBin(batch_kg, binID, batch_plankg);
+                    }
+                    //Hacemos el reset del bit de guardado
+                    plc319.Write(dbWL5M1_done, 0);
+                }
+                #endregion
+
+                #region WL5M2
+                if (Convert.ToBoolean(plc319.Read(dbWL5M2_done)))//Done de Bin
+                {
+                    double batch_kg = ((uint)plc319.Read(dbWL5M2_real)).ConvertToDouble();
+                    double batch_plankg = ((uint)plc319.Read(dbWL5M2_plan)).ConvertToDouble();
+                    short binID = ((ushort)plc319.Read(dbWL5M2_binid)).ConvertToShort();
+                    if (batch_kg > 0)
+                    {
+                        GuardarBatchBin(batch_kg, binID, batch_plankg);
+                    }
+                    //Hacemos el reset del bit de guardado
+                    plc319.Write(dbWL5M2_done, 0);
+                }
+                #endregion
+
+                #region WL6M1
+                if (Convert.ToBoolean(plc319.Read(dbWL6M1_done)))//Done de Bin
+                {
+                    double batch_kg = ((uint)plc319.Read(dbWL6M1_real)).ConvertToDouble();
+                    double batch_plankg = ((uint)plc319.Read(dbWL6M1_plan)).ConvertToDouble();
+                    short binID = ((ushort)plc319.Read(dbWL6M1_binid)).ConvertToShort();
+                    if (batch_kg > 0)
+                    {
+                        GuardarBatchBin(batch_kg, binID, batch_plankg);
+                    }
+                    //Hacemos el reset del bit de guardado
+                    plc319.Write(dbWL6M1_done, 0);
+                }
+                #endregion
+
+                #region WL6M2
+                if (Convert.ToBoolean(plc319.Read(dbWL6M2_done)))//Done de Bin
+                {
+                    double batch_kg = ((uint)plc319.Read(dbWL6M2_real)).ConvertToDouble();
+                    double batch_plankg = ((uint)plc319.Read(dbWL6M2_plan)).ConvertToDouble();
+                    short binID = ((ushort)plc319.Read(dbWL6M2_binid)).ConvertToShort();
+                    if (batch_kg > 0)
+                    {
+                        GuardarBatchBin(batch_kg, binID, batch_plankg);
+                    }
+                    //Hacemos el reset del bit de guardado
+                    plc319.Write(dbWL6M2_done, 0);
+                }
+                #endregion
+
+                #region WL7M1
+                if (Convert.ToBoolean(plc319.Read(dbWL7M1_done)))//Done de Bin
+                {
+                    double batch_kg = ((uint)plc319.Read(dbWL7M1_real)).ConvertToDouble();
+                    double batch_plankg = ((uint)plc319.Read(dbWL7M1_plan)).ConvertToDouble();
+                    short binID = ((ushort)plc319.Read(dbWL7M1_binid)).ConvertToShort();
+                    if (batch_kg > 0)
+                    {
+                        GuardarBatchBin(batch_kg, binID, batch_plankg);
+                    }
+                    //Hacemos el reset del bit de guardado
+                    plc319.Write(dbWL7M1_done, 0);
+                }
+                #endregion
+
+                #region WL7M2
+                if (Convert.ToBoolean(plc319.Read(dbWL7M2_done)))//Done de Bin
+                {
+                    double batch_kg = ((uint)plc319.Read(dbWL7M2_real)).ConvertToDouble();
+                    double batch_plankg = ((uint)plc319.Read(dbWL7M2_plan)).ConvertToDouble();
+                    short binID = ((ushort)plc319.Read(dbWL7M2_binid)).ConvertToShort();
+                    if (batch_kg > 0)
+                    {
+                        GuardarBatchBin(batch_kg, binID, batch_plankg);
+                    }
+                    //Hacemos el reset del bit de guardado
+                    plc319.Write(dbWL7M2_done, 0);
+                }
+                #endregion
+
+                #region WL8M1
+                if (Convert.ToBoolean(plc319.Read(dbWL8M1_done)))//Done de Bin
+                {
+                    double batch_kg = ((uint)plc319.Read(dbWL8M1_real)).ConvertToDouble();
+                    double batch_plankg = ((uint)plc319.Read(dbWL8M1_plan)).ConvertToDouble();
+                    short binID = ((ushort)plc319.Read(dbWL8M1_binid)).ConvertToShort();
+                    if (batch_kg > 0)
+                    {
+                        GuardarBatchBin(batch_kg, binID, batch_plankg);
+                    }
+                    //Hacemos el reset del bit de guardado
+                    plc319.Write(dbWL8M1_done, 0);
+                }
+                #endregion
+
+                #region WL8M2
+                if (Convert.ToBoolean(plc319.Read(dbWL8M2_done)))//Done de Bin
+                {
+                    double batch_kg = ((uint)plc319.Read(dbWL8M2_real)).ConvertToDouble();
+                    double batch_plankg = ((uint)plc319.Read(dbWL8M2_plan)).ConvertToDouble();
+                    short binID = ((ushort)plc319.Read(dbWL8M2_binid)).ConvertToShort();
+                    if (batch_kg > 0)
+                    {
+                        GuardarBatchBin(batch_kg, binID, batch_plankg);
+                    }
+                    //Hacemos el reset del bit de guardado
+                    plc319.Write(dbWL8M2_done, 0);
+                }
+                #endregion
+            }
+        }
+
+        private bool GuardarBatchBin(double batch_kg, short binID, double pBatckPlan)
+        {
+            try
+            {
+                string sql = @"sp_insert_rm_batch_from_kepserver";
+                SqlConnection conn = new SqlConnection(dp.ConnectionStringAPMS);
+                conn.Open();
+                SqlCommand cmd = new SqlCommand(sql, conn);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("@pid_bin",binID);
+                cmd.Parameters.AddWithValue("@pintake_plan",pBatckPlan);
+                cmd.Parameters.AddWithValue("@pintake_real",batch_kg);
+                cmd.Parameters.AddWithValue("@return_value", 1);
+                bool a = Convert.ToBoolean(cmd.ExecuteScalar());
+                conn.Close();
+                return true;
+            }
+            catch (Exception ec)
+            {
+
+                return false;
+            }
+        }
+
+        private void TimerHorasMolinos_Tick(object sender, EventArgs e)
+        {
+            #region Molino 1
+            //Si esta encendido
+            bool bitEncencidoM1 = false;
+            try
+            {
+                bitEncencidoM1 = Convert.ToBoolean(plc319.Read("DB713.DBX2.0"));
+            }
+            catch {}
+
+            if (bitEncencidoM1)//Encendido de molino
+            {
+                //Ver si hay un row open
+                bool rowopenEncendido = false;
+                bool rowOpenMolienda = false;
+
+                try
+                {
+                    string sql = @"SELECT case when count(*)>0 then 1
+		                                else 
+			                                0
+		                                end 
+                                  FROM [APMS].[dbo].[EQ_Maquinas_Molinos_Horas]
+                                  where enable = 1 and 
+		                                complete = 0 and tipo = 1 and id_maquina = 18";
+                    SqlConnection conn = new SqlConnection(dp.ConnectionStringAPMS);
+                    conn.Open();
+                    SqlCommand cmd = new SqlCommand(sql, conn);
+                    //cmd.CommandType = CommandType.StoredProcedure;
+                    //cmd.Parameters.AddWithValue("@pid_bin", binID);
+                    //cmd.Parameters.AddWithValue("@pintake_plan", pBatckPlan);
+                    //cmd.Parameters.AddWithValue("@pintake_real", batch_kg);
+                    //cmd.Parameters.AddWithValue("@return_value", 1);
+                    rowopenEncendido = Convert.ToBoolean(cmd.ExecuteScalar());
+                    conn.Close();
+                }
+                catch (Exception ec)
+                {
+
+                }
+
+                if (rowopenEncendido)
+                {
+                    //Acumular horas encendido
+                    string sqlx = @"sp_set_acumular_horas_molinos_martillos";
+                    SqlConnection connx = new SqlConnection(dp.ConnectionStringAPMS);
+                    connx.Open();
+                    SqlCommand cmdx = new SqlCommand(sqlx, connx);
+                    cmdx.CommandType = CommandType.StoredProcedure;
+                    cmdx.Parameters.AddWithValue("@idmolino", 18);
+                    cmdx.Parameters.AddWithValue("@idtipoh", 1);
+                    cmdx.ExecuteScalar();
+                    connx.Close();
+
+                    bool bitMoliendaM1 = false;
+                    try
+                    {
+                        bitMoliendaM1 = Convert.ToBoolean(plc319.Read("DB713.DBX2.1"));
+                    }
+                    catch { }
+
+                    if (bitMoliendaM1)//Moliendo
+                    {
+                        //Consultar molienda
+                        string sql = @"SELECT case when count(*)>0 then 1
+		                                else 
+			                                0
+		                                end 
+                                  FROM [APMS].[dbo].[EQ_Maquinas_Molinos_Horas]
+                                  where enable = 1 and 
+		                                complete = 0 and tipo = 2 and id_maquina = 18";
+                        SqlConnection conn = new SqlConnection(dp.ConnectionStringAPMS);
+                        conn.Open();
+                        SqlCommand cmd = new SqlCommand(sql, conn);
+                        rowOpenMolienda = Convert.ToBoolean(cmd.ExecuteScalar());
+                        conn.Close();
+
+                        if (rowOpenMolienda)
+                        {
+                            //Acumular horas molienda
+                            string sql2 = @"sp_set_acumular_horas_molinos_martillos";
+                            SqlConnection conn2 = new SqlConnection(dp.ConnectionStringAPMS);
+                            conn2.Open();
+                            SqlCommand cmd2 = new SqlCommand(sql2, conn2);
+                            cmd2.CommandType = CommandType.StoredProcedure;
+                            cmd2.Parameters.AddWithValue("@idmolino", 18);
+                            cmd2.Parameters.AddWithValue("@idtipoh", 2);
+                            cmd2.ExecuteScalar();
+                            conn2.Close();
+                        }
+                        else
+                        {
+                            //Nuevo Registro de molienda
+                            string sql2 = @"INSERT INTO [dbo].[EQ_Maquinas_Molinos_Horas]
+                                                           ([id_maquina]
+                                                           ,[complete]
+                                                           ,[inicio]
+                                                           ,[fin]
+                                                           ,[horas]
+                                                           ,[enable]
+                                                           ,[tipo])
+                                                     VALUES
+                                                           (18
+                                                           ,0
+                                                           ,GETDATE()
+                                                           ,NULL
+                                                           ,0
+                                                           ,1
+                                                           ,2)";
+                            SqlConnection conn2 = new SqlConnection(dp.ConnectionStringAPMS);
+                            conn2.Open();
+                            SqlCommand cmd2 = new SqlCommand(sql2, conn2);
+                            cmd2.ExecuteScalar();
+                            conn2.Close();
+                        }
+                    }
+                    else
+                    {
+                        //Cerrar el row de molienda si hay uno abierto
+                        string sql2 = @"sp_set_cerrar_row_horas_molinos_martillos";
+                        SqlConnection conn2 = new SqlConnection(dp.ConnectionStringAPMS);
+                        conn2.Open();
+                        SqlCommand cmd2 = new SqlCommand(sql2, conn2);
+                        cmd2.CommandType = CommandType.StoredProcedure;
+                        cmd2.Parameters.AddWithValue("@idmaquina", 18);
+                        cmd2.Parameters.AddWithValue("@tipo", 2);
+                        cmd2.ExecuteScalar();
+                        conn2.Close();
+                    }
+                }
+                else//sino hay row open
+                {
+                    //Crear nuevo registro de encendido
+                    //Nuevo Registro de molienda
+                    string sql2 = @"INSERT INTO [dbo].[EQ_Maquinas_Molinos_Horas]
+                                                           ([id_maquina]
+                                                           ,[complete]
+                                                           ,[inicio]
+                                                           ,[fin]
+                                                           ,[horas]
+                                                           ,[enable]
+                                                           ,[tipo])
+                                                     VALUES
+                                                           (18
+                                                           ,0
+                                                           ,GETDATE()
+                                                           ,NULL
+                                                           ,0
+                                                           ,1
+                                                           ,1)";
+                    SqlConnection conn2 = new SqlConnection(dp.ConnectionStringAPMS);
+                    conn2.Open();
+                    SqlCommand cmd2 = new SqlCommand(sql2, conn2);
+                    cmd2.ExecuteScalar();
+                    conn2.Close();
+                }
+                
+
+                //double batch_kg = ((uint)plc319.Read(dbLecina_real)).ConvertToDouble();
+
+                //double batch_plankg = ((uint)plc319.Read(dbLecina_plan)).ConvertToDouble();
+                //short binID = ((ushort)plc319.Read(dbLecina_binid)).ConvertToShort();
+                //if (batch_kg > 0)
+                //{
+                //    GuardarBatchBin(batch_kg, binID, batch_plankg);
+                //}
+                ////Hacemos el reset del bit de guardado
+                //plc319.Write(dbLecina_done, 0);
+            }
+            else
+            {
+                //Cerrar el row de encendido si hay uno abierto
+                string sql2 = @"sp_set_cerrar_row_horas_molinos_martillos";
+                SqlConnection conn2 = new SqlConnection(dp.ConnectionStringAPMS);
+                conn2.Open();
+                SqlCommand cmd2 = new SqlCommand(sql2, conn2);
+                cmd2.CommandType = CommandType.StoredProcedure;
+                cmd2.Parameters.AddWithValue("@idmaquina", 18);
+                cmd2.Parameters.AddWithValue("@tipo", 1);
+                cmd2.ExecuteScalar();
+                conn2.Close();
+            }
+
+            #endregion
+
+            #region Molino 2
+            //Si esta encendido
+            bool bitEncencidoM2 = false;
+            try
+            {
+                bitEncencidoM2 = Convert.ToBoolean(plc319.Read("DB713.DBX4.0"));
+            }
+            catch { }
+
+            if (bitEncencidoM2)//Encendido de molino
+            {
+                //Ver si hay un row open
+                bool rowopenEncendido = false;
+                bool rowOpenMolienda = false;
+                try
+                {
+                    string sql = @"SELECT case when count(*)>0 then 1
+		                                else 
+			                                0
+		                                end 
+                                  FROM [APMS].[dbo].[EQ_Maquinas_Molinos_Horas]
+                                  where enable = 1 and 
+		                                complete = 0 and tipo = 1 and id_maquina = 19";
+                    SqlConnection conn = new SqlConnection(dp.ConnectionStringAPMS);
+                    conn.Open();
+                    SqlCommand cmd = new SqlCommand(sql, conn);
+                    //cmd.CommandType = CommandType.StoredProcedure;
+                    //cmd.Parameters.AddWithValue("@pid_bin", binID);
+                    //cmd.Parameters.AddWithValue("@pintake_plan", pBatckPlan);
+                    //cmd.Parameters.AddWithValue("@pintake_real", batch_kg);
+                    //cmd.Parameters.AddWithValue("@return_value", 1);
+                    rowopenEncendido = Convert.ToBoolean(cmd.ExecuteScalar());
+                    conn.Close();
+                }
+                catch (Exception ec)
+                {
+                }
+
+                if (rowopenEncendido)
+                {
+                    //Acumular horas encendido
+                    string sqlx = @"sp_set_acumular_horas_molinos_martillos";
+                    SqlConnection connx = new SqlConnection(dp.ConnectionStringAPMS);
+                    connx.Open();
+                    SqlCommand cmdx = new SqlCommand(sqlx, connx);
+                    cmdx.CommandType = CommandType.StoredProcedure;
+                    cmdx.Parameters.AddWithValue("@idmolino", 19);
+                    cmdx.Parameters.AddWithValue("@idtipoh", 1);
+                    cmdx.ExecuteScalar();
+                    connx.Close();
+
+                    bool bitMoliendaM2 = false;
+                    try
+                    {
+                        bitMoliendaM2 = Convert.ToBoolean(plc319.Read("DB713.DBX4.1"));
+                    }
+                    catch { }
+
+                    if (bitMoliendaM2)//Moliendo
+                    {
+                        //Consultar molienda
+                        string sql = @"SELECT case when count(*)>0 then 1
+		                                else 
+			                                0
+		                                end 
+                                  FROM [APMS].[dbo].[EQ_Maquinas_Molinos_Horas]
+                                  where enable = 1 and 
+		                                complete = 0 and tipo = 2 and id_maquina = 19";
+                        SqlConnection conn = new SqlConnection(dp.ConnectionStringAPMS);
+                        conn.Open();
+                        SqlCommand cmd = new SqlCommand(sql, conn);
+                        rowOpenMolienda = Convert.ToBoolean(cmd.ExecuteScalar());
+                        conn.Close();
+
+                        if (rowOpenMolienda)
+                        {
+                            //Acumular horas molienda
+                            string sql2 = @"sp_set_acumular_horas_molinos_martillos";
+                            SqlConnection conn2 = new SqlConnection(dp.ConnectionStringAPMS);
+                            conn2.Open();
+                            SqlCommand cmd2 = new SqlCommand(sql2, conn2);
+                            cmd2.CommandType = CommandType.StoredProcedure;
+                            cmd2.Parameters.AddWithValue("@idmolino", 19);
+                            cmd2.Parameters.AddWithValue("@idtipoh", 2);
+                            cmd2.ExecuteScalar();
+                            conn2.Close();
+                        }
+                        else
+                        {
+                            //Nuevo Registro de molienda
+                            string sql2 = @"INSERT INTO [dbo].[EQ_Maquinas_Molinos_Horas]
+                                                           ([id_maquina]
+                                                           ,[complete]
+                                                           ,[inicio]
+                                                           ,[fin]
+                                                           ,[horas]
+                                                           ,[enable]
+                                                           ,[tipo])
+                                                     VALUES
+                                                           (19
+                                                           ,0
+                                                           ,GETDATE()
+                                                           ,NULL
+                                                           ,0
+                                                           ,1
+                                                           ,2)";
+                            SqlConnection conn2 = new SqlConnection(dp.ConnectionStringAPMS);
+                            conn2.Open();
+                            SqlCommand cmd2 = new SqlCommand(sql2, conn2);
+                            cmd2.ExecuteScalar();
+                            conn2.Close();
+                        }
+                    }
+                    else
+                    {
+                        //Cerrar el row de molienda si hay uno abierto
+                        string sql2 = @"sp_set_cerrar_row_horas_molinos_martillos";
+                        SqlConnection conn2 = new SqlConnection(dp.ConnectionStringAPMS);
+                        conn2.Open();
+                        SqlCommand cmd2 = new SqlCommand(sql2, conn2);
+                        cmd2.CommandType = CommandType.StoredProcedure;
+                        cmd2.Parameters.AddWithValue("@idmaquina", 19);
+                        cmd2.Parameters.AddWithValue("@tipo", 2);
+                        cmd2.ExecuteScalar();
+                        conn2.Close();
+                    }
+                }
+                else//sino hay row open
+                {
+                    //Crear nuevo registro de encendido
+                    //Nuevo Registro de molienda
+                    string sql2 = @"INSERT INTO [dbo].[EQ_Maquinas_Molinos_Horas]
+                                                           ([id_maquina]
+                                                           ,[complete]
+                                                           ,[inicio]
+                                                           ,[fin]
+                                                           ,[horas]
+                                                           ,[enable]
+                                                           ,[tipo])
+                                                     VALUES
+                                                           (19
+                                                           ,0
+                                                           ,GETDATE()
+                                                           ,NULL
+                                                           ,0
+                                                           ,1
+                                                           ,1)";
+                    SqlConnection conn2 = new SqlConnection(dp.ConnectionStringAPMS);
+                    conn2.Open();
+                    SqlCommand cmd2 = new SqlCommand(sql2, conn2);
+                    cmd2.ExecuteScalar();
+                    conn2.Close();
+                }
+
+
+                //double batch_kg = ((uint)plc319.Read(dbLecina_real)).ConvertToDouble();
+
+                //double batch_plankg = ((uint)plc319.Read(dbLecina_plan)).ConvertToDouble();
+                //short binID = ((ushort)plc319.Read(dbLecina_binid)).ConvertToShort();
+                //if (batch_kg > 0)
+                //{
+                //    GuardarBatchBin(batch_kg, binID, batch_plankg);
+                //}
+                ////Hacemos el reset del bit de guardado
+                //plc319.Write(dbLecina_done, 0);
+            }
+            else
+            {
+                //Cerrar el row de encendido si hay uno abierto
+                string sql2 = @"sp_set_cerrar_row_horas_molinos_martillos";
+                SqlConnection conn2 = new SqlConnection(dp.ConnectionStringAPMS);
+                conn2.Open();
+                SqlCommand cmd2 = new SqlCommand(sql2, conn2);
+                cmd2.CommandType = CommandType.StoredProcedure;
+                cmd2.Parameters.AddWithValue("@idmaquina", 19);
+                cmd2.Parameters.AddWithValue("@tipo", 1);
+                cmd2.ExecuteScalar();
+                conn2.Close();
+            }
+
+            #endregion
+
+            #region Molino 3
+            //Si esta encendido
+            bool bitEncencidoM3 = false;
+            try
+            {
+                bitEncencidoM3 = Convert.ToBoolean(plc319.Read("DB713.DBX6.0"));
+            }
+            catch { }
+            if (bitEncencidoM3)//Encendido de molino
+            {
+                //Ver si hay un row open
+                bool rowopenEncendido = false;
+                bool rowOpenMolienda = false;
+                try
+                {
+                    string sql = @"SELECT case when count(*)>0 then 1
+		                                else 
+			                                0
+		                                end 
+                                  FROM [APMS].[dbo].[EQ_Maquinas_Molinos_Horas]
+                                  where enable = 1 and 
+		                                complete = 0 and tipo = 1 and id_maquina = 20";
+                    SqlConnection conn = new SqlConnection(dp.ConnectionStringAPMS);
+                    conn.Open();
+                    SqlCommand cmd = new SqlCommand(sql, conn);
+                    //cmd.CommandType = CommandType.StoredProcedure;
+                    //cmd.Parameters.AddWithValue("@pid_bin", binID);
+                    //cmd.Parameters.AddWithValue("@pintake_plan", pBatckPlan);
+                    //cmd.Parameters.AddWithValue("@pintake_real", batch_kg);
+                    //cmd.Parameters.AddWithValue("@return_value", 1);
+                    rowopenEncendido = Convert.ToBoolean(cmd.ExecuteScalar());
+                    conn.Close();
+                }
+                catch (Exception ec)
+                {
+                }
+
+                if (rowopenEncendido)
+                {
+                    //Acumular horas encendido
+                    string sqlx = @"sp_set_acumular_horas_molinos_martillos";
+                    SqlConnection connx = new SqlConnection(dp.ConnectionStringAPMS);
+                    connx.Open();
+                    SqlCommand cmdx = new SqlCommand(sqlx, connx);
+                    cmdx.CommandType = CommandType.StoredProcedure;
+                    cmdx.Parameters.AddWithValue("@idmolino", 20);
+                    cmdx.Parameters.AddWithValue("@idtipoh", 1);
+                    cmdx.ExecuteScalar();
+                    connx.Close();
+
+                    bool bitMoliendaM3 = false;
+                    try
+                    {
+                        bitMoliendaM3 = Convert.ToBoolean(plc319.Read("DB713.DBX6.1"));
+                    }
+                    catch { }
+
+                    if (bitMoliendaM3)//Moliendo
+                    //if (Convert.ToBoolean(plc319.Read("DB713.DBX6.1")))//Moliendo
+                    {
+                        //Consultar molienda
+                        string sql = @"SELECT case when count(*)>0 then 1
+		                                else 
+			                                0
+		                                end 
+                                  FROM [APMS].[dbo].[EQ_Maquinas_Molinos_Horas]
+                                  where enable = 1 and 
+		                                complete = 0 and tipo = 2 and id_maquina = 20";
+                        SqlConnection conn = new SqlConnection(dp.ConnectionStringAPMS);
+                        conn.Open();
+                        SqlCommand cmd = new SqlCommand(sql, conn);
+                        rowOpenMolienda = Convert.ToBoolean(cmd.ExecuteScalar());
+                        conn.Close();
+
+                        if (rowOpenMolienda)
+                        {
+                            //Acumular horas molienda
+                            string sql2 = @"sp_set_acumular_horas_molinos_martillos";
+                            SqlConnection conn2 = new SqlConnection(dp.ConnectionStringAPMS);
+                            conn2.Open();
+                            SqlCommand cmd2 = new SqlCommand(sql2, conn2);
+                            cmd2.CommandType = CommandType.StoredProcedure;
+                            cmd2.Parameters.AddWithValue("@idmolino", 20);
+                            cmd2.Parameters.AddWithValue("@idtipoh", 2);
+                            cmd2.ExecuteScalar();
+                            conn2.Close();
+                        }
+                        else
+                        {
+                            //Nuevo Registro de molienda
+                            string sql2 = @"INSERT INTO [dbo].[EQ_Maquinas_Molinos_Horas]
+                                                           ([id_maquina]
+                                                           ,[complete]
+                                                           ,[inicio]
+                                                           ,[fin]
+                                                           ,[horas]
+                                                           ,[enable]
+                                                           ,[tipo])
+                                                     VALUES
+                                                           (20
+                                                           ,0
+                                                           ,GETDATE()
+                                                           ,NULL
+                                                           ,0
+                                                           ,1
+                                                           ,2)";
+                            SqlConnection conn2 = new SqlConnection(dp.ConnectionStringAPMS);
+                            conn2.Open();
+                            SqlCommand cmd2 = new SqlCommand(sql2, conn2);
+                            cmd2.ExecuteScalar();
+                            conn2.Close();
+                        }
+                    }
+                    else
+                    {
+                        //Cerrar el row de molienda si hay uno abierto
+                        string sql2 = @"sp_set_cerrar_row_horas_molinos_martillos";
+                        SqlConnection conn2 = new SqlConnection(dp.ConnectionStringAPMS);
+                        conn2.Open();
+                        SqlCommand cmd2 = new SqlCommand(sql2, conn2);
+                        cmd2.CommandType = CommandType.StoredProcedure;
+                        cmd2.Parameters.AddWithValue("@idmaquina", 20);
+                        cmd2.Parameters.AddWithValue("@tipo", 2);
+                        cmd2.ExecuteScalar();
+                        conn2.Close();
+                    }
+                }
+                else//sino hay row open
+                {
+                    //Crear nuevo registro de encendido
+                    //Nuevo Registro de molienda
+                    string sql2 = @"INSERT INTO [dbo].[EQ_Maquinas_Molinos_Horas]
+                                                           ([id_maquina]
+                                                           ,[complete]
+                                                           ,[inicio]
+                                                           ,[fin]
+                                                           ,[horas]
+                                                           ,[enable]
+                                                           ,[tipo])
+                                                     VALUES
+                                                           (20
+                                                           ,0
+                                                           ,GETDATE()
+                                                           ,NULL
+                                                           ,0
+                                                           ,1
+                                                           ,1)";
+                    SqlConnection conn2 = new SqlConnection(dp.ConnectionStringAPMS);
+                    conn2.Open();
+                    SqlCommand cmd2 = new SqlCommand(sql2, conn2);
+                    cmd2.ExecuteScalar();
+                    conn2.Close();
+                }
+
+
+                //double batch_kg = ((uint)plc319.Read(dbLecina_real)).ConvertToDouble();
+
+                //double batch_plankg = ((uint)plc319.Read(dbLecina_plan)).ConvertToDouble();
+                //short binID = ((ushort)plc319.Read(dbLecina_binid)).ConvertToShort();
+                //if (batch_kg > 0)
+                //{
+                //    GuardarBatchBin(batch_kg, binID, batch_plankg);
+                //}
+                ////Hacemos el reset del bit de guardado
+                //plc319.Write(dbLecina_done, 0);
+            }
+            else
+            {
+                //Cerrar el row de encendido si hay uno abierto
+                string sql2 = @"sp_set_cerrar_row_horas_molinos_martillos";
+                SqlConnection conn2 = new SqlConnection(dp.ConnectionStringAPMS);
+                conn2.Open();
+                SqlCommand cmd2 = new SqlCommand(sql2, conn2);
+                cmd2.CommandType = CommandType.StoredProcedure;
+                cmd2.Parameters.AddWithValue("@idmaquina", 20);
+                cmd2.Parameters.AddWithValue("@tipo", 1);
+                cmd2.ExecuteScalar();
+                conn2.Close();
+            }
+
+            #endregion
+
+            #region Molino 4
+            //Si esta encendido
+            bool bitEncencidoM4 = false;
+            try
+            {
+                bitEncencidoM4 = Convert.ToBoolean(plc319.Read("DB713.DBX8.0"));
+            }
+            catch { }
+
+            if (bitEncencidoM4)//Encendido de molino
+                //if (Convert.ToBoolean(plc319.Read("DB713.DBX8.0")))//Encendido de molino
+            {
+                //Ver si hay un row open
+                bool rowopenEncendido = false;
+                bool rowOpenMolienda = false;
+                try
+                {
+                    string sql = @"SELECT case when count(*)>0 then 1
+		                                else 
+			                                0
+		                                end 
+                                  FROM [APMS].[dbo].[EQ_Maquinas_Molinos_Horas]
+                                  where enable = 1 and 
+		                                complete = 0 and tipo = 1 and id_maquina = 21";
+                    SqlConnection conn = new SqlConnection(dp.ConnectionStringAPMS);
+                    conn.Open();
+                    SqlCommand cmd = new SqlCommand(sql, conn);
+                    //cmd.CommandType = CommandType.StoredProcedure;
+                    //cmd.Parameters.AddWithValue("@pid_bin", binID);
+                    //cmd.Parameters.AddWithValue("@pintake_plan", pBatckPlan);
+                    //cmd.Parameters.AddWithValue("@pintake_real", batch_kg);
+                    //cmd.Parameters.AddWithValue("@return_value", 1);
+                    rowopenEncendido = Convert.ToBoolean(cmd.ExecuteScalar());
+                    conn.Close();
+                }
+                catch (Exception ec)
+                {
+                }
+
+                if (rowopenEncendido)
+                {
+                    //Acumular horas encendido
+                    string sqlx = @"sp_set_acumular_horas_molinos_martillos";
+                    SqlConnection connx = new SqlConnection(dp.ConnectionStringAPMS);
+                    connx.Open();
+                    SqlCommand cmdx = new SqlCommand(sqlx, connx);
+                    cmdx.CommandType = CommandType.StoredProcedure;
+                    cmdx.Parameters.AddWithValue("@idmolino", 21);
+                    cmdx.Parameters.AddWithValue("@idtipoh", 1);
+                    cmdx.ExecuteScalar();
+                    connx.Close();
+
+                    bool bitMoliendaM4 = false;
+                    try
+                    {
+                        bitMoliendaM4 = Convert.ToBoolean(plc319.Read("DB713.DBX8.1"));
+                    }
+                    catch { }
+
+                    if (bitMoliendaM4)//Moliendo
+                        //if (Convert.ToBoolean(plc319.Read("DB713.DBX8.1")))//Moliendo
+                    {
+                        //Consultar molienda
+                        string sql = @"SELECT case when count(*)>0 then 1
+		                                else 
+			                                0
+		                                end 
+                                  FROM [APMS].[dbo].[EQ_Maquinas_Molinos_Horas]
+                                  where enable = 1 and 
+		                                complete = 0 and tipo = 2 and id_maquina = 21";
+                        SqlConnection conn = new SqlConnection(dp.ConnectionStringAPMS);
+                        conn.Open();
+                        SqlCommand cmd = new SqlCommand(sql, conn);
+                        rowOpenMolienda = Convert.ToBoolean(cmd.ExecuteScalar());
+                        conn.Close();
+
+                        if (rowOpenMolienda)
+                        {
+                            //Acumular horas molienda
+                            string sql2 = @"sp_set_acumular_horas_molinos_martillos";
+                            SqlConnection conn2 = new SqlConnection(dp.ConnectionStringAPMS);
+                            conn2.Open();
+                            SqlCommand cmd2 = new SqlCommand(sql2, conn2);
+                            cmd2.CommandType = CommandType.StoredProcedure;
+                            cmd2.Parameters.AddWithValue("@idmolino", 21);
+                            cmd2.Parameters.AddWithValue("@idtipoh", 2);
+                            cmd2.ExecuteScalar();
+                            conn2.Close();
+                        }
+                        else
+                        {
+                            //Nuevo Registro de molienda
+                            string sql2 = @"INSERT INTO [dbo].[EQ_Maquinas_Molinos_Horas]
+                                                           ([id_maquina]
+                                                           ,[complete]
+                                                           ,[inicio]
+                                                           ,[fin]
+                                                           ,[horas]
+                                                           ,[enable]
+                                                           ,[tipo])
+                                                     VALUES
+                                                           (21
+                                                           ,0
+                                                           ,GETDATE()
+                                                           ,NULL
+                                                           ,0
+                                                           ,1
+                                                           ,2)";
+                            SqlConnection conn2 = new SqlConnection(dp.ConnectionStringAPMS);
+                            conn2.Open();
+                            SqlCommand cmd2 = new SqlCommand(sql2, conn2);
+                            cmd2.ExecuteScalar();
+                            conn2.Close();
+                        }
+                    }
+                    else
+                    {
+                        //Cerrar el row de molienda si hay uno abierto
+                        string sql2 = @"sp_set_cerrar_row_horas_molinos_martillos";
+                        SqlConnection conn2 = new SqlConnection(dp.ConnectionStringAPMS);
+                        conn2.Open();
+                        SqlCommand cmd2 = new SqlCommand(sql2, conn2);
+                        cmd2.CommandType = CommandType.StoredProcedure;
+                        cmd2.Parameters.AddWithValue("@idmaquina", 21);
+                        cmd2.Parameters.AddWithValue("@tipo", 2);
+                        cmd2.ExecuteScalar();
+                        conn2.Close();
+                    }
+                }
+                else//sino hay row open
+                {
+                    //Crear nuevo registro de encendido
+                    //Nuevo Registro de molienda
+                    string sql2 = @"INSERT INTO [dbo].[EQ_Maquinas_Molinos_Horas]
+                                                           ([id_maquina]
+                                                           ,[complete]
+                                                           ,[inicio]
+                                                           ,[fin]
+                                                           ,[horas]
+                                                           ,[enable]
+                                                           ,[tipo])
+                                                     VALUES
+                                                           (21
+                                                           ,0
+                                                           ,GETDATE()
+                                                           ,NULL
+                                                           ,0
+                                                           ,1
+                                                           ,1)";
+                    SqlConnection conn2 = new SqlConnection(dp.ConnectionStringAPMS);
+                    conn2.Open();
+                    SqlCommand cmd2 = new SqlCommand(sql2, conn2);
+                    cmd2.ExecuteScalar();
+                    conn2.Close();
+                }
+
+
+                //double batch_kg = ((uint)plc319.Read(dbLecina_real)).ConvertToDouble();
+
+                //double batch_plankg = ((uint)plc319.Read(dbLecina_plan)).ConvertToDouble();
+                //short binID = ((ushort)plc319.Read(dbLecina_binid)).ConvertToShort();
+                //if (batch_kg > 0)
+                //{
+                //    GuardarBatchBin(batch_kg, binID, batch_plankg);
+                //}
+                ////Hacemos el reset del bit de guardado
+                //plc319.Write(dbLecina_done, 0);
+            }
+            else
+            {
+                //Cerrar el row de encendido si hay uno abierto
+                string sql2 = @"sp_set_cerrar_row_horas_molinos_martillos";
+                SqlConnection conn2 = new SqlConnection(dp.ConnectionStringAPMS);
+                conn2.Open();
+                SqlCommand cmd2 = new SqlCommand(sql2, conn2);
+                cmd2.CommandType = CommandType.StoredProcedure;
+                cmd2.Parameters.AddWithValue("@idmaquina", 21);
+                cmd2.Parameters.AddWithValue("@tipo", 1);
+                cmd2.ExecuteScalar();
+                conn2.Close();
+            }
+
+            #endregion
+
+            #region Premolienda
+            //Si esta encendido
+            bool bitEncencidoPremolienda = false;
+            try
+            {
+                bitEncencidoPremolienda = Convert.ToBoolean(plc319.Read("DB713.DBX0.0"));
+            }
+            catch { }
+
+            if (bitEncencidoPremolienda)//Encendido de molino
+                               //if (Convert.ToBoolean(plc319.Read("DB713.DBX8.0")))//Encendido de molino
+            {
+                //Ver si hay un row open
+                bool rowopenEncendido = false;
+                bool rowOpenMolienda = false;
+                try
+                {
+                    string sql = @"SELECT case when count(*)>0 then 1
+		                                else 
+			                                0
+		                                end 
+                                  FROM [APMS].[dbo].[EQ_Maquinas_Molinos_Horas]
+                                  where enable = 1 and 
+		                                complete = 0 and tipo = 1 and id_maquina = 15";
+                    SqlConnection conn = new SqlConnection(dp.ConnectionStringAPMS);
+                    conn.Open();
+                    SqlCommand cmd = new SqlCommand(sql, conn);
+                    //cmd.CommandType = CommandType.StoredProcedure;
+                    //cmd.Parameters.AddWithValue("@pid_bin", binID);
+                    //cmd.Parameters.AddWithValue("@pintake_plan", pBatckPlan);
+                    //cmd.Parameters.AddWithValue("@pintake_real", batch_kg);
+                    //cmd.Parameters.AddWithValue("@return_value", 1);
+                    rowopenEncendido = Convert.ToBoolean(cmd.ExecuteScalar());
+                    conn.Close();
+                }
+                catch (Exception ec)
+                {
+                }
+
+                if (rowopenEncendido)
+                {
+                    //Acumular horas encendido
+                    string sqlx = @"sp_set_acumular_horas_molinos_martillos";
+                    SqlConnection connx = new SqlConnection(dp.ConnectionStringAPMS);
+                    connx.Open();
+                    SqlCommand cmdx = new SqlCommand(sqlx, connx);
+                    cmdx.CommandType = CommandType.StoredProcedure;
+                    cmdx.Parameters.AddWithValue("@idmolino", 15);
+                    cmdx.Parameters.AddWithValue("@idtipoh", 1);
+                    cmdx.ExecuteScalar();
+                    connx.Close();
+
+                    bool bitPremolienda = false;
+                    try
+                    {
+                        bitPremolienda = Convert.ToBoolean(plc319.Read("DB713.DBX0.1"));
+                    }
+                    catch { }
+
+                    if (bitPremolienda)//Encendido de molino
+                    {
+                        //Consultar molienda
+                        string sql = @"SELECT case when count(*)>0 then 1
+		                                else 
+			                                0
+		                                end 
+                                  FROM [APMS].[dbo].[EQ_Maquinas_Molinos_Horas]
+                                  where enable = 1 and 
+		                                complete = 0 and tipo = 2 and id_maquina = 15";
+                        SqlConnection conn = new SqlConnection(dp.ConnectionStringAPMS);
+                        conn.Open();
+                        SqlCommand cmd = new SqlCommand(sql, conn);
+                        rowOpenMolienda = Convert.ToBoolean(cmd.ExecuteScalar());
+                        conn.Close();
+
+                        if (rowOpenMolienda)
+                        {
+                            //Acumular horas molienda
+                            string sql2 = @"sp_set_acumular_horas_molinos_martillos";
+                            SqlConnection conn2 = new SqlConnection(dp.ConnectionStringAPMS);
+                            conn2.Open();
+                            SqlCommand cmd2 = new SqlCommand(sql2, conn2);
+                            cmd2.CommandType = CommandType.StoredProcedure;
+                            cmd2.Parameters.AddWithValue("@idmolino", 15);
+                            cmd2.Parameters.AddWithValue("@idtipoh", 2);
+                            cmd2.ExecuteScalar();
+                            conn2.Close();
+                        }
+                        else
+                        {
+                            //Nuevo Registro de molienda
+                            string sql2 = @"INSERT INTO [dbo].[EQ_Maquinas_Molinos_Horas]
+                                                           ([id_maquina]
+                                                           ,[complete]
+                                                           ,[inicio]
+                                                           ,[fin]
+                                                           ,[horas]
+                                                           ,[enable]
+                                                           ,[tipo])
+                                                     VALUES
+                                                           (15
+                                                           ,0
+                                                           ,GETDATE()
+                                                           ,NULL
+                                                           ,0
+                                                           ,1
+                                                           ,2)";
+                            SqlConnection conn2 = new SqlConnection(dp.ConnectionStringAPMS);
+                            conn2.Open();
+                            SqlCommand cmd2 = new SqlCommand(sql2, conn2);
+                            cmd2.ExecuteScalar();
+                            conn2.Close();
+                        }
+                    }
+                    else
+                    {
+                        //Cerrar el row de molienda si hay uno abierto
+                        string sql2 = @"sp_set_cerrar_row_horas_molinos_martillos";
+                        SqlConnection conn2 = new SqlConnection(dp.ConnectionStringAPMS);
+                        conn2.Open();
+                        SqlCommand cmd2 = new SqlCommand(sql2, conn2);
+                        cmd2.CommandType = CommandType.StoredProcedure;
+                        cmd2.Parameters.AddWithValue("@idmaquina", 15);
+                        cmd2.Parameters.AddWithValue("@tipo", 2);
+                        cmd2.ExecuteScalar();
+                        conn2.Close();
+                    }
+                }
+                else//sino hay row open
+                {
+                    //Crear nuevo registro de encendido
+                    //Nuevo Registro de molienda
+                    string sql2 = @"INSERT INTO [dbo].[EQ_Maquinas_Molinos_Horas]
+                                                           ([id_maquina]
+                                                           ,[complete]
+                                                           ,[inicio]
+                                                           ,[fin]
+                                                           ,[horas]
+                                                           ,[enable]
+                                                           ,[tipo])
+                                                     VALUES
+                                                           (15
+                                                           ,0
+                                                           ,GETDATE()
+                                                           ,NULL
+                                                           ,0
+                                                           ,1
+                                                           ,1)";
+                    SqlConnection conn2 = new SqlConnection(dp.ConnectionStringAPMS);
+                    conn2.Open();
+                    SqlCommand cmd2 = new SqlCommand(sql2, conn2);
+                    cmd2.ExecuteScalar();
+                    conn2.Close();
+                }
+
+
+                //double batch_kg = ((uint)plc319.Read(dbLecina_real)).ConvertToDouble();
+
+                //double batch_plankg = ((uint)plc319.Read(dbLecina_plan)).ConvertToDouble();
+                //short binID = ((ushort)plc319.Read(dbLecina_binid)).ConvertToShort();
+                //if (batch_kg > 0)
+                //{
+                //    GuardarBatchBin(batch_kg, binID, batch_plankg);
+                //}
+                ////Hacemos el reset del bit de guardado
+                //plc319.Write(dbLecina_done, 0);
+            }
+            else
+            {
+                //Cerrar el row de encendido si hay uno abierto
+                string sql2 = @"sp_set_cerrar_row_horas_molinos_martillos";
+                SqlConnection conn2 = new SqlConnection(dp.ConnectionStringAPMS);
+                conn2.Open();
+                SqlCommand cmd2 = new SqlCommand(sql2, conn2);
+                cmd2.CommandType = CommandType.StoredProcedure;
+                cmd2.Parameters.AddWithValue("@idmaquina", 15);
+                cmd2.Parameters.AddWithValue("@tipo", 1);
+                cmd2.ExecuteScalar();
+                conn2.Close();
+            }
+
+            #endregion
+
+            #region Pulverizado1
+            //Si esta encendido
+            bool BitEncendidoPulverizado1 = false;
+            try
+            {
+                BitEncendidoPulverizado1 = Convert.ToBoolean(plc319.Read("DB713.DBX10.0"));
+            }
+            catch { }
+
+            if (BitEncendidoPulverizado1)//Encendido de molino
+                                        //if (Convert.ToBoolean(plc319.Read("DB713.DBX8.0")))//Encendido de molino
+            {
+                //Ver si hay un row open
+                bool rowopenEncendido = false;
+                bool rowOpenMolienda = false;
+                try
+                {
+                    string sql = @"SELECT case when count(*)>0 then 1
+		                                else 
+			                                0
+		                                end 
+                                  FROM [APMS].[dbo].[EQ_Maquinas_Molinos_Horas]
+                                  where enable = 1 and 
+		                                complete = 0 and tipo = 1 and id_maquina = 26";
+                    SqlConnection conn = new SqlConnection(dp.ConnectionStringAPMS);
+                    conn.Open();
+                    SqlCommand cmd = new SqlCommand(sql, conn);
+                    //cmd.CommandType = CommandType.StoredProcedure;
+                    //cmd.Parameters.AddWithValue("@pid_bin", binID);
+                    //cmd.Parameters.AddWithValue("@pintake_plan", pBatckPlan);
+                    //cmd.Parameters.AddWithValue("@pintake_real", batch_kg);
+                    //cmd.Parameters.AddWithValue("@return_value", 1);
+                    rowopenEncendido = Convert.ToBoolean(cmd.ExecuteScalar());
+                    conn.Close();
+                }
+                catch (Exception ec)
+                {
+                }
+
+                if (rowopenEncendido)
+                {
+                    //Acumular horas encendido
+                    string sqlx = @"sp_set_acumular_horas_molinos_martillos";
+                    SqlConnection connx = new SqlConnection(dp.ConnectionStringAPMS);
+                    connx.Open();
+                    SqlCommand cmdx = new SqlCommand(sqlx, connx);
+                    cmdx.CommandType = CommandType.StoredProcedure;
+                    cmdx.Parameters.AddWithValue("@idmolino", 26);
+                    cmdx.Parameters.AddWithValue("@idtipoh", 1);
+                    cmdx.ExecuteScalar();
+                    connx.Close();
+
+                    bool bitMoliendaPulv1 = false;
+                    try
+                    {
+                        bitMoliendaPulv1 = Convert.ToBoolean(plc319.Read("DB713.DBX10.1"));
+                    }
+                    catch { }
+
+                    if (bitMoliendaPulv1)//Encendido de molino
+                    {
+                        //Consultar molienda
+                        string sql = @"SELECT case when count(*)>0 then 1
+		                                else 
+			                                0
+		                                end 
+                                  FROM [APMS].[dbo].[EQ_Maquinas_Molinos_Horas]
+                                  where enable = 1 and 
+		                                complete = 0 and tipo = 2 and id_maquina = 26";
+                        SqlConnection conn = new SqlConnection(dp.ConnectionStringAPMS);
+                        conn.Open();
+                        SqlCommand cmd = new SqlCommand(sql, conn);
+                        rowOpenMolienda = Convert.ToBoolean(cmd.ExecuteScalar());
+                        conn.Close();
+
+                        if (rowOpenMolienda)
+                        {
+                            //Acumular horas molienda
+                            string sql2 = @"sp_set_acumular_horas_molinos_martillos";
+                            SqlConnection conn2 = new SqlConnection(dp.ConnectionStringAPMS);
+                            conn2.Open();
+                            SqlCommand cmd2 = new SqlCommand(sql2, conn2);
+                            cmd2.CommandType = CommandType.StoredProcedure;
+                            cmd2.Parameters.AddWithValue("@idmolino", 26);
+                            cmd2.Parameters.AddWithValue("@idtipoh", 2);
+                            cmd2.ExecuteScalar();
+                            conn2.Close();
+                        }
+                        else
+                        {
+                            //Nuevo Registro de molienda
+                            string sql2 = @"INSERT INTO [dbo].[EQ_Maquinas_Molinos_Horas]
+                                                           ([id_maquina]
+                                                           ,[complete]
+                                                           ,[inicio]
+                                                           ,[fin]
+                                                           ,[horas]
+                                                           ,[enable]
+                                                           ,[tipo])
+                                                     VALUES
+                                                           (26
+                                                           ,0
+                                                           ,GETDATE()
+                                                           ,NULL
+                                                           ,0
+                                                           ,1
+                                                           ,2)";
+                            SqlConnection conn2 = new SqlConnection(dp.ConnectionStringAPMS);
+                            conn2.Open();
+                            SqlCommand cmd2 = new SqlCommand(sql2, conn2);
+                            cmd2.ExecuteScalar();
+                            conn2.Close();
+                        }
+                    }
+                    else
+                    {
+                        //Cerrar el row de molienda si hay uno abierto
+                        string sql2 = @"sp_set_cerrar_row_horas_molinos_martillos";
+                        SqlConnection conn2 = new SqlConnection(dp.ConnectionStringAPMS);
+                        conn2.Open();
+                        SqlCommand cmd2 = new SqlCommand(sql2, conn2);
+                        cmd2.CommandType = CommandType.StoredProcedure;
+                        cmd2.Parameters.AddWithValue("@idmaquina", 26);
+                        cmd2.Parameters.AddWithValue("@tipo", 2);
+                        cmd2.ExecuteScalar();
+                        conn2.Close();
+                    }
+                }
+                else//sino hay row open
+                {
+                    //Crear nuevo registro de encendido
+                    //Nuevo Registro de molienda
+                    string sql2 = @"INSERT INTO [dbo].[EQ_Maquinas_Molinos_Horas]
+                                                           ([id_maquina]
+                                                           ,[complete]
+                                                           ,[inicio]
+                                                           ,[fin]
+                                                           ,[horas]
+                                                           ,[enable]
+                                                           ,[tipo])
+                                                     VALUES
+                                                           (26
+                                                           ,0
+                                                           ,GETDATE()
+                                                           ,NULL
+                                                           ,0
+                                                           ,1
+                                                           ,1)";
+                    SqlConnection conn2 = new SqlConnection(dp.ConnectionStringAPMS);
+                    conn2.Open();
+                    SqlCommand cmd2 = new SqlCommand(sql2, conn2);
+                    cmd2.ExecuteScalar();
+                    conn2.Close();
+                }
+
+
+                //double batch_kg = ((uint)plc319.Read(dbLecina_real)).ConvertToDouble();
+
+                //double batch_plankg = ((uint)plc319.Read(dbLecina_plan)).ConvertToDouble();
+                //short binID = ((ushort)plc319.Read(dbLecina_binid)).ConvertToShort();
+                //if (batch_kg > 0)
+                //{
+                //    GuardarBatchBin(batch_kg, binID, batch_plankg);
+                //}
+                ////Hacemos el reset del bit de guardado
+                //plc319.Write(dbLecina_done, 0);
+            }
+            else
+            {
+                //Cerrar el row de encendido si hay uno abierto
+                string sql2 = @"sp_set_cerrar_row_horas_molinos_martillos";
+                SqlConnection conn2 = new SqlConnection(dp.ConnectionStringAPMS);
+                conn2.Open();
+                SqlCommand cmd2 = new SqlCommand(sql2, conn2);
+                cmd2.CommandType = CommandType.StoredProcedure;
+                cmd2.Parameters.AddWithValue("@idmaquina", 26);
+                cmd2.Parameters.AddWithValue("@tipo", 1);
+                cmd2.ExecuteScalar();
+                conn2.Close();
+            }
+
+            #endregion
+
+            #region Pulverizado2
+            //Si esta encendido
+            bool BitEncendidoPulverizado2 = false;
+            try
+            {
+                BitEncendidoPulverizado2= Convert.ToBoolean(plc319.Read("DB713.DBX12.0"));
+            }
+            catch { }
+
+            if (BitEncendidoPulverizado2)//Encendido de molino
+                                         //if (Convert.ToBoolean(plc319.Read("DB713.DBX8.0")))//Encendido de molino
+            {
+                //Ver si hay un row open
+                bool rowopenEncendido = false;
+                bool rowOpenMolienda = false;
+                try
+                {
+                    string sql = @"SELECT case when count(*)>0 then 1
+		                                else 
+			                                0
+		                                end 
+                                  FROM [APMS].[dbo].[EQ_Maquinas_Molinos_Horas]
+                                  where enable = 1 and 
+		                                complete = 0 and tipo = 1 and id_maquina = 10";
+                    SqlConnection conn = new SqlConnection(dp.ConnectionStringAPMS);
+                    conn.Open();
+                    SqlCommand cmd = new SqlCommand(sql, conn);
+                    //cmd.CommandType = CommandType.StoredProcedure;
+                    //cmd.Parameters.AddWithValue("@pid_bin", binID);
+                    //cmd.Parameters.AddWithValue("@pintake_plan", pBatckPlan);
+                    //cmd.Parameters.AddWithValue("@pintake_real", batch_kg);
+                    //cmd.Parameters.AddWithValue("@return_value", 1);
+                    rowopenEncendido = Convert.ToBoolean(cmd.ExecuteScalar());
+                    conn.Close();
+                }
+                catch (Exception ec)
+                {
+                }
+
+                if (rowopenEncendido)
+                {
+                    //Acumular horas encendido
+                    string sqlx = @"sp_set_acumular_horas_molinos_martillos";
+                    SqlConnection connx = new SqlConnection(dp.ConnectionStringAPMS);
+                    connx.Open();
+                    SqlCommand cmdx = new SqlCommand(sqlx, connx);
+                    cmdx.CommandType = CommandType.StoredProcedure;
+                    cmdx.Parameters.AddWithValue("@idmolino", 10);
+                    cmdx.Parameters.AddWithValue("@idtipoh", 1);
+                    cmdx.ExecuteScalar();
+                    connx.Close();
+
+                    bool bitMoliendaPulv2 = false;
+                    try
+                    {
+                        bitMoliendaPulv2 = Convert.ToBoolean(plc319.Read("DB713.DBX12.1"));
+                    }
+                    catch { }
+
+                    if (bitMoliendaPulv2)//Encendido de molino
+                    {
+                        //Consultar molienda
+                        string sql = @"SELECT case when count(*)>0 then 1
+		                                else 
+			                                0
+		                                end 
+                                  FROM [APMS].[dbo].[EQ_Maquinas_Molinos_Horas]
+                                  where enable = 1 and 
+		                                complete = 0 and tipo = 2 and id_maquina = 10";
+                        SqlConnection conn = new SqlConnection(dp.ConnectionStringAPMS);
+                        conn.Open();
+                        SqlCommand cmd = new SqlCommand(sql, conn);
+                        rowOpenMolienda = Convert.ToBoolean(cmd.ExecuteScalar());
+                        conn.Close();
+
+                        if (rowOpenMolienda)
+                        {
+                            //Acumular horas molienda
+                            string sql2 = @"sp_set_acumular_horas_molinos_martillos";
+                            SqlConnection conn2 = new SqlConnection(dp.ConnectionStringAPMS);
+                            conn2.Open();
+                            SqlCommand cmd2 = new SqlCommand(sql2, conn2);
+                            cmd2.CommandType = CommandType.StoredProcedure;
+                            cmd2.Parameters.AddWithValue("@idmolino", 10);
+                            cmd2.Parameters.AddWithValue("@idtipoh", 2);
+                            cmd2.ExecuteScalar();
+                            conn2.Close();
+                        }
+                        else
+                        {
+                            //Nuevo Registro de molienda
+                            string sql2 = @"INSERT INTO [dbo].[EQ_Maquinas_Molinos_Horas]
+                                                           ([id_maquina]
+                                                           ,[complete]
+                                                           ,[inicio]
+                                                           ,[fin]
+                                                           ,[horas]
+                                                           ,[enable]
+                                                           ,[tipo])
+                                                     VALUES
+                                                           (10
+                                                           ,0
+                                                           ,GETDATE()
+                                                           ,NULL
+                                                           ,0
+                                                           ,1
+                                                           ,2)";
+                            SqlConnection conn2 = new SqlConnection(dp.ConnectionStringAPMS);
+                            conn2.Open();
+                            SqlCommand cmd2 = new SqlCommand(sql2, conn2);
+                            cmd2.ExecuteScalar();
+                            conn2.Close();
+                        }
+                    }
+                    else
+                    {
+                        //Cerrar el row de molienda si hay uno abierto
+                        string sql2 = @"sp_set_cerrar_row_horas_molinos_martillos";
+                        SqlConnection conn2 = new SqlConnection(dp.ConnectionStringAPMS);
+                        conn2.Open();
+                        SqlCommand cmd2 = new SqlCommand(sql2, conn2);
+                        cmd2.CommandType = CommandType.StoredProcedure;
+                        cmd2.Parameters.AddWithValue("@idmaquina", 10);
+                        cmd2.Parameters.AddWithValue("@tipo", 2);
+                        cmd2.ExecuteScalar();
+                        conn2.Close();
+                    }
+                }
+                else//sino hay row open
+                {
+                    //Crear nuevo registro de encendido
+                    //Nuevo Registro de molienda
+                    string sql2 = @"INSERT INTO [dbo].[EQ_Maquinas_Molinos_Horas]
+                                                           ([id_maquina]
+                                                           ,[complete]
+                                                           ,[inicio]
+                                                           ,[fin]
+                                                           ,[horas]
+                                                           ,[enable]
+                                                           ,[tipo])
+                                                     VALUES
+                                                           (10
+                                                           ,0
+                                                           ,GETDATE()
+                                                           ,NULL
+                                                           ,0
+                                                           ,1
+                                                           ,1)";
+                    SqlConnection conn2 = new SqlConnection(dp.ConnectionStringAPMS);
+                    conn2.Open();
+                    SqlCommand cmd2 = new SqlCommand(sql2, conn2);
+                    cmd2.ExecuteScalar();
+                    conn2.Close();
+                }
+
+
+                //double batch_kg = ((uint)plc319.Read(dbLecina_real)).ConvertToDouble();
+
+                //double batch_plankg = ((uint)plc319.Read(dbLecina_plan)).ConvertToDouble();
+                //short binID = ((ushort)plc319.Read(dbLecina_binid)).ConvertToShort();
+                //if (batch_kg > 0)
+                //{
+                //    GuardarBatchBin(batch_kg, binID, batch_plankg);
+                //}
+                ////Hacemos el reset del bit de guardado
+                //plc319.Write(dbLecina_done, 0);
+            }
+            else
+            {
+                //Cerrar el row de encendido si hay uno abierto
+                string sql2 = @"sp_set_cerrar_row_horas_molinos_martillos";
+                SqlConnection conn2 = new SqlConnection(dp.ConnectionStringAPMS);
+                conn2.Open();
+                SqlCommand cmd2 = new SqlCommand(sql2, conn2);
+                cmd2.CommandType = CommandType.StoredProcedure;
+                cmd2.Parameters.AddWithValue("@idmaquina", 10);
+                cmd2.Parameters.AddWithValue("@tipo", 1);
+                cmd2.ExecuteScalar();
+                conn2.Close();
+            }
+
+            #endregion
+        }
+
+        private void timerBinActivoAlimentacion_Tick(object sender, EventArgs e)
+        {
+            //Vamos a leer la db donde se guarda el bin que esta activo en alimentacion manual
+            if (plc319.IsAvailable)
+            {
+                if (!plc319.IsConnected)
+                    Connect_PLC();
+
+                try
+                {
+                    LecturaEnVivo lect1 = new LecturaEnVivo();
+                    if (lect1.RecuperarRegistro(1))
+                    {
+                        //short binID = ((ushort)plc319.Read("DB56.DBD162")).ConvertToShort();
+                        double bin_id = ((uint)plc319.Read(lect1.db)).ConvertToDouble();
+                        if(bin_id>0)
+                            lect1.UpdateValue(1,0, Convert.ToInt32(bin_id));
+                    }
+                }
+                catch(Exception ec)
+                {
+                    string ecx = ec.Message;
+                }
+
             }
         }
     }

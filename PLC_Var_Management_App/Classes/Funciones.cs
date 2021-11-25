@@ -33,6 +33,9 @@ namespace PLC_Var_Management_App.Classes
             }
             return rm;
         }//end function GetRM_ID_APMS_from_Bin_id
+         
+
+
 
         public string GetRM_ShortName_APMS_from_Bin_id(int pBinID)
         {

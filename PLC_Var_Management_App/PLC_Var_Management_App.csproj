@@ -69,7 +69,7 @@
     <GenerateManifests>true</GenerateManifests>
   </PropertyGroup>
   <PropertyGroup>
-    <SignManifests>true</SignManifests>
+    <SignManifests>false</SignManifests>
   </PropertyGroup>
   <PropertyGroup>
     <ApplicationIcon>Manufacturing_icon-hover.ico</ApplicationIcon>
@@ -185,6 +185,7 @@
     <Compile Include="Classes\DataOperations.cs" />
     <Compile Include="Classes\Funciones.cs" />
     <Compile Include="Classes\Globals.cs" />
+    <Compile Include="Classes\LecturaEnVivo.cs" />
     <Compile Include="Classes\OrdenActiva.cs" />
     <Compile Include="Classes\OrdenPostPellet.cs" />
     <Compile Include="Classes\PLCOPS.cs" />
@@ -199,7 +200,6 @@
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Properties\licenses.licx" />
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
