@@ -22,10 +22,10 @@ namespace PLC_Var_Management_App
         #region PLC319
 
         Plc plc319;
-        static CpuType plc319_CPUType = CpuType.S7300;
+        static CpuType plc319_CPUType = CpuType.S71500;
         static string plc319_IPAddress = "192.168.10.2";
         static Int16 plc319_Rack = 0;
-        static Int16 plc319_Slot = 2;
+        static Int16 plc319_Slot = 1;
         double SetPointLecitina = -1;
 
         #region DBS_GuardadoBines
@@ -234,13 +234,13 @@ namespace PLC_Var_Management_App
 
         #endregion
 
-        #region PLC315
+        #region PLC317
 
-        Plc plc315;
-        static CpuType plc315_CPUType = CpuType.S7300;
-        static string plc315_IPAddress = "192.168.10.3";
-        static Int16 plc315_Rack = 0;
-        static Int16 plc315_Slot = 2;
+        Plc plc317;
+        static CpuType plc317_CPUType = CpuType.S71500;
+        static string plc317_IPAddress = "192.168.10.3";
+        static Int16 plc317_Rack = 0;
+        static Int16 plc317_Slot = 1;
 
         string DoneMix1 = "DB509.DBX0.0";
         string DoneMix2 = "DB509.DBX0.1";
@@ -275,9 +275,9 @@ namespace PLC_Var_Management_App
                     txt_Status317.ForeColor = System.Drawing.Color.Green;
                 }
 
-                if (!plc315.IsConnected)
+                if (!plc317.IsConnected)
                 {
-                    plc315.Open();
+                    plc317.Open();
                     txt_Status315.Text = "Connection Stablished";
                     txt_Status315.ForeColor = System.Drawing.Color.Green;
                 }
@@ -301,9 +301,9 @@ namespace PLC_Var_Management_App
                     txt_Status317.ForeColor = System.Drawing.Color.OrangeRed;
                 }
 
-                if (plc315.IsConnected)
+                if (plc317.IsConnected)
                 {
-                    plc315.Close();
+                    plc317.Close();
                     txt_Status315.Text = "Disconnected";
                     txt_Status315.ForeColor = System.Drawing.Color.OrangeRed;
                 }
@@ -319,7 +319,7 @@ namespace PLC_Var_Management_App
         {
             try
             {
-                if (plc319.IsAvailable)
+                if (plc319.IsConnected)
                 {
                     txt_Status317.Text = "Available";
                     txt_Status317.ForeColor = System.Drawing.Color.ForestGreen;
@@ -330,8 +330,9 @@ namespace PLC_Var_Management_App
                     txt_Status317.ForeColor = System.Drawing.Color.Red;
                 }
 
-                if (plc315.IsAvailable)
-                {
+                //if (plc317.IsConnected)
+                if (plc317.IsConnected)
+                { 
                     txt_Status315.Text = "Available";
                     txt_Status315.ForeColor = System.Drawing.Color.ForestGreen;
                 }
@@ -363,7 +364,7 @@ namespace PLC_Var_Management_App
                     txt_Status317.ForeColor = System.Drawing.Color.OrangeRed;
                 }
 
-                if (plc315.IsConnected)
+                if (plc317.IsConnected)
                 {
                     txt_Status315.Text = "Connection Stablished";
                     txt_Status315.ForeColor = System.Drawing.Color.ForestGreen;
@@ -458,10 +459,10 @@ namespace PLC_Var_Management_App
                 txt_rack317.Text = plc319_Rack.ToString();
                 txt_Slot317.Text = plc319_Slot.ToString();
 
-                plc315 = new Plc(plc315_CPUType, plc315_IPAddress, plc315_Rack, plc315_Slot);
-                txt_Address315.Text = plc315_IPAddress;
-                txt_Rack315.Text = plc315_Rack.ToString();
-                txt_Slot315.Text = plc315_Slot.ToString();
+                plc317 = new Plc(plc317_CPUType, plc317_IPAddress, plc317_Rack, plc317_Slot);
+                txt_Address315.Text = plc317_IPAddress;
+                txt_Rack315.Text = plc317_Rack.ToString();
+                txt_Slot315.Text = plc317_Slot.ToString();
 
                 Check_PLC_Availability();
 
@@ -587,9 +588,9 @@ namespace PLC_Var_Management_App
         {
             try
             {
-                if (plc319.IsAvailable && plc315.IsAvailable) 
+                if (plc319.IsConnected && plc317.IsConnected) 
                 {
-                    if (!plc319.IsConnected || !plc315.IsConnected)
+                    if (!plc319.IsConnected || !plc317.IsConnected)
                         Connect_PLC();
 
 
@@ -599,74 +600,74 @@ namespace PLC_Var_Management_App
                     int id_rm_fg2 = fn.GetRM_ID_APMS_from_Bin_id(3);//DB551.DBW2;
 
 
-                    try
-                    {
-                        string sql = "sp_get_setpoint_lecitina_orden_activa";
-                        SqlConnection conn = new SqlConnection(dp.ConnectionStringAPMS);
-                        conn.Open();
-                        SqlCommand cmd = new SqlCommand(sql, conn);
-                        cmd.CommandType = System.Data.CommandType.StoredProcedure;
-                        double val = Convert.ToDouble(cmd.ExecuteScalar());
-                        lblSetPoinDB.Text = string.Format("{0:##0.00}", val);
-                        if (val > 0)
-                            SetPointLecitina = val;
-                        else
-                            SetPointLecitina = -1;
+                    //try
+                    //{
+                    //    string sql = "sp_get_setpoint_lecitina_orden_activa";
+                    //    SqlConnection conn = new SqlConnection(dp.ConnectionStringAPMS);
+                    //    conn.Open();
+                    //    SqlCommand cmd = new SqlCommand(sql, conn);
+                    //    cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                    //    double val = Convert.ToDouble(cmd.ExecuteScalar());
+                    //    lblSetPoinDB.Text = string.Format("{0:##0.00}", val);
+                    //    if (val > 0)
+                    //        SetPointLecitina = val;
+                    //    else
+                    //        SetPointLecitina = -1;
 
-                        txtSPLecitina.Text = string.Format("{0:##0.00}", SetPointLecitina);
-                        double TotalBatch = ((uint)plc319.Read(txtBloqueLec.Text +spinBloqueLec.Value + "."+txtArrayLec.Text + spinArregloLec.Value)).ConvertToDouble();
-                        lblValorDBLecitina.Text = string.Format("{0:##0.00}", TotalBatch);
-                        conn.Close();
-                    }
-                    catch (Exception ec)
-                    {
-                        //throw new Exception(ec.Message);
-                    }
+                    //    txtSPLecitina.Text = string.Format("{0:##0.00}", SetPointLecitina);
+                    //    double TotalBatch = ((uint)plc319.Read(txtBloqueLec.Text +spinBloqueLec.Value + "."+txtArrayLec.Text + spinArregloLec.Value)).ConvertToFloat();
+                    //    lblValorDBLecitina.Text = string.Format("{0:##0.00}", TotalBatch);
+                    //    conn.Close();
+                    //}
+                    //catch (Exception ec)
+                    //{
+                    //    //throw new Exception(ec.Message);
+                    //}
 
-                    //Si esta encendido el toggle switch vamos a escribir en la db 
-                    if (tggLecitinaEncendido.IsOn)
-                    {
-                        int dbn = Convert.ToInt32(spinBloqueLec.Value);
-                        int dbarray = Convert.ToInt32(spinArregloLec.Value);
-                        plc319.Write(DataType.DataBlock, dbn, dbarray, SetPointLecitina);
-                        //plc319.Write(txtDBSetPoint.Text, SetPointLecitina);
-                    }
+                    ////Si esta encendido el toggle switch vamos a escribir en la db 
+                    //if (tggLecitinaEncendido.IsOn)
+                    //{
+                    //    int dbn = Convert.ToInt32(spinBloqueLec.Value);
+                    //    int dbarray = Convert.ToInt32(spinArregloLec.Value);
+                    //    plc319.Write(DataType.DataBlock, dbn, dbarray, SetPointLecitina);
+                    //    //plc319.Write(txtDBSetPoint.Text, SetPointLecitina);
+                    //}
 
                     //Escribir en el plc los id de materia prima que estan en los bin
                     plc319.Write("DB551.DBW0", id_rm_fg1);//Bin FG1
                     plc319.Write("DB551.DBW2", id_rm_fg2);//Bin FG2
 
-                    //Escribir si la formula incluye lecitina
-                    if(fn.GetInclusionLecitinaEnFormula())
-                        plc319.Write("DB488.DBX0.5", 1);//Indica que se aplica lecitina
-                    else
-                        plc319.Write("DB488.DBX0.5", 0);//Indica que No se aplica lecitina
+                    ////Escribir si la formula incluye lecitina
+                    //if(fn.GetInclusionLecitinaEnFormula())
+                    //    plc319.Write("DB488.DBX0.5", 1);//Indica que se aplica lecitina
+                    //else
+                    //    plc319.Write("DB488.DBX0.5", 0);//Indica que No se aplica lecitina
 
 
-                    //Escribir los nombre en pantalla de alimentacion
-                    string db = "DB507.DBX";//Nombre de la DB que es fijo, solo cambia el bit del offset
-                    int Multiplicador = 0;//Valor acumulado para formar el DB en el PLC
-                    
-                    int bin_idx = 4;//id de la base de datos
-                    //Los id estan ordenados de forma ascendente de la fd1 = 4, fd2 = 5 ..... hasta fd12 = 15 
-                    //Incrementaremos de 1 en 1 
-                    
-                    
-                    while (Multiplicador <= 132)//Es la coleccion proporcionada de PLC. Mantiene una secuencia de 12 char en el db por lo que concatenamos el nombre del db sumando +12
-                    {
-                        string name_db = db + Multiplicador;//creamos nuestro nombre de DB
-                        Multiplicador += 12;//Incrementamos las 12 unidades para el sigueinte db
-                        
-                        //Get Nambe value
-                        string name = fn.GetRM_ShortName_APMS_from_Bin_id(bin_idx);//Obtenemos de la base de datos el nombre corto del material en tolva.
+                    ////Escribir los nombre en pantalla de alimentacion
+                    //string db = "DB507.DBX";//Nombre de la DB que es fijo, solo cambia el bit del offset
+                    //int Multiplicador = 0;//Valor acumulado para formar el DB en el PLC
 
-                        if (name.Length >= 11)
-                        {
-                            name = name.Substring(0, 10);
-                        }
-                        plc319.Write(name_db, name);//Escribimos el string en el PLC319
-                        bin_idx += 1;
-                    }
+                    //int bin_idx = 4;//id de la base de datos
+                    //                //Los id estan ordenados de forma ascendente de la fd1 = 4, fd2 = 5 ..... hasta fd12 = 15 
+                    //                //Incrementaremos de 1 en 1 
+
+
+                    //while (Multiplicador <= 132)//Es la coleccion proporcionada de PLC. Mantiene una secuencia de 12 char en el db por lo que concatenamos el nombre del db sumando +12
+                    //{
+                    //    string name_db = db + Multiplicador;//creamos nuestro nombre de DB
+                    //    Multiplicador += 12;//Incrementamos las 12 unidades para el sigueinte db
+
+                    //    //Get Nambe value
+                    //    string name = fn.GetRM_ShortName_APMS_from_Bin_id(bin_idx);//Obtenemos de la base de datos el nombre corto del material en tolva.
+
+                    //    if (name.Length >= 11)
+                    //    {
+                    //        name = name.Substring(0, 10);
+                    //    }
+                    //    //plc319.Write(name_db, name);//Escribimos el string en el PLC319
+                    //    bin_idx += 1;
+                    //}
 
                     //plc319.Write("DB576.DBX0","Cloruro de Coli");
 
@@ -740,7 +741,7 @@ namespace PLC_Var_Management_App
                                 if (row["plc_var_type"].ToString() == "INT" || row["plc_var_type"].ToString() == "WORD")
                                 {
                                     short value = (short)int.Parse(row["plc_var_value_to_set"].ToString());
-                                    plc315.Write(row["plc_var_full_name"].ToString(), value);
+                                    plc317.Write(row["plc_var_full_name"].ToString(), value);
 
                                     SqlCommand command = new SqlCommand();
                                     command.CommandType = CommandType.StoredProcedure;
@@ -751,7 +752,7 @@ namespace PLC_Var_Management_App
                                 else if (row["plc_var_type"].ToString() == "DWORD")
                                 {
                                     int value = int.Parse(row["plc_var_value_to_set"].ToString());
-                                    plc315.Write(row["plc_var_full_name"].ToString(), value);
+                                    plc317.Write(row["plc_var_full_name"].ToString(), value);
 
                                     SqlCommand command = new SqlCommand();
                                     command.CommandType = CommandType.StoredProcedure;
@@ -762,7 +763,7 @@ namespace PLC_Var_Management_App
                                 else if (row["plc_var_type"].ToString() == "REAL")
                                 {
                                     double value = Convert.ToDouble(row["plc_var_value_to_set"].ToString());
-                                    plc315.Write(row["plc_var_full_name"].ToString(), value);
+                                    plc317.Write(row["plc_var_full_name"].ToString(), value);
 
                                     SqlCommand command = new SqlCommand();
                                     command.CommandType = CommandType.StoredProcedure;
@@ -773,7 +774,7 @@ namespace PLC_Var_Management_App
                                 else if (row["plc_var_type"].ToString() == "BOOL")
                                 {
                                     bool value = Convert.ToBoolean(row["plc_var_value_to_set"].ToString());
-                                    plc315.Write(row["plc_var_full_name"].ToString(), value);
+                                    plc317.Write(row["plc_var_full_name"].ToString(), value);
 
                                     SqlCommand command = new SqlCommand();
                                     command.CommandType = CommandType.StoredProcedure;
@@ -825,10 +826,10 @@ namespace PLC_Var_Management_App
         {
             try
             {
-                if (plc319.IsAvailable) 
+                if (plc319.IsConnected) 
                 {
-                    if (!plc319.IsConnected || !plc315.IsConnected)
-                        Connect_PLC();
+                    //if (!plc319.IsConnected || !plc317.IsConnected)
+                    //    Connect_PLC();
 
                     bool check_mix1 = (bool)plc319.Read("DB438.DBX116.0");
                     bool check_mix2 = (bool)plc319.Read("DB438.DBX116.1");
@@ -837,7 +838,7 @@ namespace PLC_Var_Management_App
                     {
                         if (check_mix1)
                         {
-                            double moisture_read = ((uint)plc319.Read("DB438.DBD118.0")).ConvertToDouble();
+                            double moisture_read = ((uint)plc319.Read("DB438.DBD118.0")).ConvertToFloat();
 
                             bool value = Convert.ToBoolean(0);
                             plc319.Write("DB438.DBX116.0", value);
@@ -855,7 +856,7 @@ namespace PLC_Var_Management_App
                         }
                         else if (check_mix2)
                         {
-                            double moisture_read = ((uint)plc319.Read("DB438.DBD122.0")).ConvertToDouble();
+                            double moisture_read = ((uint)plc319.Read("DB438.DBD122.0")).ConvertToFloat();
 
                             bool value = Convert.ToBoolean(0);
                             plc319.Write("DB438.DBX116.1", value);
@@ -873,6 +874,10 @@ namespace PLC_Var_Management_App
                         }
                     }
                 }
+                else
+                {
+                    Connect_PLC();
+                }
             }
             catch (Exception ex)
             {
@@ -886,7 +891,7 @@ namespace PLC_Var_Management_App
             string err = "";
             try
             {
-                if (plc319.IsAvailable)
+                if (plc319.IsConnected)
                 {
                     if (!plc319.IsConnected)
                         Connect_PLC();
@@ -942,7 +947,7 @@ namespace PLC_Var_Management_App
                             if (DoneTq1Arriba)
                             {
                                 err = "Error DONE tanque 1 arriba";
-                                double TotalBatch = ((uint)plc319.Read("DB520.DBD8")).ConvertToDouble();
+                                double TotalBatch = ((uint)plc319.Read("DB520.DBD8")).ConvertToFloat();
                                 GuardarBatchAceite(1, TotalBatch);
                                 plc319.Write(DoneTanqUp1, false);
                                 plc319.Write(DataType.DataBlock, 520, 8, 0);
@@ -951,7 +956,7 @@ namespace PLC_Var_Management_App
                             if (DoneTq2Arriba)
                             {
                                 err = "Error DONE tanque 2 arriba";
-                                double TotalBatch = ((uint)plc319.Read("DB520.DBD22")).ConvertToDouble();
+                                double TotalBatch = ((uint)plc319.Read("DB520.DBD22")).ConvertToFloat();
                                 GuardarBatchAceite(2, TotalBatch);
                                 plc319.Write(DoneTanqUp2, false);
                                 plc319.Write(DataType.DataBlock, 520, 22, 0);
@@ -960,7 +965,7 @@ namespace PLC_Var_Management_App
                             if (DoneTq3Arriba)
                             {
                                 err = "Error DONE tanque 3 arriba";
-                                double TotalBatch = ((uint)plc319.Read("DB520.DBD36")).ConvertToDouble();
+                                double TotalBatch = ((uint)plc319.Read("DB520.DBD36")).ConvertToFloat();
                                 GuardarBatchAceite(3, TotalBatch);
                                 plc319.Write(DoneTanqUp3, false);
                                 plc319.Write(DataType.DataBlock, 520, 36, 0);
@@ -969,7 +974,7 @@ namespace PLC_Var_Management_App
                             if (DoneTq4Arriba)
                             {
                                 err = "Error DONE tanque 4 arriba";
-                                double TotalBatch = ((uint)plc319.Read("DB541.DBD0")).ConvertToDouble();
+                                double TotalBatch = ((uint)plc319.Read("DB541.DBD0")).ConvertToFloat();
                                 GuardarBatchAceite(4, TotalBatch);
                                 plc319.Write(DoneTanqUp4, false);
                                 plc319.Write(DataType.DataBlock, 541, 0, 0);
@@ -996,7 +1001,7 @@ namespace PLC_Var_Management_App
                                if (teoric > 0)
                                {
                                    //db284.dbd106
-                                   double TotalBatch = ((uint)plc319.Read("db284.dbd106")).ConvertToDouble();
+                                   double TotalBatch = ((uint)plc319.Read("db284.dbd106")).ConvertToFloat();
                                    //string s = plc317.Read("db284.dbd106").ToString();
                                    //int linea = Convert.ToInt32(plc317.Read("db284.dbw108"));
                                    int linea = Convert.ToInt32(plc319.Read("db284.dbw108"));
@@ -1098,14 +1103,14 @@ namespace PLC_Var_Management_App
                             SqlCommand cmdc = new SqlCommand(sqlc, conn);
                             double Extruder = Convert.ToDouble(cmdc.ExecuteScalar());
 
-                            if (plc315.IsAvailable)
+                            if (plc317.IsConnected)
                             {
-                                if (!plc315.IsConnected)
+                                if (!plc317.IsConnected)
                                     Connect_PLC();
 
-                                plc315.Write("DB528.DBX24.0", true);
+                                plc317.Write("DB528.DBX24.0", true);
                                 err = "Error writte batch teorico";
-                                plc315.Write(DataType.DataBlock, 528, 20, Extruder);
+                                plc317.Write(DataType.DataBlock, 528, 20, Extruder);
 
                             }
                             #region comentado
@@ -1135,7 +1140,7 @@ namespace PLC_Var_Management_App
 
 //                                err = "Error en obtener el valor dispensado";
 //                                //Obtener el valor real dispensado
-//                                double TotalAcumulado = ((uint)plc317.Read("DB524.DBD12")).ConvertToDouble();
+//                                double TotalAcumulado = ((uint)plc317.Read("DB524.DBD12")).ConvertToFloat();
 //                                string sqlz = @"UPDATE [dbo].[oil_get_out]
 //                                            SET [cant] = cast('" + TotalAcumulado + "' as decimal(10,2)) " +
 //                                                " WHERE id = " + OPP.id;
@@ -1152,7 +1157,7 @@ namespace PLC_Var_Management_App
 
 //                                err = "Error en obtener el valor dispensado";
 //                                //Obtener el valor real dispensado
-//                                double TotalAcumulado = ((uint)plc317.Read("DB524.DBD12")).ConvertToDouble();
+//                                double TotalAcumulado = ((uint)plc317.Read("DB524.DBD12")).ConvertToFloat();
 //                                string sqlz = @"insert into [dbo].[oil_get_out]
 //                                                       ([id_mix]
 //                                                       ,[cant])
@@ -1208,7 +1213,7 @@ namespace PLC_Var_Management_App
 //                            sxe.ExecuteNonQuery();
 
                             //Guardar total por linea
-                            double TotalAcumulado = ((uint)plc319.Read("DB524.DBD12")).ConvertToDouble();
+                            double TotalAcumulado = ((uint)plc319.Read("DB524.DBD12")).ConvertToFloat();
                             GuardarTotalLinea(1, Batch_IdMix, TotalAcumulado);
 
                             //Reset de la señal de finalizar orden
@@ -1265,7 +1270,7 @@ namespace PLC_Var_Management_App
                             plc319.Write("DB528.DBX24.2", false);
 
                             //Guardar total por linea
-                            double TotalAcumulado = ((uint)plc319.Read("DB528.DBD12")).ConvertToDouble();
+                            double TotalAcumulado = ((uint)plc319.Read("DB528.DBD12")).ConvertToFloat();
                             GuardarTotalLinea(2, Batch_IdMix, TotalAcumulado);
 
                             //Reset de Orden Activa
@@ -1297,13 +1302,13 @@ namespace PLC_Var_Management_App
                     //**********************************//
                     //***ORDEN FINALIZADA EN EXTRUDER***//
                     //**********************************//
-                    if (plc315.IsAvailable)
+                    if (plc317.IsConnected)
                     {
-                        if (!plc315.IsConnected)
+                        if (!plc317.IsConnected)
                             Connect_PLC();
 
                         err = "Error leyendo el done de orden finalizada";
-                        bool OrderFinalizada3 = (bool)plc315.Read("DB528.DBX24.2");
+                        bool OrderFinalizada3 = (bool)plc317.Read("DB528.DBX24.2");
                         if (OrderFinalizada3)
                         {
                             SqlConnection conn = new SqlConnection(dp.ConnectionStringAPMS);
@@ -1319,20 +1324,20 @@ namespace PLC_Var_Management_App
 //                                sxe.ExecuteNonQuery();
 
                                 //Reset de la señal de finalizar orden
-                                plc315.Write("DB528.DBX24.2", false);
+                                plc317.Write("DB528.DBX24.2", false);
 
                                 //Guardar total por linea
-                                double TotalAcumulado = ((uint)plc315.Read("DB528.DBD12")).ConvertToDouble();
+                                double TotalAcumulado = ((uint)plc317.Read("DB528.DBD12")).ConvertToFloat();
                                 GuardarTotalLinea(3, Batch_IdMix, TotalAcumulado);
 
                                 //Reset de Orden Activa
                                 //plc315.Write("DB528.DBX24.0", false);
 
                                 //Reset del valor teorico
-                                plc315.Write(DataType.DataBlock, 528, 20, 0);
+                                plc317.Write(DataType.DataBlock, 528, 20, 0);
 
                                 //reset del valor real
-                                plc315.Write(DataType.DataBlock, 528, 12, 0);
+                                plc317.Write(DataType.DataBlock, 528, 12, 0);
 
                                 //Quitar de activa la orden de produccion
                                 if (GetOrdenActiva(2))
@@ -1892,38 +1897,40 @@ namespace PLC_Var_Management_App
         private void timerHorasMaquina_Tick(object sender, EventArgs e)
         {
             //Timer de recalculo para Horas Maquina
-            if (plc319.IsAvailable)
+            if (plc319.IsConnected)
             {
                 if (!plc319.IsConnected)
                     Connect_PLC();
                 try
                 {
                     //Pellet 1
-                    double HorasActual_Pellet1 = ((uint)plc319.Read("DB1.DBD19958")).ConvertToDouble();
+                    double HorasActual_Pellet1 = ((uint)plc319.Read("DB1.DBD19958")).ConvertToFloat();
                     //id maquina = 1
                     UpdateLecturaActual(1, HorasActual_Pellet1);
 
                     //Pellet 2
-                    double HorasActual_Pellet2 = ((uint)plc319.Read("DB1.DBD14458")).ConvertToDouble();
+                    double HorasActual_Pellet2 = ((uint)plc319.Read("DB1.DBD14458")).ConvertToFloat();
                     UpdateLecturaActual(2, HorasActual_Pellet2);
                 }
-                catch 
+                catch(Exception ex)
                 {
+                    string mesj = ex.Message;
+                    Console.WriteLine(mesj);
                 }
                 
             }
 
 
             //Timer de recalculo para Horas Maquina Extruder
-            if (plc315.IsAvailable)
+            if (plc317.IsConnected)
             {
-                if (!plc315.IsConnected)
+                if (!plc317.IsConnected)
                     Connect_PLC();
 
                 try
                 {
                     //Extruder 1
-                    double HorasActual_Extruder1 = ((uint)plc315.Read("DB2.DBD1808")).ConvertToDouble();
+                    double HorasActual_Extruder1 = ((uint)plc317.Read("DB2.DBD1808")).ConvertToFloat();
                     UpdateLecturaActual(3, HorasActual_Extruder1);
                 }
                 catch
@@ -1941,10 +1948,10 @@ namespace PLC_Var_Management_App
                 //Bin lecitina
                 if (Convert.ToBoolean(plc319.Read(dbLecina_done)))//Done de Oil1
                 {
-                    //double TotalBatch = ((uint)plc319.Read(txtBloqueLec.Text + spinBloqueLec.Value + "." + txtArrayLec.Text + spinArregloLec.Value)).ConvertToDouble();
-                    double batch_kg = ((uint)plc319.Read(dbLecina_real)).ConvertToDouble();
+                    //double TotalBatch = ((uint)plc319.Read(txtBloqueLec.Text + spinBloqueLec.Value + "." + txtArrayLec.Text + spinArregloLec.Value)).ConvertToFloat();
+                    double batch_kg = ((uint)plc319.Read(dbLecina_real)).ConvertToFloat();
 
-                    double batch_plankg = ((uint)plc319.Read(dbLecina_plan)).ConvertToDouble();
+                    double batch_plankg = ((uint)plc319.Read(dbLecina_plan)).ConvertToFloat();
                     short binID = ((ushort)plc319.Read(dbLecina_binid)).ConvertToShort();
                     if (batch_kg > 0)
                     {
@@ -1960,10 +1967,10 @@ namespace PLC_Var_Management_App
                 //Oil 1
                 if (Convert.ToBoolean(plc319.Read(dbOil1_done)))//Done de Oil1
                 {
-                    //double TotalBatch = ((uint)plc319.Read(txtBloqueLec.Text + spinBloqueLec.Value + "." + txtArrayLec.Text + spinArregloLec.Value)).ConvertToDouble();
-                    double batch_kg = ((uint)plc319.Read(dbOil1_real)).ConvertToDouble();
+                    //double TotalBatch = ((uint)plc319.Read(txtBloqueLec.Text + spinBloqueLec.Value + "." + txtArrayLec.Text + spinArregloLec.Value)).ConvertToFloat();
+                    double batch_kg = ((uint)plc319.Read(dbOil1_real)).ConvertToFloat();
                     
-                    double batch_plankg = ((uint)plc319.Read(dbOil1_plan)).ConvertToDouble();
+                    double batch_plankg = ((uint)plc319.Read(dbOil1_plan)).ConvertToFloat();
                     short binID = ((ushort)plc319.Read(dbOil1_binid)).ConvertToShort();
                     if (batch_kg > 0)
                     {
@@ -1977,8 +1984,8 @@ namespace PLC_Var_Management_App
                 #region OIL 2
                 if (Convert.ToBoolean(plc319.Read(dbOil2_done)))//Done de Bin
                 {
-                    double batch_kg = ((uint)plc319.Read(dbOil2_real)).ConvertToDouble();
-                    double batch_plankg = ((uint)plc319.Read(dbOil2_plan)).ConvertToDouble();
+                    double batch_kg = ((uint)plc319.Read(dbOil2_real)).ConvertToFloat();
+                    double batch_plankg = ((uint)plc319.Read(dbOil2_plan)).ConvertToFloat();
                     short binID = ((ushort)plc319.Read(dbOil2_binid)).ConvertToShort();
                     if (batch_kg > 0)
                     {
@@ -1992,8 +1999,8 @@ namespace PLC_Var_Management_App
                 #region OIL 3
                 if (Convert.ToBoolean(plc319.Read(dbOil3_done)))//Done de Bin
                 {
-                    double batch_kg = ((uint)plc319.Read(dbOil3_real)).ConvertToDouble();
-                    double batch_plankg = ((uint)plc319.Read(dbOil3_plan)).ConvertToDouble();
+                    double batch_kg = ((uint)plc319.Read(dbOil3_real)).ConvertToFloat();
+                    double batch_plankg = ((uint)plc319.Read(dbOil3_plan)).ConvertToFloat();
                     short binID = ((ushort)plc319.Read(dbOil3_binid)).ConvertToShort();
                     if (batch_kg > 0)
                     {
@@ -2007,8 +2014,8 @@ namespace PLC_Var_Management_App
                 #region OIL 4
                 if (Convert.ToBoolean(plc319.Read(dbOil4_done)))//Done de Bin
                 {
-                    double batch_kg = ((uint)plc319.Read(dbOil4_real)).ConvertToDouble();
-                    double batch_plankg = ((uint)plc319.Read(dbOil4_plan)).ConvertToDouble();
+                    double batch_kg = ((uint)plc319.Read(dbOil4_real)).ConvertToFloat();
+                    double batch_plankg = ((uint)plc319.Read(dbOil4_plan)).ConvertToFloat();
                     short binID = ((ushort)plc319.Read(dbOil4_binid)).ConvertToShort();
                     if (batch_kg > 0)
                     {
@@ -2022,8 +2029,8 @@ namespace PLC_Var_Management_App
                 #region FD1
                 if (Convert.ToBoolean(plc319.Read(dbFD1_done)))//Done de Bin
                 {
-                    double batch_kg = ((uint)plc319.Read(dbFD1_real)).ConvertToDouble();
-                    double batch_plankg = ((uint)plc319.Read(dbFD1_plan)).ConvertToDouble();
+                    double batch_kg = ((uint)plc319.Read(dbFD1_real)).ConvertToFloat();
+                    double batch_plankg = ((uint)plc319.Read(dbFD1_plan)).ConvertToFloat();
                     short binID = ((ushort)plc319.Read(dbFD1_binid)).ConvertToShort();
                     if (batch_kg > 0)
                     {
@@ -2037,8 +2044,8 @@ namespace PLC_Var_Management_App
                 #region FD2
                 if (Convert.ToBoolean(plc319.Read(dbFD2_done)))//Done de Bin
                 {
-                    double batch_kg = ((uint)plc319.Read(dbFD2_real)).ConvertToDouble();
-                    double batch_plankg = ((uint)plc319.Read(dbFD2_plan)).ConvertToDouble();
+                    double batch_kg = ((uint)plc319.Read(dbFD2_real)).ConvertToFloat();
+                    double batch_plankg = ((uint)plc319.Read(dbFD2_plan)).ConvertToFloat();
                     short binID = ((ushort)plc319.Read(dbFD2_binid)).ConvertToShort();
                     if (batch_kg > 0)
                     {
@@ -2052,8 +2059,8 @@ namespace PLC_Var_Management_App
                 #region FD3
                 if (Convert.ToBoolean(plc319.Read(dbFD3_done)))//Done de Bin
                 {
-                    double batch_kg = ((uint)plc319.Read(dbFD3_real)).ConvertToDouble();
-                    double batch_plankg = ((uint)plc319.Read(dbFD3_plan)).ConvertToDouble();
+                    double batch_kg = ((uint)plc319.Read(dbFD3_real)).ConvertToFloat();
+                    double batch_plankg = ((uint)plc319.Read(dbFD3_plan)).ConvertToFloat();
                     short binID = ((ushort)plc319.Read(dbFD3_binid)).ConvertToShort();
                     if (batch_kg > 0)
                     {
@@ -2067,8 +2074,8 @@ namespace PLC_Var_Management_App
                 #region FD4
                 if (Convert.ToBoolean(plc319.Read(dbFD4_done)))//Done de Bin
                 {
-                    double batch_kg = ((uint)plc319.Read(dbFD4_real)).ConvertToDouble();
-                    double batch_plankg = ((uint)plc319.Read(dbFD4_plan)).ConvertToDouble();
+                    double batch_kg = ((uint)plc319.Read(dbFD4_real)).ConvertToFloat();
+                    double batch_plankg = ((uint)plc319.Read(dbFD4_plan)).ConvertToFloat();
                     short binID = ((ushort)plc319.Read(dbFD4_binid)).ConvertToShort();
                     if (batch_kg > 0)
                     {
@@ -2082,8 +2089,8 @@ namespace PLC_Var_Management_App
                 #region FD5
                 if (Convert.ToBoolean(plc319.Read(dbFD5_done)))//Done de Bin
                 {
-                    double batch_kg = ((uint)plc319.Read(dbFD5_real)).ConvertToDouble();
-                    double batch_plankg = ((uint)plc319.Read(dbFD5_plan)).ConvertToDouble();
+                    double batch_kg = ((uint)plc319.Read(dbFD5_real)).ConvertToFloat();
+                    double batch_plankg = ((uint)plc319.Read(dbFD5_plan)).ConvertToFloat();
                     short binID = ((ushort)plc319.Read(dbFD5_binid)).ConvertToShort();
                     if (batch_kg > 0)
                     {
@@ -2097,8 +2104,8 @@ namespace PLC_Var_Management_App
                 #region FD6
                 if (Convert.ToBoolean(plc319.Read(dbFD6_done)))//Done de Bin
                 {
-                    double batch_kg = ((uint)plc319.Read(dbFD6_real)).ConvertToDouble();
-                    double batch_plankg = ((uint)plc319.Read(dbFD6_plan)).ConvertToDouble();
+                    double batch_kg = ((uint)plc319.Read(dbFD6_real)).ConvertToFloat();
+                    double batch_plankg = ((uint)plc319.Read(dbFD6_plan)).ConvertToFloat();
                     short binID = ((ushort)plc319.Read(dbFD6_binid)).ConvertToShort();
                     if (batch_kg > 0)
                     {
@@ -2112,8 +2119,8 @@ namespace PLC_Var_Management_App
                 #region FD7
                 if (Convert.ToBoolean(plc319.Read(dbFD7_done)))//Done de Bin
                 {
-                    double batch_kg = ((uint)plc319.Read(dbFD7_real)).ConvertToDouble();
-                    double batch_plankg = ((uint)plc319.Read(dbFD7_plan)).ConvertToDouble();
+                    double batch_kg = ((uint)plc319.Read(dbFD7_real)).ConvertToFloat();
+                    double batch_plankg = ((uint)plc319.Read(dbFD7_plan)).ConvertToFloat();
                     short binID = ((ushort)plc319.Read(dbFD7_binid)).ConvertToShort();
                     if (batch_kg > 0)
                     {
@@ -2127,8 +2134,8 @@ namespace PLC_Var_Management_App
                 #region FD8
                 if (Convert.ToBoolean(plc319.Read(dbFD8_done)))//Done de Bin
                 {
-                    double batch_kg = ((uint)plc319.Read(dbFD8_real)).ConvertToDouble();
-                    double batch_plankg = ((uint)plc319.Read(dbFD8_plan)).ConvertToDouble();
+                    double batch_kg = ((uint)plc319.Read(dbFD8_real)).ConvertToFloat();
+                    double batch_plankg = ((uint)plc319.Read(dbFD8_plan)).ConvertToFloat();
                     short binID = ((ushort)plc319.Read(dbFD8_binid)).ConvertToShort();
                     if (batch_kg > 0)
                     {
@@ -2142,8 +2149,8 @@ namespace PLC_Var_Management_App
                 #region FD9
                 if (Convert.ToBoolean(plc319.Read(dbFD9_done)))//Done de Bin
                 {
-                    double batch_kg = ((uint)plc319.Read(dbFD9_real)).ConvertToDouble();
-                    double batch_plankg = ((uint)plc319.Read(dbFD9_plan)).ConvertToDouble();
+                    double batch_kg = ((uint)plc319.Read(dbFD9_real)).ConvertToFloat();
+                    double batch_plankg = ((uint)plc319.Read(dbFD9_plan)).ConvertToFloat();
                     short binID = ((ushort)plc319.Read(dbFD9_binid)).ConvertToShort();
                     if (batch_kg > 0)
                     {
@@ -2157,8 +2164,8 @@ namespace PLC_Var_Management_App
                 #region FD10
                 if (Convert.ToBoolean(plc319.Read(dbFD10_done)))//Done de Bin
                 {
-                    double batch_kg = ((uint)plc319.Read(dbFD10_real)).ConvertToDouble();
-                    double batch_plankg = ((uint)plc319.Read(dbFD10_plan)).ConvertToDouble();
+                    double batch_kg = ((uint)plc319.Read(dbFD10_real)).ConvertToFloat();
+                    double batch_plankg = ((uint)plc319.Read(dbFD10_plan)).ConvertToFloat();
                     short binID = ((ushort)plc319.Read(dbFD10_binid)).ConvertToShort();
                     if (batch_kg > 0)
                     {
@@ -2172,8 +2179,8 @@ namespace PLC_Var_Management_App
                 #region FD11
                 if (Convert.ToBoolean(plc319.Read(dbFD11_done)))//Done de Bin
                 {
-                    double batch_kg = ((uint)plc319.Read(dbFD11_real)).ConvertToDouble();
-                    double batch_plankg = ((uint)plc319.Read(dbFD11_plan)).ConvertToDouble();
+                    double batch_kg = ((uint)plc319.Read(dbFD11_real)).ConvertToFloat();
+                    double batch_plankg = ((uint)plc319.Read(dbFD11_plan)).ConvertToFloat();
                     short binID = ((ushort)plc319.Read(dbFD11_binid)).ConvertToShort();
                     if (batch_kg > 0)
                     {
@@ -2187,8 +2194,8 @@ namespace PLC_Var_Management_App
                 #region FD12
                 if (Convert.ToBoolean(plc319.Read(dbFD12_done)))//Done de Bin
                 {
-                    double batch_kg = ((uint)plc319.Read(dbFD12_real)).ConvertToDouble();
-                    double batch_plankg = ((uint)plc319.Read(dbFD12_plan)).ConvertToDouble();
+                    double batch_kg = ((uint)plc319.Read(dbFD12_real)).ConvertToFloat();
+                    double batch_plankg = ((uint)plc319.Read(dbFD12_plan)).ConvertToFloat();
                     short binID = ((ushort)plc319.Read(dbFD12_binid)).ConvertToShort();
                     if (batch_kg > 0)
                     {
@@ -2202,8 +2209,8 @@ namespace PLC_Var_Management_App
                 #region FD13
                 if (Convert.ToBoolean(plc319.Read(dbFD13_done)))//Done de Bin
                 {
-                    double batch_kg = ((uint)plc319.Read(dbFD13_real)).ConvertToDouble();
-                    double batch_plankg = ((uint)plc319.Read(dbFD13_plan)).ConvertToDouble();
+                    double batch_kg = ((uint)plc319.Read(dbFD13_real)).ConvertToFloat();
+                    double batch_plankg = ((uint)plc319.Read(dbFD13_plan)).ConvertToFloat();
                     short binID = ((ushort)plc319.Read(dbFD13_binid)).ConvertToShort();
                     if (batch_kg > 0)
                     {
@@ -2217,8 +2224,8 @@ namespace PLC_Var_Management_App
                 #region FD14
                 if (Convert.ToBoolean(plc319.Read(dbFD14_done)))//Done de Bin
                 {
-                    double batch_kg = ((uint)plc319.Read(dbFD14_real)).ConvertToDouble();
-                    double batch_plankg = ((uint)plc319.Read(dbFD14_plan)).ConvertToDouble();
+                    double batch_kg = ((uint)plc319.Read(dbFD14_real)).ConvertToFloat();
+                    double batch_plankg = ((uint)plc319.Read(dbFD14_plan)).ConvertToFloat();
                     short binID = ((ushort)plc319.Read(dbFD14_binid)).ConvertToShort();
                     if (batch_kg > 0)
                     {
@@ -2232,8 +2239,8 @@ namespace PLC_Var_Management_App
                 #region FD15
                 if (Convert.ToBoolean(plc319.Read(dbFD15_done)))//Done de Bin
                 {
-                    double batch_kg = ((uint)plc319.Read(dbFD15_real)).ConvertToDouble();
-                    double batch_plankg = ((uint)plc319.Read(dbFD15_plan)).ConvertToDouble();
+                    double batch_kg = ((uint)plc319.Read(dbFD15_real)).ConvertToFloat();
+                    double batch_plankg = ((uint)plc319.Read(dbFD15_plan)).ConvertToFloat();
                     short binID = ((ushort)plc319.Read(dbFD15_binid)).ConvertToShort();
                     if (batch_kg > 0)
                     {
@@ -2247,8 +2254,8 @@ namespace PLC_Var_Management_App
                 #region FYLAX
                 if (Convert.ToBoolean(plc319.Read(dbFylax_done)))//Done de Bin
                 {
-                    double batch_kg = ((uint)plc319.Read(dbFylax_real)).ConvertToDouble();
-                    double batch_plankg = ((uint)plc319.Read(dbFylax_plan)).ConvertToDouble();
+                    double batch_kg = ((uint)plc319.Read(dbFylax_real)).ConvertToFloat();
+                    double batch_plankg = ((uint)plc319.Read(dbFylax_plan)).ConvertToFloat();
                     short binID = ((ushort)plc319.Read(dbFylax_binid)).ConvertToShort();
                     if (batch_kg > 0)
                     {
@@ -2262,8 +2269,8 @@ namespace PLC_Var_Management_App
                 #region SD1
                 if (Convert.ToBoolean(plc319.Read(dbSD1_done)))//Done de Bin
                 {
-                    double batch_kg = ((uint)plc319.Read(dbSD1_real)).ConvertToDouble();
-                    double batch_plankg = ((uint)plc319.Read(dbSD1_plan)).ConvertToDouble();
+                    double batch_kg = ((uint)plc319.Read(dbSD1_real)).ConvertToFloat();
+                    double batch_plankg = ((uint)plc319.Read(dbSD1_plan)).ConvertToFloat();
                     short binID = ((ushort)plc319.Read(dbSD1_binid)).ConvertToShort();
                     if (batch_kg > 0)
                     {
@@ -2277,8 +2284,8 @@ namespace PLC_Var_Management_App
                 #region SD2
                 if (Convert.ToBoolean(plc319.Read(dbSD2_done)))//Done de Bin
                 {
-                    double batch_kg = ((uint)plc319.Read(dbSD2_real)).ConvertToDouble();
-                    double batch_plankg = ((uint)plc319.Read(dbSD2_plan)).ConvertToDouble();
+                    double batch_kg = ((uint)plc319.Read(dbSD2_real)).ConvertToFloat();
+                    double batch_plankg = ((uint)plc319.Read(dbSD2_plan)).ConvertToFloat();
                     short binID = ((ushort)plc319.Read(dbSD2_binid)).ConvertToShort();
                     if (batch_kg > 0)
                     {
@@ -2292,8 +2299,8 @@ namespace PLC_Var_Management_App
                 #region SD3
                 if (Convert.ToBoolean(plc319.Read(dbSD3_done)))//Done de Bin
                 {
-                    double batch_kg = ((uint)plc319.Read(dbSD3_real)).ConvertToDouble();
-                    double batch_plankg = ((uint)plc319.Read(dbSD3_plan)).ConvertToDouble();
+                    double batch_kg = ((uint)plc319.Read(dbSD3_real)).ConvertToFloat();
+                    double batch_plankg = ((uint)plc319.Read(dbSD3_plan)).ConvertToFloat();
                     short binID = ((ushort)plc319.Read(dbSD3_binid)).ConvertToShort();
                     if (batch_kg > 0)
                     {
@@ -2307,8 +2314,8 @@ namespace PLC_Var_Management_App
                 #region WL1M1
                 if (Convert.ToBoolean(plc319.Read(dbWL1M1_done)))//Done de Bin
                 {
-                    double batch_kg = ((uint)plc319.Read(dbWL1M1_real)).ConvertToDouble();
-                    double batch_plankg = ((uint)plc319.Read(dbWL1M1_plan)).ConvertToDouble();
+                    double batch_kg = ((uint)plc319.Read(dbWL1M1_real)).ConvertToFloat();
+                    double batch_plankg = ((uint)plc319.Read(dbWL1M1_plan)).ConvertToFloat();
                     short binID = ((ushort)plc319.Read(dbWL1M1_binid)).ConvertToShort();
                     if (batch_kg > 0)
                     {
@@ -2322,8 +2329,8 @@ namespace PLC_Var_Management_App
                 #region WL1M2
                 if (Convert.ToBoolean(plc319.Read(dbWL1M2_done)))//Done de Bin
                 {
-                    double batch_kg = ((uint)plc319.Read(dbWL1M2_real)).ConvertToDouble();
-                    double batch_plankg = ((uint)plc319.Read(dbWL1M2_plan)).ConvertToDouble();
+                    double batch_kg = ((uint)plc319.Read(dbWL1M2_real)).ConvertToFloat();
+                    double batch_plankg = ((uint)plc319.Read(dbWL1M2_plan)).ConvertToFloat();
                     short binID = ((ushort)plc319.Read(dbWL1M2_binid)).ConvertToShort();
                     if (batch_kg > 0)
                     {
@@ -2337,8 +2344,8 @@ namespace PLC_Var_Management_App
                 #region WL2M1
                 if (Convert.ToBoolean(plc319.Read(dbWL2M1_done)))//Done de Bin
                 {
-                    double batch_kg = ((uint)plc319.Read(dbWL2M1_real)).ConvertToDouble();
-                    double batch_plankg = ((uint)plc319.Read(dbWL2M1_plan)).ConvertToDouble();
+                    double batch_kg = ((uint)plc319.Read(dbWL2M1_real)).ConvertToFloat();
+                    double batch_plankg = ((uint)plc319.Read(dbWL2M1_plan)).ConvertToFloat();
                     short binID = ((ushort)plc319.Read(dbWL2M1_binid)).ConvertToShort();
                     if (batch_kg > 0)
                     {
@@ -2353,8 +2360,8 @@ namespace PLC_Var_Management_App
                 #region WL2M2
                 if (Convert.ToBoolean(plc319.Read(dbWL2M2_done)))//Done de Bin
                 {
-                    double batch_kg = ((uint)plc319.Read(dbWL2M2_real)).ConvertToDouble();
-                    double batch_plankg = ((uint)plc319.Read(dbWL2M2_plan)).ConvertToDouble();
+                    double batch_kg = ((uint)plc319.Read(dbWL2M2_real)).ConvertToFloat();
+                    double batch_plankg = ((uint)plc319.Read(dbWL2M2_plan)).ConvertToFloat();
                     short binID = ((ushort)plc319.Read(dbWL2M2_binid)).ConvertToShort();
                     if (batch_kg > 0)
                     {
@@ -2368,8 +2375,8 @@ namespace PLC_Var_Management_App
                 #region WL3M1
                 if (Convert.ToBoolean(plc319.Read(dbWL3M1_done)))//Done de Bin
                 {
-                    double batch_kg = ((uint)plc319.Read(dbWL3M1_real)).ConvertToDouble();
-                    double batch_plankg = ((uint)plc319.Read(dbWL3M1_plan)).ConvertToDouble();
+                    double batch_kg = ((uint)plc319.Read(dbWL3M1_real)).ConvertToFloat();
+                    double batch_plankg = ((uint)plc319.Read(dbWL3M1_plan)).ConvertToFloat();
                     short binID = ((ushort)plc319.Read(dbWL3M1_binid)).ConvertToShort();
                     if (batch_kg > 0)
                     {
@@ -2383,8 +2390,8 @@ namespace PLC_Var_Management_App
                 #region WL3M2
                 if (Convert.ToBoolean(plc319.Read(dbWL3M2_done)))//Done de Bin
                 {
-                    double batch_kg = ((uint)plc319.Read(dbWL3M2_real)).ConvertToDouble();
-                    double batch_plankg = ((uint)plc319.Read(dbWL3M2_plan)).ConvertToDouble();
+                    double batch_kg = ((uint)plc319.Read(dbWL3M2_real)).ConvertToFloat();
+                    double batch_plankg = ((uint)plc319.Read(dbWL3M2_plan)).ConvertToFloat();
                     short binID = ((ushort)plc319.Read(dbWL3M2_binid)).ConvertToShort();
                     if (batch_kg > 0)
                     {
@@ -2398,8 +2405,8 @@ namespace PLC_Var_Management_App
                 #region WL4M1
                 if (Convert.ToBoolean(plc319.Read(dbWL4M1_done)))//Done de Bin
                 {
-                    double batch_kg = ((uint)plc319.Read(dbWL4M1_real)).ConvertToDouble();
-                    double batch_plankg = ((uint)plc319.Read(dbWL4M1_plan)).ConvertToDouble();
+                    double batch_kg = ((uint)plc319.Read(dbWL4M1_real)).ConvertToFloat();
+                    double batch_plankg = ((uint)plc319.Read(dbWL4M1_plan)).ConvertToFloat();
                     short binID = ((ushort)plc319.Read(dbWL4M1_binid)).ConvertToShort();
                     if (batch_kg > 0)
                     {
@@ -2413,8 +2420,8 @@ namespace PLC_Var_Management_App
                 #region WL4M2
                 if (Convert.ToBoolean(plc319.Read(dbWL4M2_done)))//Done de Bin
                 {
-                    double batch_kg = ((uint)plc319.Read(dbWL4M2_real)).ConvertToDouble();
-                    double batch_plankg = ((uint)plc319.Read(dbWL4M2_plan)).ConvertToDouble();
+                    double batch_kg = ((uint)plc319.Read(dbWL4M2_real)).ConvertToFloat();
+                    double batch_plankg = ((uint)plc319.Read(dbWL4M2_plan)).ConvertToFloat();
                     short binID = ((ushort)plc319.Read(dbWL4M2_binid)).ConvertToShort();
                     if (batch_kg > 0)
                     {
@@ -2428,8 +2435,8 @@ namespace PLC_Var_Management_App
                 #region WL5M1
                 if (Convert.ToBoolean(plc319.Read(dbWL5M1_done)))//Done de Bin
                 {
-                    double batch_kg = ((uint)plc319.Read(dbWL5M1_real)).ConvertToDouble();
-                    double batch_plankg = ((uint)plc319.Read(dbWL5M1_plan)).ConvertToDouble();
+                    double batch_kg = ((uint)plc319.Read(dbWL5M1_real)).ConvertToFloat();
+                    double batch_plankg = ((uint)plc319.Read(dbWL5M1_plan)).ConvertToFloat();
                     short binID = ((ushort)plc319.Read(dbWL5M1_binid)).ConvertToShort();
                     if (batch_kg > 0)
                     {
@@ -2443,8 +2450,8 @@ namespace PLC_Var_Management_App
                 #region WL5M2
                 if (Convert.ToBoolean(plc319.Read(dbWL5M2_done)))//Done de Bin
                 {
-                    double batch_kg = ((uint)plc319.Read(dbWL5M2_real)).ConvertToDouble();
-                    double batch_plankg = ((uint)plc319.Read(dbWL5M2_plan)).ConvertToDouble();
+                    double batch_kg = ((uint)plc319.Read(dbWL5M2_real)).ConvertToFloat();
+                    double batch_plankg = ((uint)plc319.Read(dbWL5M2_plan)).ConvertToFloat();
                     short binID = ((ushort)plc319.Read(dbWL5M2_binid)).ConvertToShort();
                     if (batch_kg > 0)
                     {
@@ -2458,8 +2465,8 @@ namespace PLC_Var_Management_App
                 #region WL6M1
                 if (Convert.ToBoolean(plc319.Read(dbWL6M1_done)))//Done de Bin
                 {
-                    double batch_kg = ((uint)plc319.Read(dbWL6M1_real)).ConvertToDouble();
-                    double batch_plankg = ((uint)plc319.Read(dbWL6M1_plan)).ConvertToDouble();
+                    double batch_kg = ((uint)plc319.Read(dbWL6M1_real)).ConvertToFloat();
+                    double batch_plankg = ((uint)plc319.Read(dbWL6M1_plan)).ConvertToFloat();
                     short binID = ((ushort)plc319.Read(dbWL6M1_binid)).ConvertToShort();
                     if (batch_kg > 0)
                     {
@@ -2473,8 +2480,8 @@ namespace PLC_Var_Management_App
                 #region WL6M2
                 if (Convert.ToBoolean(plc319.Read(dbWL6M2_done)))//Done de Bin
                 {
-                    double batch_kg = ((uint)plc319.Read(dbWL6M2_real)).ConvertToDouble();
-                    double batch_plankg = ((uint)plc319.Read(dbWL6M2_plan)).ConvertToDouble();
+                    double batch_kg = ((uint)plc319.Read(dbWL6M2_real)).ConvertToFloat();
+                    double batch_plankg = ((uint)plc319.Read(dbWL6M2_plan)).ConvertToFloat();
                     short binID = ((ushort)plc319.Read(dbWL6M2_binid)).ConvertToShort();
                     if (batch_kg > 0)
                     {
@@ -2488,8 +2495,8 @@ namespace PLC_Var_Management_App
                 #region WL7M1
                 if (Convert.ToBoolean(plc319.Read(dbWL7M1_done)))//Done de Bin
                 {
-                    double batch_kg = ((uint)plc319.Read(dbWL7M1_real)).ConvertToDouble();
-                    double batch_plankg = ((uint)plc319.Read(dbWL7M1_plan)).ConvertToDouble();
+                    double batch_kg = ((uint)plc319.Read(dbWL7M1_real)).ConvertToFloat();
+                    double batch_plankg = ((uint)plc319.Read(dbWL7M1_plan)).ConvertToFloat();
                     short binID = ((ushort)plc319.Read(dbWL7M1_binid)).ConvertToShort();
                     if (batch_kg > 0)
                     {
@@ -2503,8 +2510,8 @@ namespace PLC_Var_Management_App
                 #region WL7M2
                 if (Convert.ToBoolean(plc319.Read(dbWL7M2_done)))//Done de Bin
                 {
-                    double batch_kg = ((uint)plc319.Read(dbWL7M2_real)).ConvertToDouble();
-                    double batch_plankg = ((uint)plc319.Read(dbWL7M2_plan)).ConvertToDouble();
+                    double batch_kg = ((uint)plc319.Read(dbWL7M2_real)).ConvertToFloat();
+                    double batch_plankg = ((uint)plc319.Read(dbWL7M2_plan)).ConvertToFloat();
                     short binID = ((ushort)plc319.Read(dbWL7M2_binid)).ConvertToShort();
                     if (batch_kg > 0)
                     {
@@ -2518,8 +2525,8 @@ namespace PLC_Var_Management_App
                 #region WL8M1
                 if (Convert.ToBoolean(plc319.Read(dbWL8M1_done)))//Done de Bin
                 {
-                    double batch_kg = ((uint)plc319.Read(dbWL8M1_real)).ConvertToDouble();
-                    double batch_plankg = ((uint)plc319.Read(dbWL8M1_plan)).ConvertToDouble();
+                    double batch_kg = ((uint)plc319.Read(dbWL8M1_real)).ConvertToFloat();
+                    double batch_plankg = ((uint)plc319.Read(dbWL8M1_plan)).ConvertToFloat();
                     short binID = ((ushort)plc319.Read(dbWL8M1_binid)).ConvertToShort();
                     if (batch_kg > 0)
                     {
@@ -2533,8 +2540,8 @@ namespace PLC_Var_Management_App
                 #region WL8M2
                 if (Convert.ToBoolean(plc319.Read(dbWL8M2_done)))//Done de Bin
                 {
-                    double batch_kg = ((uint)plc319.Read(dbWL8M2_real)).ConvertToDouble();
-                    double batch_plankg = ((uint)plc319.Read(dbWL8M2_plan)).ConvertToDouble();
+                    double batch_kg = ((uint)plc319.Read(dbWL8M2_real)).ConvertToFloat();
+                    double batch_plankg = ((uint)plc319.Read(dbWL8M2_plan)).ConvertToFloat();
                     short binID = ((ushort)plc319.Read(dbWL8M2_binid)).ConvertToShort();
                     if (batch_kg > 0)
                     {
@@ -2730,9 +2737,9 @@ namespace PLC_Var_Management_App
                 }
                 
 
-                //double batch_kg = ((uint)plc319.Read(dbLecina_real)).ConvertToDouble();
+                //double batch_kg = ((uint)plc319.Read(dbLecina_real)).ConvertToFloat();
 
-                //double batch_plankg = ((uint)plc319.Read(dbLecina_plan)).ConvertToDouble();
+                //double batch_plankg = ((uint)plc319.Read(dbLecina_plan)).ConvertToFloat();
                 //short binID = ((ushort)plc319.Read(dbLecina_binid)).ConvertToShort();
                 //if (batch_kg > 0)
                 //{
@@ -2912,9 +2919,9 @@ namespace PLC_Var_Management_App
                 }
 
 
-                //double batch_kg = ((uint)plc319.Read(dbLecina_real)).ConvertToDouble();
+                //double batch_kg = ((uint)plc319.Read(dbLecina_real)).ConvertToFloat();
 
-                //double batch_plankg = ((uint)plc319.Read(dbLecina_plan)).ConvertToDouble();
+                //double batch_plankg = ((uint)plc319.Read(dbLecina_plan)).ConvertToFloat();
                 //short binID = ((ushort)plc319.Read(dbLecina_binid)).ConvertToShort();
                 //if (batch_kg > 0)
                 //{
@@ -3094,9 +3101,9 @@ namespace PLC_Var_Management_App
                 }
 
 
-                //double batch_kg = ((uint)plc319.Read(dbLecina_real)).ConvertToDouble();
+                //double batch_kg = ((uint)plc319.Read(dbLecina_real)).ConvertToFloat();
 
-                //double batch_plankg = ((uint)plc319.Read(dbLecina_plan)).ConvertToDouble();
+                //double batch_plankg = ((uint)plc319.Read(dbLecina_plan)).ConvertToFloat();
                 //short binID = ((ushort)plc319.Read(dbLecina_binid)).ConvertToShort();
                 //if (batch_kg > 0)
                 //{
@@ -3278,9 +3285,9 @@ namespace PLC_Var_Management_App
                 }
 
 
-                //double batch_kg = ((uint)plc319.Read(dbLecina_real)).ConvertToDouble();
+                //double batch_kg = ((uint)plc319.Read(dbLecina_real)).ConvertToFloat();
 
-                //double batch_plankg = ((uint)plc319.Read(dbLecina_plan)).ConvertToDouble();
+                //double batch_plankg = ((uint)plc319.Read(dbLecina_plan)).ConvertToFloat();
                 //short binID = ((ushort)plc319.Read(dbLecina_binid)).ConvertToShort();
                 //if (batch_kg > 0)
                 //{
@@ -3461,9 +3468,9 @@ namespace PLC_Var_Management_App
                 }
 
 
-                //double batch_kg = ((uint)plc319.Read(dbLecina_real)).ConvertToDouble();
+                //double batch_kg = ((uint)plc319.Read(dbLecina_real)).ConvertToFloat();
 
-                //double batch_plankg = ((uint)plc319.Read(dbLecina_plan)).ConvertToDouble();
+                //double batch_plankg = ((uint)plc319.Read(dbLecina_plan)).ConvertToFloat();
                 //short binID = ((ushort)plc319.Read(dbLecina_binid)).ConvertToShort();
                 //if (batch_kg > 0)
                 //{
@@ -3644,9 +3651,9 @@ namespace PLC_Var_Management_App
                 }
 
 
-                //double batch_kg = ((uint)plc319.Read(dbLecina_real)).ConvertToDouble();
+                //double batch_kg = ((uint)plc319.Read(dbLecina_real)).ConvertToFloat();
 
-                //double batch_plankg = ((uint)plc319.Read(dbLecina_plan)).ConvertToDouble();
+                //double batch_plankg = ((uint)plc319.Read(dbLecina_plan)).ConvertToFloat();
                 //short binID = ((ushort)plc319.Read(dbLecina_binid)).ConvertToShort();
                 //if (batch_kg > 0)
                 //{
@@ -3827,9 +3834,9 @@ namespace PLC_Var_Management_App
                 }
 
 
-                //double batch_kg = ((uint)plc319.Read(dbLecina_real)).ConvertToDouble();
+                //double batch_kg = ((uint)plc319.Read(dbLecina_real)).ConvertToFloat();
 
-                //double batch_plankg = ((uint)plc319.Read(dbLecina_plan)).ConvertToDouble();
+                //double batch_plankg = ((uint)plc319.Read(dbLecina_plan)).ConvertToFloat();
                 //short binID = ((ushort)plc319.Read(dbLecina_binid)).ConvertToShort();
                 //if (batch_kg > 0)
                 //{
@@ -3858,7 +3865,7 @@ namespace PLC_Var_Management_App
         private void timerBinActivoAlimentacion_Tick(object sender, EventArgs e)
         {
             //Vamos a leer la db donde se guarda el bin que esta activo en alimentacion manual
-            if (plc319.IsAvailable)
+            if (plc319.IsConnected)
             {
                 if (!plc319.IsConnected)
                     Connect_PLC();
@@ -3869,7 +3876,7 @@ namespace PLC_Var_Management_App
                     if (lect1.RecuperarRegistro(1))
                     {
                         //short binID = ((ushort)plc319.Read("DB56.DBD162")).ConvertToShort();
-                        double bin_id = ((uint)plc319.Read(lect1.db)).ConvertToDouble();
+                        double bin_id = ((uint)plc319.Read(lect1.db)).ConvertToFloat();
                         if(bin_id>0)
                             lect1.UpdateValue(1,0, Convert.ToInt32(bin_id));
                     }
