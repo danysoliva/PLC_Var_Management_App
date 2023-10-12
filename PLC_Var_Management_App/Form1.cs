@@ -473,15 +473,55 @@ namespace PLC_Var_Management_App
                 //conteoBatch.Start()
 
                 log_date = Convert.ToDateTime(dp.APMS_GetSelectData(@"SELECT SYSDATETIME()").Tables[0].Rows[0][0].ToString());
+                
             }
             catch (Exception ex)
             {
                 //SEND E-MAIL Message on Service Failure.
                 //MessageBox.Show("Detalle del Error: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+            PlayServices();
         }
 
         private void btn_Start_Service_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
+        {
+            //try
+            //{
+            //    MainTimer.Enabled = true;
+            //    MainTimer.Start();
+
+            //    TimerGuardadoBines.Enabled = true;
+            //    TimerGuardadoBines.Start();
+
+            //    TimerHorasMolinos.Enabled = true;
+            //    TimerHorasMolinos.Start();
+
+            //    VarReaderMonitor.Enabled = true;
+            //    VarReaderMonitor.Start();
+
+            //    timerBinActivoAlimentacion.Enabled = true;
+            //    timerBinActivoAlimentacion.Start();
+
+            //    Connect_PLC();
+            //    txt_ServiceStatus.Caption = "Service Started";
+            //    txt_ServiceStatus.Appearance.ForeColor = System.Drawing.Color.Green;
+
+            //    btn_Start_Service.Enabled = false;
+            //    btn_Stop_Service.Enabled = true;
+            //    conteoBatch.Enabled = true;
+            //    conteoBatch.Start();
+
+            //    timerHorasMaquina.Enabled = true;
+            //    timerHorasMaquina.Start();
+            //}
+            //catch (Exception ex)
+            //{
+            //    //MessageBox.Show("Detalle del Error: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            //}
+            PlayServices();
+        }
+
+        void PlayServices()
         {
             try
             {
@@ -2580,21 +2620,204 @@ namespace PLC_Var_Management_App
 
         private void TimerHorasMolinos_Tick(object sender, EventArgs e)
         {
+            #region Molino 1 Backup
+            ////Si esta encendido
+            //bool bitEncencidoM1 = false;
+            //try
+            //{
+            //    bitEncencidoM1 = Convert.ToBoolean(plc319.Read("DB713.DBX2.0"));
+            //}
+            //catch {}
+
+            //if (bitEncencidoM1)//Encendido de molino
+            //{
+            //    //Ver si hay un row open
+            //    bool rowopenEncendido = false;
+            //    bool rowOpenMolienda = false;
+
+            //    try
+            //    {
+            //        string sql = @"SELECT case when count(*)>0 then 1
+            //                      else 
+            //                       0
+            //                      end 
+            //                      FROM [APMS].[dbo].[EQ_Maquinas_Molinos_Horas]
+            //                      where enable = 1 and 
+            //                      complete = 0 and tipo = 1 and id_maquina = 18";
+            //        SqlConnection conn = new SqlConnection(dp.ConnectionStringAPMS);
+            //        conn.Open();
+            //        SqlCommand cmd = new SqlCommand(sql, conn);
+            //        //cmd.CommandType = CommandType.StoredProcedure;
+            //        //cmd.Parameters.AddWithValue("@pid_bin", binID);
+            //        //cmd.Parameters.AddWithValue("@pintake_plan", pBatckPlan);
+            //        //cmd.Parameters.AddWithValue("@pintake_real", batch_kg);
+            //        //cmd.Parameters.AddWithValue("@return_value", 1);
+            //        rowopenEncendido = Convert.ToBoolean(cmd.ExecuteScalar());
+            //        conn.Close();
+            //    }
+            //    catch (Exception ec)
+            //    {
+
+            //    }
+
+            //    if (rowopenEncendido)
+            //    {
+            //        //Acumular horas encendido
+            //        string sqlx = @"sp_set_acumular_horas_molinos_martillos";
+            //        SqlConnection connx = new SqlConnection(dp.ConnectionStringAPMS);
+            //        connx.Open();
+            //        SqlCommand cmdx = new SqlCommand(sqlx, connx);
+            //        cmdx.CommandType = CommandType.StoredProcedure;
+            //        cmdx.Parameters.AddWithValue("@idmolino", 18);
+            //        cmdx.Parameters.AddWithValue("@idtipoh", 1);
+            //        cmdx.ExecuteScalar();
+            //        connx.Close();
+
+            //        bool bitMoliendaM1 = false;
+            //        try
+            //        {
+            //            bitMoliendaM1 = Convert.ToBoolean(plc319.Read("DB713.DBX2.1"));
+            //        }
+            //        catch { }
+
+            //        if (bitMoliendaM1)//Moliendo
+            //        {
+            //            //Consultar molienda
+            //            string sql = @"SELECT case when count(*)>0 then 1
+            //                      else 
+            //                       0
+            //                      end 
+            //                      FROM [APMS].[dbo].[EQ_Maquinas_Molinos_Horas]
+            //                      where enable = 1 and 
+            //                      complete = 0 and tipo = 2 and id_maquina = 18";
+            //            SqlConnection conn = new SqlConnection(dp.ConnectionStringAPMS);
+            //            conn.Open();
+            //            SqlCommand cmd = new SqlCommand(sql, conn);
+            //            rowOpenMolienda = Convert.ToBoolean(cmd.ExecuteScalar());
+            //            conn.Close();
+
+            //            if (rowOpenMolienda)
+            //            {
+            //                //Acumular horas molienda
+            //                string sql2 = @"sp_set_acumular_horas_molinos_martillos";
+            //                SqlConnection conn2 = new SqlConnection(dp.ConnectionStringAPMS);
+            //                conn2.Open();
+            //                SqlCommand cmd2 = new SqlCommand(sql2, conn2);
+            //                cmd2.CommandType = CommandType.StoredProcedure;
+            //                cmd2.Parameters.AddWithValue("@idmolino", 18);
+            //                cmd2.Parameters.AddWithValue("@idtipoh", 2);
+            //                cmd2.ExecuteScalar();
+            //                conn2.Close();
+            //            }
+            //            else
+            //            {
+            //                //Nuevo Registro de molienda
+            //                string sql2 = @"INSERT INTO [dbo].[EQ_Maquinas_Molinos_Horas]
+            //                                               ([id_maquina]
+            //                                               ,[complete]
+            //                                               ,[inicio]
+            //                                               ,[fin]
+            //                                               ,[horas]
+            //                                               ,[enable]
+            //                                               ,[tipo])
+            //                                         VALUES
+            //                                               (18
+            //                                               ,0
+            //                                               ,GETDATE()
+            //                                               ,NULL
+            //                                               ,0
+            //                                               ,1
+            //                                               ,2)";
+            //                SqlConnection conn2 = new SqlConnection(dp.ConnectionStringAPMS);
+            //                conn2.Open();
+            //                SqlCommand cmd2 = new SqlCommand(sql2, conn2);
+            //                cmd2.ExecuteScalar();
+            //                conn2.Close();
+            //            }
+            //        }
+            //        else
+            //        {
+            //            //Cerrar el row de molienda si hay uno abierto
+            //            string sql2 = @"sp_set_cerrar_row_horas_molinos_martillos";
+            //            SqlConnection conn2 = new SqlConnection(dp.ConnectionStringAPMS);
+            //            conn2.Open();
+            //            SqlCommand cmd2 = new SqlCommand(sql2, conn2);
+            //            cmd2.CommandType = CommandType.StoredProcedure;
+            //            cmd2.Parameters.AddWithValue("@idmaquina", 18);
+            //            cmd2.Parameters.AddWithValue("@tipo", 2);
+            //            cmd2.ExecuteScalar();
+            //            conn2.Close();
+            //        }
+            //    }
+            //    else//sino hay row open
+            //    {
+            //        //Crear nuevo registro de encendido
+            //        //Nuevo Registro de molienda
+            //        string sql2 = @"INSERT INTO [dbo].[EQ_Maquinas_Molinos_Horas]
+            //                                               ([id_maquina]
+            //                                               ,[complete]
+            //                                               ,[inicio]
+            //                                               ,[fin]
+            //                                               ,[horas]
+            //                                               ,[enable]
+            //                                               ,[tipo])
+            //                                         VALUES
+            //                                               (18
+            //                                               ,0
+            //                                               ,GETDATE()
+            //                                               ,NULL
+            //                                               ,0
+            //                                               ,1
+            //                                               ,1)";
+            //        SqlConnection conn2 = new SqlConnection(dp.ConnectionStringAPMS);
+            //        conn2.Open();
+            //        SqlCommand cmd2 = new SqlCommand(sql2, conn2);
+            //        cmd2.ExecuteScalar();
+            //        conn2.Close();
+            //    }
+
+
+            //    //double batch_kg = ((uint)plc319.Read(dbLecina_real)).ConvertToFloat();
+
+            //    //double batch_plankg = ((uint)plc319.Read(dbLecina_plan)).ConvertToFloat();
+            //    //short binID = ((ushort)plc319.Read(dbLecina_binid)).ConvertToShort();
+            //    //if (batch_kg > 0)
+            //    //{
+            //    //    GuardarBatchBin(batch_kg, binID, batch_plankg);
+            //    //}
+            //    ////Hacemos el reset del bit de guardado
+            //    //plc319.Write(dbLecina_done, 0);
+            //}
+            //else
+            //{
+            //    //Cerrar el row de encendido si hay uno abierto
+            //    string sql2 = @"sp_set_cerrar_row_horas_molinos_martillos";
+            //    SqlConnection conn2 = new SqlConnection(dp.ConnectionStringAPMS);
+            //    conn2.Open();
+            //    SqlCommand cmd2 = new SqlCommand(sql2, conn2);
+            //    cmd2.CommandType = CommandType.StoredProcedure;
+            //    cmd2.Parameters.AddWithValue("@idmaquina", 18);
+            //    cmd2.Parameters.AddWithValue("@tipo", 1);
+            //    cmd2.ExecuteScalar();
+            //    conn2.Close();
+            //}
+
+            #endregion
+
             #region Molino 1
+
             //Si esta encendido
             bool bitEncencidoM1 = false;
             try
             {
                 bitEncencidoM1 = Convert.ToBoolean(plc319.Read("DB713.DBX2.0"));
             }
-            catch {}
+            catch { }
 
             if (bitEncencidoM1)//Encendido de molino
             {
-                //Ver si hay un row open
-                bool rowopenEncendido = false;
-                bool rowOpenMolienda = false;
 
+                bool rowopenEncendido = false;
                 try
                 {
                     string sql = @"SELECT case when count(*)>0 then 1
@@ -2607,17 +2830,11 @@ namespace PLC_Var_Management_App
                     SqlConnection conn = new SqlConnection(dp.ConnectionStringAPMS);
                     conn.Open();
                     SqlCommand cmd = new SqlCommand(sql, conn);
-                    //cmd.CommandType = CommandType.StoredProcedure;
-                    //cmd.Parameters.AddWithValue("@pid_bin", binID);
-                    //cmd.Parameters.AddWithValue("@pintake_plan", pBatckPlan);
-                    //cmd.Parameters.AddWithValue("@pintake_real", batch_kg);
-                    //cmd.Parameters.AddWithValue("@return_value", 1);
                     rowopenEncendido = Convert.ToBoolean(cmd.ExecuteScalar());
                     conn.Close();
                 }
                 catch (Exception ec)
                 {
-
                 }
 
                 if (rowopenEncendido)
@@ -2632,82 +2849,6 @@ namespace PLC_Var_Management_App
                     cmdx.Parameters.AddWithValue("@idtipoh", 1);
                     cmdx.ExecuteScalar();
                     connx.Close();
-
-                    bool bitMoliendaM1 = false;
-                    try
-                    {
-                        bitMoliendaM1 = Convert.ToBoolean(plc319.Read("DB713.DBX2.1"));
-                    }
-                    catch { }
-
-                    if (bitMoliendaM1)//Moliendo
-                    {
-                        //Consultar molienda
-                        string sql = @"SELECT case when count(*)>0 then 1
-		                                else 
-			                                0
-		                                end 
-                                  FROM [APMS].[dbo].[EQ_Maquinas_Molinos_Horas]
-                                  where enable = 1 and 
-		                                complete = 0 and tipo = 2 and id_maquina = 18";
-                        SqlConnection conn = new SqlConnection(dp.ConnectionStringAPMS);
-                        conn.Open();
-                        SqlCommand cmd = new SqlCommand(sql, conn);
-                        rowOpenMolienda = Convert.ToBoolean(cmd.ExecuteScalar());
-                        conn.Close();
-
-                        if (rowOpenMolienda)
-                        {
-                            //Acumular horas molienda
-                            string sql2 = @"sp_set_acumular_horas_molinos_martillos";
-                            SqlConnection conn2 = new SqlConnection(dp.ConnectionStringAPMS);
-                            conn2.Open();
-                            SqlCommand cmd2 = new SqlCommand(sql2, conn2);
-                            cmd2.CommandType = CommandType.StoredProcedure;
-                            cmd2.Parameters.AddWithValue("@idmolino", 18);
-                            cmd2.Parameters.AddWithValue("@idtipoh", 2);
-                            cmd2.ExecuteScalar();
-                            conn2.Close();
-                        }
-                        else
-                        {
-                            //Nuevo Registro de molienda
-                            string sql2 = @"INSERT INTO [dbo].[EQ_Maquinas_Molinos_Horas]
-                                                           ([id_maquina]
-                                                           ,[complete]
-                                                           ,[inicio]
-                                                           ,[fin]
-                                                           ,[horas]
-                                                           ,[enable]
-                                                           ,[tipo])
-                                                     VALUES
-                                                           (18
-                                                           ,0
-                                                           ,GETDATE()
-                                                           ,NULL
-                                                           ,0
-                                                           ,1
-                                                           ,2)";
-                            SqlConnection conn2 = new SqlConnection(dp.ConnectionStringAPMS);
-                            conn2.Open();
-                            SqlCommand cmd2 = new SqlCommand(sql2, conn2);
-                            cmd2.ExecuteScalar();
-                            conn2.Close();
-                        }
-                    }
-                    else
-                    {
-                        //Cerrar el row de molienda si hay uno abierto
-                        string sql2 = @"sp_set_cerrar_row_horas_molinos_martillos";
-                        SqlConnection conn2 = new SqlConnection(dp.ConnectionStringAPMS);
-                        conn2.Open();
-                        SqlCommand cmd2 = new SqlCommand(sql2, conn2);
-                        cmd2.CommandType = CommandType.StoredProcedure;
-                        cmd2.Parameters.AddWithValue("@idmaquina", 18);
-                        cmd2.Parameters.AddWithValue("@tipo", 2);
-                        cmd2.ExecuteScalar();
-                        conn2.Close();
-                    }
                 }
                 else//sino hay row open
                 {
@@ -2735,18 +2876,6 @@ namespace PLC_Var_Management_App
                     cmd2.ExecuteScalar();
                     conn2.Close();
                 }
-                
-
-                //double batch_kg = ((uint)plc319.Read(dbLecina_real)).ConvertToFloat();
-
-                //double batch_plankg = ((uint)plc319.Read(dbLecina_plan)).ConvertToFloat();
-                //short binID = ((ushort)plc319.Read(dbLecina_binid)).ConvertToShort();
-                //if (batch_kg > 0)
-                //{
-                //    GuardarBatchBin(batch_kg, binID, batch_plankg);
-                //}
-                ////Hacemos el reset del bit de guardado
-                //plc319.Write(dbLecina_done, 0);
             }
             else
             {
@@ -2758,6 +2887,88 @@ namespace PLC_Var_Management_App
                 cmd2.CommandType = CommandType.StoredProcedure;
                 cmd2.Parameters.AddWithValue("@idmaquina", 18);
                 cmd2.Parameters.AddWithValue("@tipo", 1);
+                cmd2.ExecuteScalar();
+                conn2.Close();
+            }
+
+
+
+
+
+            //***************MOLINO M1****************//
+            bool bitMoliendaM1 = false;
+            try
+            {
+                bitMoliendaM1 = Convert.ToBoolean(plc319.Read("DB713.DBX2.1"));
+            }
+            catch { }
+
+            if (bitMoliendaM1)//Moliendo
+            {
+                //Consultar molienda
+                bool rowOpenMolienda = false;
+                string sql = @"SELECT case when count(*)>0 then 1
+		                                else 
+			                                0
+		                                end 
+                                  FROM [APMS].[dbo].[EQ_Maquinas_Molinos_Horas]
+                                  where enable = 1 and 
+		                                complete = 0 and tipo = 2 and id_maquina = 18";
+                SqlConnection conn = new SqlConnection(dp.ConnectionStringAPMS);
+                conn.Open();
+                SqlCommand cmd = new SqlCommand(sql, conn);
+                rowOpenMolienda = Convert.ToBoolean(cmd.ExecuteScalar());
+                conn.Close();
+
+                if (rowOpenMolienda)
+                {
+                    //Acumular horas molienda
+                    string sql2 = @"sp_set_acumular_horas_molinos_martillos";
+                    SqlConnection conn2 = new SqlConnection(dp.ConnectionStringAPMS);
+                    conn2.Open();
+                    SqlCommand cmd2 = new SqlCommand(sql2, conn2);
+                    cmd2.CommandType = CommandType.StoredProcedure;
+                    cmd2.Parameters.AddWithValue("@idmolino", 18);
+                    cmd2.Parameters.AddWithValue("@idtipoh", 2);
+                    cmd2.ExecuteScalar();
+                    conn2.Close();
+                }
+                else
+                {
+                    //Nuevo Registro de molienda
+                    string sql2 = @"INSERT INTO [dbo].[EQ_Maquinas_Molinos_Horas]
+                                                           ([id_maquina]
+                                                           ,[complete]
+                                                           ,[inicio]
+                                                           ,[fin]
+                                                           ,[horas]
+                                                           ,[enable]
+                                                           ,[tipo])
+                                                     VALUES
+                                                           (18
+                                                           ,0
+                                                           ,GETDATE()
+                                                           ,NULL
+                                                           ,0
+                                                           ,1
+                                                           ,2)";
+                    SqlConnection conn2 = new SqlConnection(dp.ConnectionStringAPMS);
+                    conn2.Open();
+                    SqlCommand cmd2 = new SqlCommand(sql2, conn2);
+                    cmd2.ExecuteScalar();
+                    conn2.Close();
+                }
+            }
+            else
+            {
+                //Cerrar el row de molienda si hay uno abierto
+                string sql2 = @"sp_set_cerrar_row_horas_molinos_martillos";
+                SqlConnection conn2 = new SqlConnection(dp.ConnectionStringAPMS);
+                conn2.Open();
+                SqlCommand cmd2 = new SqlCommand(sql2, conn2);
+                cmd2.CommandType = CommandType.StoredProcedure;
+                cmd2.Parameters.AddWithValue("@idmaquina", 18);
+                cmd2.Parameters.AddWithValue("@tipo", 2);
                 cmd2.ExecuteScalar();
                 conn2.Close();
             }
@@ -2777,7 +2988,6 @@ namespace PLC_Var_Management_App
             {
                 //Ver si hay un row open
                 bool rowopenEncendido = false;
-                bool rowOpenMolienda = false;
                 try
                 {
                     string sql = @"SELECT case when count(*)>0 then 1
@@ -2790,11 +3000,6 @@ namespace PLC_Var_Management_App
                     SqlConnection conn = new SqlConnection(dp.ConnectionStringAPMS);
                     conn.Open();
                     SqlCommand cmd = new SqlCommand(sql, conn);
-                    //cmd.CommandType = CommandType.StoredProcedure;
-                    //cmd.Parameters.AddWithValue("@pid_bin", binID);
-                    //cmd.Parameters.AddWithValue("@pintake_plan", pBatckPlan);
-                    //cmd.Parameters.AddWithValue("@pintake_real", batch_kg);
-                    //cmd.Parameters.AddWithValue("@return_value", 1);
                     rowopenEncendido = Convert.ToBoolean(cmd.ExecuteScalar());
                     conn.Close();
                 }
@@ -2814,82 +3019,6 @@ namespace PLC_Var_Management_App
                     cmdx.Parameters.AddWithValue("@idtipoh", 1);
                     cmdx.ExecuteScalar();
                     connx.Close();
-
-                    bool bitMoliendaM2 = false;
-                    try
-                    {
-                        bitMoliendaM2 = Convert.ToBoolean(plc319.Read("DB713.DBX4.1"));
-                    }
-                    catch { }
-
-                    if (bitMoliendaM2)//Moliendo
-                    {
-                        //Consultar molienda
-                        string sql = @"SELECT case when count(*)>0 then 1
-		                                else 
-			                                0
-		                                end 
-                                  FROM [APMS].[dbo].[EQ_Maquinas_Molinos_Horas]
-                                  where enable = 1 and 
-		                                complete = 0 and tipo = 2 and id_maquina = 19";
-                        SqlConnection conn = new SqlConnection(dp.ConnectionStringAPMS);
-                        conn.Open();
-                        SqlCommand cmd = new SqlCommand(sql, conn);
-                        rowOpenMolienda = Convert.ToBoolean(cmd.ExecuteScalar());
-                        conn.Close();
-
-                        if (rowOpenMolienda)
-                        {
-                            //Acumular horas molienda
-                            string sql2 = @"sp_set_acumular_horas_molinos_martillos";
-                            SqlConnection conn2 = new SqlConnection(dp.ConnectionStringAPMS);
-                            conn2.Open();
-                            SqlCommand cmd2 = new SqlCommand(sql2, conn2);
-                            cmd2.CommandType = CommandType.StoredProcedure;
-                            cmd2.Parameters.AddWithValue("@idmolino", 19);
-                            cmd2.Parameters.AddWithValue("@idtipoh", 2);
-                            cmd2.ExecuteScalar();
-                            conn2.Close();
-                        }
-                        else
-                        {
-                            //Nuevo Registro de molienda
-                            string sql2 = @"INSERT INTO [dbo].[EQ_Maquinas_Molinos_Horas]
-                                                           ([id_maquina]
-                                                           ,[complete]
-                                                           ,[inicio]
-                                                           ,[fin]
-                                                           ,[horas]
-                                                           ,[enable]
-                                                           ,[tipo])
-                                                     VALUES
-                                                           (19
-                                                           ,0
-                                                           ,GETDATE()
-                                                           ,NULL
-                                                           ,0
-                                                           ,1
-                                                           ,2)";
-                            SqlConnection conn2 = new SqlConnection(dp.ConnectionStringAPMS);
-                            conn2.Open();
-                            SqlCommand cmd2 = new SqlCommand(sql2, conn2);
-                            cmd2.ExecuteScalar();
-                            conn2.Close();
-                        }
-                    }
-                    else
-                    {
-                        //Cerrar el row de molienda si hay uno abierto
-                        string sql2 = @"sp_set_cerrar_row_horas_molinos_martillos";
-                        SqlConnection conn2 = new SqlConnection(dp.ConnectionStringAPMS);
-                        conn2.Open();
-                        SqlCommand cmd2 = new SqlCommand(sql2, conn2);
-                        cmd2.CommandType = CommandType.StoredProcedure;
-                        cmd2.Parameters.AddWithValue("@idmaquina", 19);
-                        cmd2.Parameters.AddWithValue("@tipo", 2);
-                        cmd2.ExecuteScalar();
-                        conn2.Close();
-                    }
                 }
                 else//sino hay row open
                 {
@@ -2917,18 +3046,6 @@ namespace PLC_Var_Management_App
                     cmd2.ExecuteScalar();
                     conn2.Close();
                 }
-
-
-                //double batch_kg = ((uint)plc319.Read(dbLecina_real)).ConvertToFloat();
-
-                //double batch_plankg = ((uint)plc319.Read(dbLecina_plan)).ConvertToFloat();
-                //short binID = ((ushort)plc319.Read(dbLecina_binid)).ConvertToShort();
-                //if (batch_kg > 0)
-                //{
-                //    GuardarBatchBin(batch_kg, binID, batch_plankg);
-                //}
-                ////Hacemos el reset del bit de guardado
-                //plc319.Write(dbLecina_done, 0);
             }
             else
             {
@@ -2944,6 +3061,87 @@ namespace PLC_Var_Management_App
                 conn2.Close();
             }
 
+
+
+            //************** MOLIENDA M2******************//
+            bool bitMoliendaM2 = false;
+            try
+            {
+                bitMoliendaM2 = Convert.ToBoolean(plc319.Read("DB713.DBX4.1"));
+            }
+            catch { }
+            if (bitMoliendaM2)//Moliendo
+            {
+                bool rowOpenMolienda = false;
+                //Consultar molienda
+                string sql = @"SELECT case when count(*)>0 then 1
+		                                else 
+			                                0
+		                                end 
+                                  FROM [APMS].[dbo].[EQ_Maquinas_Molinos_Horas]
+                                  where enable = 1 and 
+		                                complete = 0 and tipo = 2 and id_maquina = 19";
+                SqlConnection conn = new SqlConnection(dp.ConnectionStringAPMS);
+                conn.Open();
+                SqlCommand cmd = new SqlCommand(sql, conn);
+                rowOpenMolienda = Convert.ToBoolean(cmd.ExecuteScalar());
+                conn.Close();
+
+                if (rowOpenMolienda)
+                {
+                    //Acumular horas molienda
+                    string sql2 = @"sp_set_acumular_horas_molinos_martillos";
+                    SqlConnection conn2 = new SqlConnection(dp.ConnectionStringAPMS);
+                    conn2.Open();
+                    SqlCommand cmd2 = new SqlCommand(sql2, conn2);
+                    cmd2.CommandType = CommandType.StoredProcedure;
+                    cmd2.Parameters.AddWithValue("@idmolino", 19);
+                    cmd2.Parameters.AddWithValue("@idtipoh", 2);
+                    cmd2.ExecuteScalar();
+                    conn2.Close();
+                }
+                else
+                {
+                    //Nuevo Registro de molienda
+                    string sql2 = @"INSERT INTO [dbo].[EQ_Maquinas_Molinos_Horas]
+                                                           ([id_maquina]
+                                                           ,[complete]
+                                                           ,[inicio]
+                                                           ,[fin]
+                                                           ,[horas]
+                                                           ,[enable]
+                                                           ,[tipo])
+                                                     VALUES
+                                                           (19
+                                                           ,0
+                                                           ,GETDATE()
+                                                           ,NULL
+                                                           ,0
+                                                           ,1
+                                                           ,2)";
+                    SqlConnection conn2 = new SqlConnection(dp.ConnectionStringAPMS);
+                    conn2.Open();
+                    SqlCommand cmd2 = new SqlCommand(sql2, conn2);
+                    cmd2.ExecuteScalar();
+                    conn2.Close();
+                }
+            }
+            else
+            {
+                //Cerrar el row de molienda si hay uno abierto
+                string sql2 = @"sp_set_cerrar_row_horas_molinos_martillos";
+                SqlConnection conn2 = new SqlConnection(dp.ConnectionStringAPMS);
+                conn2.Open();
+                SqlCommand cmd2 = new SqlCommand(sql2, conn2);
+                cmd2.CommandType = CommandType.StoredProcedure;
+                cmd2.Parameters.AddWithValue("@idmaquina", 19);
+                cmd2.Parameters.AddWithValue("@tipo", 2);
+                cmd2.ExecuteScalar();
+                conn2.Close();
+            }
+
+
+
             #endregion
 
             #region Molino 3
@@ -2958,7 +3156,6 @@ namespace PLC_Var_Management_App
             {
                 //Ver si hay un row open
                 bool rowopenEncendido = false;
-                bool rowOpenMolienda = false;
                 try
                 {
                     string sql = @"SELECT case when count(*)>0 then 1
@@ -2971,11 +3168,6 @@ namespace PLC_Var_Management_App
                     SqlConnection conn = new SqlConnection(dp.ConnectionStringAPMS);
                     conn.Open();
                     SqlCommand cmd = new SqlCommand(sql, conn);
-                    //cmd.CommandType = CommandType.StoredProcedure;
-                    //cmd.Parameters.AddWithValue("@pid_bin", binID);
-                    //cmd.Parameters.AddWithValue("@pintake_plan", pBatckPlan);
-                    //cmd.Parameters.AddWithValue("@pintake_real", batch_kg);
-                    //cmd.Parameters.AddWithValue("@return_value", 1);
                     rowopenEncendido = Convert.ToBoolean(cmd.ExecuteScalar());
                     conn.Close();
                 }
@@ -2995,83 +3187,6 @@ namespace PLC_Var_Management_App
                     cmdx.Parameters.AddWithValue("@idtipoh", 1);
                     cmdx.ExecuteScalar();
                     connx.Close();
-
-                    bool bitMoliendaM3 = false;
-                    try
-                    {
-                        bitMoliendaM3 = Convert.ToBoolean(plc319.Read("DB713.DBX6.1"));
-                    }
-                    catch { }
-
-                    if (bitMoliendaM3)//Moliendo
-                    //if (Convert.ToBoolean(plc319.Read("DB713.DBX6.1")))//Moliendo
-                    {
-                        //Consultar molienda
-                        string sql = @"SELECT case when count(*)>0 then 1
-		                                else 
-			                                0
-		                                end 
-                                  FROM [APMS].[dbo].[EQ_Maquinas_Molinos_Horas]
-                                  where enable = 1 and 
-		                                complete = 0 and tipo = 2 and id_maquina = 20";
-                        SqlConnection conn = new SqlConnection(dp.ConnectionStringAPMS);
-                        conn.Open();
-                        SqlCommand cmd = new SqlCommand(sql, conn);
-                        rowOpenMolienda = Convert.ToBoolean(cmd.ExecuteScalar());
-                        conn.Close();
-
-                        if (rowOpenMolienda)
-                        {
-                            //Acumular horas molienda
-                            string sql2 = @"sp_set_acumular_horas_molinos_martillos";
-                            SqlConnection conn2 = new SqlConnection(dp.ConnectionStringAPMS);
-                            conn2.Open();
-                            SqlCommand cmd2 = new SqlCommand(sql2, conn2);
-                            cmd2.CommandType = CommandType.StoredProcedure;
-                            cmd2.Parameters.AddWithValue("@idmolino", 20);
-                            cmd2.Parameters.AddWithValue("@idtipoh", 2);
-                            cmd2.ExecuteScalar();
-                            conn2.Close();
-                        }
-                        else
-                        {
-                            //Nuevo Registro de molienda
-                            string sql2 = @"INSERT INTO [dbo].[EQ_Maquinas_Molinos_Horas]
-                                                           ([id_maquina]
-                                                           ,[complete]
-                                                           ,[inicio]
-                                                           ,[fin]
-                                                           ,[horas]
-                                                           ,[enable]
-                                                           ,[tipo])
-                                                     VALUES
-                                                           (20
-                                                           ,0
-                                                           ,GETDATE()
-                                                           ,NULL
-                                                           ,0
-                                                           ,1
-                                                           ,2)";
-                            SqlConnection conn2 = new SqlConnection(dp.ConnectionStringAPMS);
-                            conn2.Open();
-                            SqlCommand cmd2 = new SqlCommand(sql2, conn2);
-                            cmd2.ExecuteScalar();
-                            conn2.Close();
-                        }
-                    }
-                    else
-                    {
-                        //Cerrar el row de molienda si hay uno abierto
-                        string sql2 = @"sp_set_cerrar_row_horas_molinos_martillos";
-                        SqlConnection conn2 = new SqlConnection(dp.ConnectionStringAPMS);
-                        conn2.Open();
-                        SqlCommand cmd2 = new SqlCommand(sql2, conn2);
-                        cmd2.CommandType = CommandType.StoredProcedure;
-                        cmd2.Parameters.AddWithValue("@idmaquina", 20);
-                        cmd2.Parameters.AddWithValue("@tipo", 2);
-                        cmd2.ExecuteScalar();
-                        conn2.Close();
-                    }
                 }
                 else//sino hay row open
                 {
@@ -3099,18 +3214,6 @@ namespace PLC_Var_Management_App
                     cmd2.ExecuteScalar();
                     conn2.Close();
                 }
-
-
-                //double batch_kg = ((uint)plc319.Read(dbLecina_real)).ConvertToFloat();
-
-                //double batch_plankg = ((uint)plc319.Read(dbLecina_plan)).ConvertToFloat();
-                //short binID = ((ushort)plc319.Read(dbLecina_binid)).ConvertToShort();
-                //if (batch_kg > 0)
-                //{
-                //    GuardarBatchBin(batch_kg, binID, batch_plankg);
-                //}
-                ////Hacemos el reset del bit de guardado
-                //plc319.Write(dbLecina_done, 0);
             }
             else
             {
@@ -3122,6 +3225,86 @@ namespace PLC_Var_Management_App
                 cmd2.CommandType = CommandType.StoredProcedure;
                 cmd2.Parameters.AddWithValue("@idmaquina", 20);
                 cmd2.Parameters.AddWithValue("@tipo", 1);
+                cmd2.ExecuteScalar();
+                conn2.Close();
+            }
+
+
+            //********* Molinenda M3 **********//
+            bool bitMoliendaM3 = false;
+            try
+            {
+                bitMoliendaM3 = Convert.ToBoolean(plc319.Read("DB713.DBX6.1"));
+            }
+            catch { }
+
+            if (bitMoliendaM3)//Moliendo
+                              //if (Convert.ToBoolean(plc319.Read("DB713.DBX6.1")))//Moliendo
+            {
+                bool rowOpenMolienda = false;
+                //Consultar molienda
+                string sql = @"SELECT case when count(*)>0 then 1
+		                                else 
+			                                0
+		                                end 
+                                  FROM [APMS].[dbo].[EQ_Maquinas_Molinos_Horas]
+                                  where enable = 1 and 
+		                                complete = 0 and tipo = 2 and id_maquina = 20";
+                SqlConnection conn = new SqlConnection(dp.ConnectionStringAPMS);
+                conn.Open();
+                SqlCommand cmd = new SqlCommand(sql, conn);
+                rowOpenMolienda = Convert.ToBoolean(cmd.ExecuteScalar());
+                conn.Close();
+
+                if (rowOpenMolienda)
+                {
+                    //Acumular horas molienda
+                    string sql2 = @"sp_set_acumular_horas_molinos_martillos";
+                    SqlConnection conn2 = new SqlConnection(dp.ConnectionStringAPMS);
+                    conn2.Open();
+                    SqlCommand cmd2 = new SqlCommand(sql2, conn2);
+                    cmd2.CommandType = CommandType.StoredProcedure;
+                    cmd2.Parameters.AddWithValue("@idmolino", 20);
+                    cmd2.Parameters.AddWithValue("@idtipoh", 2);
+                    cmd2.ExecuteScalar();
+                    conn2.Close();
+                }
+                else
+                {
+                    //Nuevo Registro de molienda
+                    string sql2 = @"INSERT INTO [dbo].[EQ_Maquinas_Molinos_Horas]
+                                                           ([id_maquina]
+                                                           ,[complete]
+                                                           ,[inicio]
+                                                           ,[fin]
+                                                           ,[horas]
+                                                           ,[enable]
+                                                           ,[tipo])
+                                                     VALUES
+                                                           (20
+                                                           ,0
+                                                           ,GETDATE()
+                                                           ,NULL
+                                                           ,0
+                                                           ,1
+                                                           ,2)";
+                    SqlConnection conn2 = new SqlConnection(dp.ConnectionStringAPMS);
+                    conn2.Open();
+                    SqlCommand cmd2 = new SqlCommand(sql2, conn2);
+                    cmd2.ExecuteScalar();
+                    conn2.Close();
+                }
+            }
+            else
+            {
+                //Cerrar el row de molienda si hay uno abierto
+                string sql2 = @"sp_set_cerrar_row_horas_molinos_martillos";
+                SqlConnection conn2 = new SqlConnection(dp.ConnectionStringAPMS);
+                conn2.Open();
+                SqlCommand cmd2 = new SqlCommand(sql2, conn2);
+                cmd2.CommandType = CommandType.StoredProcedure;
+                cmd2.Parameters.AddWithValue("@idmaquina", 20);
+                cmd2.Parameters.AddWithValue("@tipo", 2);
                 cmd2.ExecuteScalar();
                 conn2.Close();
             }
@@ -3142,7 +3325,6 @@ namespace PLC_Var_Management_App
             {
                 //Ver si hay un row open
                 bool rowopenEncendido = false;
-                bool rowOpenMolienda = false;
                 try
                 {
                     string sql = @"SELECT case when count(*)>0 then 1
@@ -3155,11 +3337,6 @@ namespace PLC_Var_Management_App
                     SqlConnection conn = new SqlConnection(dp.ConnectionStringAPMS);
                     conn.Open();
                     SqlCommand cmd = new SqlCommand(sql, conn);
-                    //cmd.CommandType = CommandType.StoredProcedure;
-                    //cmd.Parameters.AddWithValue("@pid_bin", binID);
-                    //cmd.Parameters.AddWithValue("@pintake_plan", pBatckPlan);
-                    //cmd.Parameters.AddWithValue("@pintake_real", batch_kg);
-                    //cmd.Parameters.AddWithValue("@return_value", 1);
                     rowopenEncendido = Convert.ToBoolean(cmd.ExecuteScalar());
                     conn.Close();
                 }
@@ -3180,82 +3357,7 @@ namespace PLC_Var_Management_App
                     cmdx.ExecuteScalar();
                     connx.Close();
 
-                    bool bitMoliendaM4 = false;
-                    try
-                    {
-                        bitMoliendaM4 = Convert.ToBoolean(plc319.Read("DB713.DBX8.1"));
-                    }
-                    catch { }
-
-                    if (bitMoliendaM4)//Moliendo
-                        //if (Convert.ToBoolean(plc319.Read("DB713.DBX8.1")))//Moliendo
-                    {
-                        //Consultar molienda
-                        string sql = @"SELECT case when count(*)>0 then 1
-		                                else 
-			                                0
-		                                end 
-                                  FROM [APMS].[dbo].[EQ_Maquinas_Molinos_Horas]
-                                  where enable = 1 and 
-		                                complete = 0 and tipo = 2 and id_maquina = 21";
-                        SqlConnection conn = new SqlConnection(dp.ConnectionStringAPMS);
-                        conn.Open();
-                        SqlCommand cmd = new SqlCommand(sql, conn);
-                        rowOpenMolienda = Convert.ToBoolean(cmd.ExecuteScalar());
-                        conn.Close();
-
-                        if (rowOpenMolienda)
-                        {
-                            //Acumular horas molienda
-                            string sql2 = @"sp_set_acumular_horas_molinos_martillos";
-                            SqlConnection conn2 = new SqlConnection(dp.ConnectionStringAPMS);
-                            conn2.Open();
-                            SqlCommand cmd2 = new SqlCommand(sql2, conn2);
-                            cmd2.CommandType = CommandType.StoredProcedure;
-                            cmd2.Parameters.AddWithValue("@idmolino", 21);
-                            cmd2.Parameters.AddWithValue("@idtipoh", 2);
-                            cmd2.ExecuteScalar();
-                            conn2.Close();
-                        }
-                        else
-                        {
-                            //Nuevo Registro de molienda
-                            string sql2 = @"INSERT INTO [dbo].[EQ_Maquinas_Molinos_Horas]
-                                                           ([id_maquina]
-                                                           ,[complete]
-                                                           ,[inicio]
-                                                           ,[fin]
-                                                           ,[horas]
-                                                           ,[enable]
-                                                           ,[tipo])
-                                                     VALUES
-                                                           (21
-                                                           ,0
-                                                           ,GETDATE()
-                                                           ,NULL
-                                                           ,0
-                                                           ,1
-                                                           ,2)";
-                            SqlConnection conn2 = new SqlConnection(dp.ConnectionStringAPMS);
-                            conn2.Open();
-                            SqlCommand cmd2 = new SqlCommand(sql2, conn2);
-                            cmd2.ExecuteScalar();
-                            conn2.Close();
-                        }
-                    }
-                    else
-                    {
-                        //Cerrar el row de molienda si hay uno abierto
-                        string sql2 = @"sp_set_cerrar_row_horas_molinos_martillos";
-                        SqlConnection conn2 = new SqlConnection(dp.ConnectionStringAPMS);
-                        conn2.Open();
-                        SqlCommand cmd2 = new SqlCommand(sql2, conn2);
-                        cmd2.CommandType = CommandType.StoredProcedure;
-                        cmd2.Parameters.AddWithValue("@idmaquina", 21);
-                        cmd2.Parameters.AddWithValue("@tipo", 2);
-                        cmd2.ExecuteScalar();
-                        conn2.Close();
-                    }
+                    
                 }
                 else//sino hay row open
                 {
@@ -3283,18 +3385,6 @@ namespace PLC_Var_Management_App
                     cmd2.ExecuteScalar();
                     conn2.Close();
                 }
-
-
-                //double batch_kg = ((uint)plc319.Read(dbLecina_real)).ConvertToFloat();
-
-                //double batch_plankg = ((uint)plc319.Read(dbLecina_plan)).ConvertToFloat();
-                //short binID = ((ushort)plc319.Read(dbLecina_binid)).ConvertToShort();
-                //if (batch_kg > 0)
-                //{
-                //    GuardarBatchBin(batch_kg, binID, batch_plankg);
-                //}
-                ////Hacemos el reset del bit de guardado
-                //plc319.Write(dbLecina_done, 0);
             }
             else
             {
@@ -3306,6 +3396,84 @@ namespace PLC_Var_Management_App
                 cmd2.CommandType = CommandType.StoredProcedure;
                 cmd2.Parameters.AddWithValue("@idmaquina", 21);
                 cmd2.Parameters.AddWithValue("@tipo", 1);
+                cmd2.ExecuteScalar();
+                conn2.Close();
+            }
+
+            bool bitMoliendaM4 = false;
+            try
+            {
+                bitMoliendaM4 = Convert.ToBoolean(plc319.Read("DB713.DBX8.1"));
+            }
+            catch { }
+
+            if (bitMoliendaM4)//Moliendo
+                              //if (Convert.ToBoolean(plc319.Read("DB713.DBX8.1")))//Moliendo
+            {
+                bool rowOpenMolienda = false;
+                //Consultar molienda
+                string sql = @"SELECT case when count(*)>0 then 1
+		                                else 
+			                                0
+		                                end 
+                                  FROM [APMS].[dbo].[EQ_Maquinas_Molinos_Horas]
+                                  where enable = 1 and 
+		                                complete = 0 and tipo = 2 and id_maquina = 21";
+                SqlConnection conn = new SqlConnection(dp.ConnectionStringAPMS);
+                conn.Open();
+                SqlCommand cmd = new SqlCommand(sql, conn);
+                rowOpenMolienda = Convert.ToBoolean(cmd.ExecuteScalar());
+                conn.Close();
+
+                if (rowOpenMolienda)
+                {
+                    //Acumular horas molienda
+                    string sql2 = @"sp_set_acumular_horas_molinos_martillos";
+                    SqlConnection conn2 = new SqlConnection(dp.ConnectionStringAPMS);
+                    conn2.Open();
+                    SqlCommand cmd2 = new SqlCommand(sql2, conn2);
+                    cmd2.CommandType = CommandType.StoredProcedure;
+                    cmd2.Parameters.AddWithValue("@idmolino", 21);
+                    cmd2.Parameters.AddWithValue("@idtipoh", 2);
+                    cmd2.ExecuteScalar();
+                    conn2.Close();
+                }
+                else
+                {
+                    //Nuevo Registro de molienda
+                    string sql2 = @"INSERT INTO [dbo].[EQ_Maquinas_Molinos_Horas]
+                                                           ([id_maquina]
+                                                           ,[complete]
+                                                           ,[inicio]
+                                                           ,[fin]
+                                                           ,[horas]
+                                                           ,[enable]
+                                                           ,[tipo])
+                                                     VALUES
+                                                           (21
+                                                           ,0
+                                                           ,GETDATE()
+                                                           ,NULL
+                                                           ,0
+                                                           ,1
+                                                           ,2)";
+                    SqlConnection conn2 = new SqlConnection(dp.ConnectionStringAPMS);
+                    conn2.Open();
+                    SqlCommand cmd2 = new SqlCommand(sql2, conn2);
+                    cmd2.ExecuteScalar();
+                    conn2.Close();
+                }
+            }
+            else
+            {
+                //Cerrar el row de molienda si hay uno abierto
+                string sql2 = @"sp_set_cerrar_row_horas_molinos_martillos";
+                SqlConnection conn2 = new SqlConnection(dp.ConnectionStringAPMS);
+                conn2.Open();
+                SqlCommand cmd2 = new SqlCommand(sql2, conn2);
+                cmd2.CommandType = CommandType.StoredProcedure;
+                cmd2.Parameters.AddWithValue("@idmaquina", 21);
+                cmd2.Parameters.AddWithValue("@tipo", 2);
                 cmd2.ExecuteScalar();
                 conn2.Close();
             }
@@ -3326,7 +3494,6 @@ namespace PLC_Var_Management_App
             {
                 //Ver si hay un row open
                 bool rowopenEncendido = false;
-                bool rowOpenMolienda = false;
                 try
                 {
                     string sql = @"SELECT case when count(*)>0 then 1
@@ -3339,11 +3506,6 @@ namespace PLC_Var_Management_App
                     SqlConnection conn = new SqlConnection(dp.ConnectionStringAPMS);
                     conn.Open();
                     SqlCommand cmd = new SqlCommand(sql, conn);
-                    //cmd.CommandType = CommandType.StoredProcedure;
-                    //cmd.Parameters.AddWithValue("@pid_bin", binID);
-                    //cmd.Parameters.AddWithValue("@pintake_plan", pBatckPlan);
-                    //cmd.Parameters.AddWithValue("@pintake_real", batch_kg);
-                    //cmd.Parameters.AddWithValue("@return_value", 1);
                     rowopenEncendido = Convert.ToBoolean(cmd.ExecuteScalar());
                     conn.Close();
                 }
@@ -3363,82 +3525,6 @@ namespace PLC_Var_Management_App
                     cmdx.Parameters.AddWithValue("@idtipoh", 1);
                     cmdx.ExecuteScalar();
                     connx.Close();
-
-                    bool bitPremolienda = false;
-                    try
-                    {
-                        bitPremolienda = Convert.ToBoolean(plc319.Read("DB713.DBX0.1"));
-                    }
-                    catch { }
-
-                    if (bitPremolienda)//Encendido de molino
-                    {
-                        //Consultar molienda
-                        string sql = @"SELECT case when count(*)>0 then 1
-		                                else 
-			                                0
-		                                end 
-                                  FROM [APMS].[dbo].[EQ_Maquinas_Molinos_Horas]
-                                  where enable = 1 and 
-		                                complete = 0 and tipo = 2 and id_maquina = 15";
-                        SqlConnection conn = new SqlConnection(dp.ConnectionStringAPMS);
-                        conn.Open();
-                        SqlCommand cmd = new SqlCommand(sql, conn);
-                        rowOpenMolienda = Convert.ToBoolean(cmd.ExecuteScalar());
-                        conn.Close();
-
-                        if (rowOpenMolienda)
-                        {
-                            //Acumular horas molienda
-                            string sql2 = @"sp_set_acumular_horas_molinos_martillos";
-                            SqlConnection conn2 = new SqlConnection(dp.ConnectionStringAPMS);
-                            conn2.Open();
-                            SqlCommand cmd2 = new SqlCommand(sql2, conn2);
-                            cmd2.CommandType = CommandType.StoredProcedure;
-                            cmd2.Parameters.AddWithValue("@idmolino", 15);
-                            cmd2.Parameters.AddWithValue("@idtipoh", 2);
-                            cmd2.ExecuteScalar();
-                            conn2.Close();
-                        }
-                        else
-                        {
-                            //Nuevo Registro de molienda
-                            string sql2 = @"INSERT INTO [dbo].[EQ_Maquinas_Molinos_Horas]
-                                                           ([id_maquina]
-                                                           ,[complete]
-                                                           ,[inicio]
-                                                           ,[fin]
-                                                           ,[horas]
-                                                           ,[enable]
-                                                           ,[tipo])
-                                                     VALUES
-                                                           (15
-                                                           ,0
-                                                           ,GETDATE()
-                                                           ,NULL
-                                                           ,0
-                                                           ,1
-                                                           ,2)";
-                            SqlConnection conn2 = new SqlConnection(dp.ConnectionStringAPMS);
-                            conn2.Open();
-                            SqlCommand cmd2 = new SqlCommand(sql2, conn2);
-                            cmd2.ExecuteScalar();
-                            conn2.Close();
-                        }
-                    }
-                    else
-                    {
-                        //Cerrar el row de molienda si hay uno abierto
-                        string sql2 = @"sp_set_cerrar_row_horas_molinos_martillos";
-                        SqlConnection conn2 = new SqlConnection(dp.ConnectionStringAPMS);
-                        conn2.Open();
-                        SqlCommand cmd2 = new SqlCommand(sql2, conn2);
-                        cmd2.CommandType = CommandType.StoredProcedure;
-                        cmd2.Parameters.AddWithValue("@idmaquina", 15);
-                        cmd2.Parameters.AddWithValue("@tipo", 2);
-                        cmd2.ExecuteScalar();
-                        conn2.Close();
-                    }
                 }
                 else//sino hay row open
                 {
@@ -3466,18 +3552,6 @@ namespace PLC_Var_Management_App
                     cmd2.ExecuteScalar();
                     conn2.Close();
                 }
-
-
-                //double batch_kg = ((uint)plc319.Read(dbLecina_real)).ConvertToFloat();
-
-                //double batch_plankg = ((uint)plc319.Read(dbLecina_plan)).ConvertToFloat();
-                //short binID = ((ushort)plc319.Read(dbLecina_binid)).ConvertToShort();
-                //if (batch_kg > 0)
-                //{
-                //    GuardarBatchBin(batch_kg, binID, batch_plankg);
-                //}
-                ////Hacemos el reset del bit de guardado
-                //plc319.Write(dbLecina_done, 0);
             }
             else
             {
@@ -3489,6 +3563,86 @@ namespace PLC_Var_Management_App
                 cmd2.CommandType = CommandType.StoredProcedure;
                 cmd2.Parameters.AddWithValue("@idmaquina", 15);
                 cmd2.Parameters.AddWithValue("@tipo", 1);
+                cmd2.ExecuteScalar();
+                conn2.Close();
+            }
+
+
+
+            //********** PREMOLIENDA ***********//
+            bool bitPremolienda = false;
+            try
+            {
+                bitPremolienda = Convert.ToBoolean(plc319.Read("DB713.DBX0.1"));
+            }
+            catch { }
+
+            if (bitPremolienda)//Encendido de molino
+            {
+                bool rowOpenMolienda = false;
+                //Consultar molienda
+                string sql = @"SELECT case when count(*)>0 then 1
+		                                else 
+			                                0
+		                                end 
+                                  FROM [APMS].[dbo].[EQ_Maquinas_Molinos_Horas]
+                                  where enable = 1 and 
+		                                complete = 0 and tipo = 2 and id_maquina = 15";
+                SqlConnection conn = new SqlConnection(dp.ConnectionStringAPMS);
+                conn.Open();
+                SqlCommand cmd = new SqlCommand(sql, conn);
+                rowOpenMolienda = Convert.ToBoolean(cmd.ExecuteScalar());
+                conn.Close();
+
+                if (rowOpenMolienda)
+                {
+                    //Acumular horas molienda
+                    string sql2 = @"sp_set_acumular_horas_molinos_martillos";
+                    SqlConnection conn2 = new SqlConnection(dp.ConnectionStringAPMS);
+                    conn2.Open();
+                    SqlCommand cmd2 = new SqlCommand(sql2, conn2);
+                    cmd2.CommandType = CommandType.StoredProcedure;
+                    cmd2.Parameters.AddWithValue("@idmolino", 15);
+                    cmd2.Parameters.AddWithValue("@idtipoh", 2);
+                    cmd2.ExecuteScalar();
+                    conn2.Close();
+                }
+                else
+                {
+                    //Nuevo Registro de molienda
+                    string sql2 = @"INSERT INTO [dbo].[EQ_Maquinas_Molinos_Horas]
+                                                           ([id_maquina]
+                                                           ,[complete]
+                                                           ,[inicio]
+                                                           ,[fin]
+                                                           ,[horas]
+                                                           ,[enable]
+                                                           ,[tipo])
+                                                     VALUES
+                                                           (15
+                                                           ,0
+                                                           ,GETDATE()
+                                                           ,NULL
+                                                           ,0
+                                                           ,1
+                                                           ,2)";
+                    SqlConnection conn2 = new SqlConnection(dp.ConnectionStringAPMS);
+                    conn2.Open();
+                    SqlCommand cmd2 = new SqlCommand(sql2, conn2);
+                    cmd2.ExecuteScalar();
+                    conn2.Close();
+                }
+            }
+            else
+            {
+                //Cerrar el row de molienda si hay uno abierto
+                string sql2 = @"sp_set_cerrar_row_horas_molinos_martillos";
+                SqlConnection conn2 = new SqlConnection(dp.ConnectionStringAPMS);
+                conn2.Open();
+                SqlCommand cmd2 = new SqlCommand(sql2, conn2);
+                cmd2.CommandType = CommandType.StoredProcedure;
+                cmd2.Parameters.AddWithValue("@idmaquina", 15);
+                cmd2.Parameters.AddWithValue("@tipo", 2);
                 cmd2.ExecuteScalar();
                 conn2.Close();
             }
@@ -3509,7 +3663,6 @@ namespace PLC_Var_Management_App
             {
                 //Ver si hay un row open
                 bool rowopenEncendido = false;
-                bool rowOpenMolienda = false;
                 try
                 {
                     string sql = @"SELECT case when count(*)>0 then 1
@@ -3522,11 +3675,6 @@ namespace PLC_Var_Management_App
                     SqlConnection conn = new SqlConnection(dp.ConnectionStringAPMS);
                     conn.Open();
                     SqlCommand cmd = new SqlCommand(sql, conn);
-                    //cmd.CommandType = CommandType.StoredProcedure;
-                    //cmd.Parameters.AddWithValue("@pid_bin", binID);
-                    //cmd.Parameters.AddWithValue("@pintake_plan", pBatckPlan);
-                    //cmd.Parameters.AddWithValue("@pintake_real", batch_kg);
-                    //cmd.Parameters.AddWithValue("@return_value", 1);
                     rowopenEncendido = Convert.ToBoolean(cmd.ExecuteScalar());
                     conn.Close();
                 }
@@ -3546,82 +3694,6 @@ namespace PLC_Var_Management_App
                     cmdx.Parameters.AddWithValue("@idtipoh", 1);
                     cmdx.ExecuteScalar();
                     connx.Close();
-
-                    bool bitMoliendaPulv1 = false;
-                    try
-                    {
-                        bitMoliendaPulv1 = Convert.ToBoolean(plc319.Read("DB713.DBX10.1"));
-                    }
-                    catch { }
-
-                    if (bitMoliendaPulv1)//Encendido de molino
-                    {
-                        //Consultar molienda
-                        string sql = @"SELECT case when count(*)>0 then 1
-		                                else 
-			                                0
-		                                end 
-                                  FROM [APMS].[dbo].[EQ_Maquinas_Molinos_Horas]
-                                  where enable = 1 and 
-		                                complete = 0 and tipo = 2 and id_maquina = 26";
-                        SqlConnection conn = new SqlConnection(dp.ConnectionStringAPMS);
-                        conn.Open();
-                        SqlCommand cmd = new SqlCommand(sql, conn);
-                        rowOpenMolienda = Convert.ToBoolean(cmd.ExecuteScalar());
-                        conn.Close();
-
-                        if (rowOpenMolienda)
-                        {
-                            //Acumular horas molienda
-                            string sql2 = @"sp_set_acumular_horas_molinos_martillos";
-                            SqlConnection conn2 = new SqlConnection(dp.ConnectionStringAPMS);
-                            conn2.Open();
-                            SqlCommand cmd2 = new SqlCommand(sql2, conn2);
-                            cmd2.CommandType = CommandType.StoredProcedure;
-                            cmd2.Parameters.AddWithValue("@idmolino", 26);
-                            cmd2.Parameters.AddWithValue("@idtipoh", 2);
-                            cmd2.ExecuteScalar();
-                            conn2.Close();
-                        }
-                        else
-                        {
-                            //Nuevo Registro de molienda
-                            string sql2 = @"INSERT INTO [dbo].[EQ_Maquinas_Molinos_Horas]
-                                                           ([id_maquina]
-                                                           ,[complete]
-                                                           ,[inicio]
-                                                           ,[fin]
-                                                           ,[horas]
-                                                           ,[enable]
-                                                           ,[tipo])
-                                                     VALUES
-                                                           (26
-                                                           ,0
-                                                           ,GETDATE()
-                                                           ,NULL
-                                                           ,0
-                                                           ,1
-                                                           ,2)";
-                            SqlConnection conn2 = new SqlConnection(dp.ConnectionStringAPMS);
-                            conn2.Open();
-                            SqlCommand cmd2 = new SqlCommand(sql2, conn2);
-                            cmd2.ExecuteScalar();
-                            conn2.Close();
-                        }
-                    }
-                    else
-                    {
-                        //Cerrar el row de molienda si hay uno abierto
-                        string sql2 = @"sp_set_cerrar_row_horas_molinos_martillos";
-                        SqlConnection conn2 = new SqlConnection(dp.ConnectionStringAPMS);
-                        conn2.Open();
-                        SqlCommand cmd2 = new SqlCommand(sql2, conn2);
-                        cmd2.CommandType = CommandType.StoredProcedure;
-                        cmd2.Parameters.AddWithValue("@idmaquina", 26);
-                        cmd2.Parameters.AddWithValue("@tipo", 2);
-                        cmd2.ExecuteScalar();
-                        conn2.Close();
-                    }
                 }
                 else//sino hay row open
                 {
@@ -3649,18 +3721,6 @@ namespace PLC_Var_Management_App
                     cmd2.ExecuteScalar();
                     conn2.Close();
                 }
-
-
-                //double batch_kg = ((uint)plc319.Read(dbLecina_real)).ConvertToFloat();
-
-                //double batch_plankg = ((uint)plc319.Read(dbLecina_plan)).ConvertToFloat();
-                //short binID = ((ushort)plc319.Read(dbLecina_binid)).ConvertToShort();
-                //if (batch_kg > 0)
-                //{
-                //    GuardarBatchBin(batch_kg, binID, batch_plankg);
-                //}
-                ////Hacemos el reset del bit de guardado
-                //plc319.Write(dbLecina_done, 0);
             }
             else
             {
@@ -3672,6 +3732,85 @@ namespace PLC_Var_Management_App
                 cmd2.CommandType = CommandType.StoredProcedure;
                 cmd2.Parameters.AddWithValue("@idmaquina", 26);
                 cmd2.Parameters.AddWithValue("@tipo", 1);
+                cmd2.ExecuteScalar();
+                conn2.Close();
+            }
+
+
+            // ********** Molienda Pulv1 **********//
+            bool bitMoliendaPulv1 = false;
+            try
+            {
+                bitMoliendaPulv1 = Convert.ToBoolean(plc319.Read("DB713.DBX10.1"));
+            }
+            catch { }
+
+            if (bitMoliendaPulv1)//Encendido de molino
+            {
+                bool rowOpenMolienda = false;
+                //Consultar molienda
+                string sql = @"SELECT case when count(*)>0 then 1
+		                                else 
+			                                0
+		                                end 
+                                  FROM [APMS].[dbo].[EQ_Maquinas_Molinos_Horas]
+                                  where enable = 1 and 
+		                                complete = 0 and tipo = 2 and id_maquina = 26";
+                SqlConnection conn = new SqlConnection(dp.ConnectionStringAPMS);
+                conn.Open();
+                SqlCommand cmd = new SqlCommand(sql, conn);
+                rowOpenMolienda = Convert.ToBoolean(cmd.ExecuteScalar());
+                conn.Close();
+
+                if (rowOpenMolienda)
+                {
+                    //Acumular horas molienda
+                    string sql2 = @"sp_set_acumular_horas_molinos_martillos";
+                    SqlConnection conn2 = new SqlConnection(dp.ConnectionStringAPMS);
+                    conn2.Open();
+                    SqlCommand cmd2 = new SqlCommand(sql2, conn2);
+                    cmd2.CommandType = CommandType.StoredProcedure;
+                    cmd2.Parameters.AddWithValue("@idmolino", 26);
+                    cmd2.Parameters.AddWithValue("@idtipoh", 2);
+                    cmd2.ExecuteScalar();
+                    conn2.Close();
+                }
+                else
+                {
+                    //Nuevo Registro de molienda
+                    string sql2 = @"INSERT INTO [dbo].[EQ_Maquinas_Molinos_Horas]
+                                                           ([id_maquina]
+                                                           ,[complete]
+                                                           ,[inicio]
+                                                           ,[fin]
+                                                           ,[horas]
+                                                           ,[enable]
+                                                           ,[tipo])
+                                                     VALUES
+                                                           (26
+                                                           ,0
+                                                           ,GETDATE()
+                                                           ,NULL
+                                                           ,0
+                                                           ,1
+                                                           ,2)";
+                    SqlConnection conn2 = new SqlConnection(dp.ConnectionStringAPMS);
+                    conn2.Open();
+                    SqlCommand cmd2 = new SqlCommand(sql2, conn2);
+                    cmd2.ExecuteScalar();
+                    conn2.Close();
+                }
+            }
+            else
+            {
+                //Cerrar el row de molienda si hay uno abierto
+                string sql2 = @"sp_set_cerrar_row_horas_molinos_martillos";
+                SqlConnection conn2 = new SqlConnection(dp.ConnectionStringAPMS);
+                conn2.Open();
+                SqlCommand cmd2 = new SqlCommand(sql2, conn2);
+                cmd2.CommandType = CommandType.StoredProcedure;
+                cmd2.Parameters.AddWithValue("@idmaquina", 26);
+                cmd2.Parameters.AddWithValue("@tipo", 2);
                 cmd2.ExecuteScalar();
                 conn2.Close();
             }
@@ -3692,7 +3831,6 @@ namespace PLC_Var_Management_App
             {
                 //Ver si hay un row open
                 bool rowopenEncendido = false;
-                bool rowOpenMolienda = false;
                 try
                 {
                     string sql = @"SELECT case when count(*)>0 then 1
@@ -3705,11 +3843,6 @@ namespace PLC_Var_Management_App
                     SqlConnection conn = new SqlConnection(dp.ConnectionStringAPMS);
                     conn.Open();
                     SqlCommand cmd = new SqlCommand(sql, conn);
-                    //cmd.CommandType = CommandType.StoredProcedure;
-                    //cmd.Parameters.AddWithValue("@pid_bin", binID);
-                    //cmd.Parameters.AddWithValue("@pintake_plan", pBatckPlan);
-                    //cmd.Parameters.AddWithValue("@pintake_real", batch_kg);
-                    //cmd.Parameters.AddWithValue("@return_value", 1);
                     rowopenEncendido = Convert.ToBoolean(cmd.ExecuteScalar());
                     conn.Close();
                 }
@@ -3729,82 +3862,6 @@ namespace PLC_Var_Management_App
                     cmdx.Parameters.AddWithValue("@idtipoh", 1);
                     cmdx.ExecuteScalar();
                     connx.Close();
-
-                    bool bitMoliendaPulv2 = false;
-                    try
-                    {
-                        bitMoliendaPulv2 = Convert.ToBoolean(plc319.Read("DB713.DBX12.1"));
-                    }
-                    catch { }
-
-                    if (bitMoliendaPulv2)//Encendido de molino
-                    {
-                        //Consultar molienda
-                        string sql = @"SELECT case when count(*)>0 then 1
-		                                else 
-			                                0
-		                                end 
-                                  FROM [APMS].[dbo].[EQ_Maquinas_Molinos_Horas]
-                                  where enable = 1 and 
-		                                complete = 0 and tipo = 2 and id_maquina = 10";
-                        SqlConnection conn = new SqlConnection(dp.ConnectionStringAPMS);
-                        conn.Open();
-                        SqlCommand cmd = new SqlCommand(sql, conn);
-                        rowOpenMolienda = Convert.ToBoolean(cmd.ExecuteScalar());
-                        conn.Close();
-
-                        if (rowOpenMolienda)
-                        {
-                            //Acumular horas molienda
-                            string sql2 = @"sp_set_acumular_horas_molinos_martillos";
-                            SqlConnection conn2 = new SqlConnection(dp.ConnectionStringAPMS);
-                            conn2.Open();
-                            SqlCommand cmd2 = new SqlCommand(sql2, conn2);
-                            cmd2.CommandType = CommandType.StoredProcedure;
-                            cmd2.Parameters.AddWithValue("@idmolino", 10);
-                            cmd2.Parameters.AddWithValue("@idtipoh", 2);
-                            cmd2.ExecuteScalar();
-                            conn2.Close();
-                        }
-                        else
-                        {
-                            //Nuevo Registro de molienda
-                            string sql2 = @"INSERT INTO [dbo].[EQ_Maquinas_Molinos_Horas]
-                                                           ([id_maquina]
-                                                           ,[complete]
-                                                           ,[inicio]
-                                                           ,[fin]
-                                                           ,[horas]
-                                                           ,[enable]
-                                                           ,[tipo])
-                                                     VALUES
-                                                           (10
-                                                           ,0
-                                                           ,GETDATE()
-                                                           ,NULL
-                                                           ,0
-                                                           ,1
-                                                           ,2)";
-                            SqlConnection conn2 = new SqlConnection(dp.ConnectionStringAPMS);
-                            conn2.Open();
-                            SqlCommand cmd2 = new SqlCommand(sql2, conn2);
-                            cmd2.ExecuteScalar();
-                            conn2.Close();
-                        }
-                    }
-                    else
-                    {
-                        //Cerrar el row de molienda si hay uno abierto
-                        string sql2 = @"sp_set_cerrar_row_horas_molinos_martillos";
-                        SqlConnection conn2 = new SqlConnection(dp.ConnectionStringAPMS);
-                        conn2.Open();
-                        SqlCommand cmd2 = new SqlCommand(sql2, conn2);
-                        cmd2.CommandType = CommandType.StoredProcedure;
-                        cmd2.Parameters.AddWithValue("@idmaquina", 10);
-                        cmd2.Parameters.AddWithValue("@tipo", 2);
-                        cmd2.ExecuteScalar();
-                        conn2.Close();
-                    }
                 }
                 else//sino hay row open
                 {
@@ -3832,18 +3889,6 @@ namespace PLC_Var_Management_App
                     cmd2.ExecuteScalar();
                     conn2.Close();
                 }
-
-
-                //double batch_kg = ((uint)plc319.Read(dbLecina_real)).ConvertToFloat();
-
-                //double batch_plankg = ((uint)plc319.Read(dbLecina_plan)).ConvertToFloat();
-                //short binID = ((ushort)plc319.Read(dbLecina_binid)).ConvertToShort();
-                //if (batch_kg > 0)
-                //{
-                //    GuardarBatchBin(batch_kg, binID, batch_plankg);
-                //}
-                ////Hacemos el reset del bit de guardado
-                //plc319.Write(dbLecina_done, 0);
             }
             else
             {
@@ -3855,6 +3900,85 @@ namespace PLC_Var_Management_App
                 cmd2.CommandType = CommandType.StoredProcedure;
                 cmd2.Parameters.AddWithValue("@idmaquina", 10);
                 cmd2.Parameters.AddWithValue("@tipo", 1);
+                cmd2.ExecuteScalar();
+                conn2.Close();
+            }
+
+
+            // *********** Molienda Pulv2 ***********//
+            bool bitMoliendaPulv2 = false;
+            try
+            {
+                bitMoliendaPulv2 = Convert.ToBoolean(plc319.Read("DB713.DBX12.1"));
+            }
+            catch { }
+
+            if (bitMoliendaPulv2)//Encendido de molino
+            {
+                bool rowOpenMolienda = false;
+                //Consultar molienda
+                string sql = @"SELECT case when count(*)>0 then 1
+		                                else 
+			                                0
+		                                end 
+                                  FROM [APMS].[dbo].[EQ_Maquinas_Molinos_Horas]
+                                  where enable = 1 and 
+		                                complete = 0 and tipo = 2 and id_maquina = 10";
+                SqlConnection conn = new SqlConnection(dp.ConnectionStringAPMS);
+                conn.Open();
+                SqlCommand cmd = new SqlCommand(sql, conn);
+                rowOpenMolienda = Convert.ToBoolean(cmd.ExecuteScalar());
+                conn.Close();
+
+                if (rowOpenMolienda)
+                {
+                    //Acumular horas molienda
+                    string sql2 = @"sp_set_acumular_horas_molinos_martillos";
+                    SqlConnection conn2 = new SqlConnection(dp.ConnectionStringAPMS);
+                    conn2.Open();
+                    SqlCommand cmd2 = new SqlCommand(sql2, conn2);
+                    cmd2.CommandType = CommandType.StoredProcedure;
+                    cmd2.Parameters.AddWithValue("@idmolino", 10);
+                    cmd2.Parameters.AddWithValue("@idtipoh", 2);
+                    cmd2.ExecuteScalar();
+                    conn2.Close();
+                }
+                else
+                {
+                    //Nuevo Registro de molienda
+                    string sql2 = @"INSERT INTO [dbo].[EQ_Maquinas_Molinos_Horas]
+                                                           ([id_maquina]
+                                                           ,[complete]
+                                                           ,[inicio]
+                                                           ,[fin]
+                                                           ,[horas]
+                                                           ,[enable]
+                                                           ,[tipo])
+                                                     VALUES
+                                                           (10
+                                                           ,0
+                                                           ,GETDATE()
+                                                           ,NULL
+                                                           ,0
+                                                           ,1
+                                                           ,2)";
+                    SqlConnection conn2 = new SqlConnection(dp.ConnectionStringAPMS);
+                    conn2.Open();
+                    SqlCommand cmd2 = new SqlCommand(sql2, conn2);
+                    cmd2.ExecuteScalar();
+                    conn2.Close();
+                }
+            }
+            else
+            {
+                //Cerrar el row de molienda si hay uno abierto
+                string sql2 = @"sp_set_cerrar_row_horas_molinos_martillos";
+                SqlConnection conn2 = new SqlConnection(dp.ConnectionStringAPMS);
+                conn2.Open();
+                SqlCommand cmd2 = new SqlCommand(sql2, conn2);
+                cmd2.CommandType = CommandType.StoredProcedure;
+                cmd2.Parameters.AddWithValue("@idmaquina", 10);
+                cmd2.Parameters.AddWithValue("@tipo", 2);
                 cmd2.ExecuteScalar();
                 conn2.Close();
             }
