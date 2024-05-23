@@ -212,6 +212,13 @@ namespace PLC_Var_Management_App.Classes
 
         #region APMS Related Methods
 
+        public ErrorMsjCatch ErrorActual;
+
+        public DataOperations()
+        {
+            ErrorActual = new ErrorMsjCatch();
+        }
+
         public DataSet APMS_GetSelectData(string FixedQuery)
         {
             DataSet data = new DataSet();
@@ -270,7 +277,11 @@ namespace PLC_Var_Management_App.Classes
             }
             catch (Exception ex)
             {
-                throw new Exception(ex.Message);
+                //throw new Exception(ex.Message);
+                this.ErrorActual.Fecha = DateTime.Now;
+                this.ErrorActual.IsEmpty = false;
+                this.ErrorActual.Mensaje = ex.Message;
+                this.ErrorActual.Tipo = "Ejecucion de SP: " + Procedure_Name + " Class: DataOperations, Function: APMS_Exec_SP";
             }
         }
 
@@ -310,13 +321,23 @@ namespace PLC_Var_Management_App.Classes
 
         public void APMS_DoSmallDBOperation(string Command)
         {
-            SqlConnection conn = new SqlConnection(ConnectionStringAPMS);
-            conn.Open();
+            try
+            {
+                SqlConnection conn = new SqlConnection(ConnectionStringAPMS);
+                conn.Open();
 
-            SqlCommand cmd = new SqlCommand(Command, conn);
-            cmd.ExecuteNonQuery();
+                SqlCommand cmd = new SqlCommand(Command, conn);
+                cmd.ExecuteNonQuery();
 
-            conn.Close();
+                conn.Close();
+            }
+            catch(Exception ex)
+            {
+                this.ErrorActual.Fecha = DateTime.Now;
+                this.ErrorActual.IsEmpty = false;
+                this.ErrorActual.Mensaje = ex.Message;
+                this.ErrorActual.Tipo = "Ejecucion de Query Libre. Class: DataOperations, Function: APMS_DoSmallDBOperation";
+            }
         }
 
         public void APMS_NewLogEntry(string user, string location, string action)
@@ -337,14 +358,25 @@ namespace PLC_Var_Management_App.Classes
         public DateTime NowDateTime()
         {
             DateTime d = DateTime.Now;
-            string Command = @"select GETDATE();";
+            try
+            {
+                string Command = @"select GETDATE();";
 
-            SqlConnection conn = new SqlConnection(ConnectionStringCostos);
-            conn.Open();
-            SqlCommand cmd = new SqlCommand(Command, conn);
-            d = Convert.ToDateTime(cmd.ExecuteScalar());
+                SqlConnection conn = new SqlConnection(ConnectionStringCostos);
+                conn.Open();
+                SqlCommand cmd = new SqlCommand(Command, conn);
+                d = Convert.ToDateTime(cmd.ExecuteScalar());
 
-            conn.Close();
+                conn.Close();
+            }
+            catch(Exception ex)
+            {
+                d = DateTime.Now;
+                this.ErrorActual.Fecha = DateTime.Now;
+                this.ErrorActual.IsEmpty = false;
+                this.ErrorActual.Mensaje = ex.Message;
+                this.ErrorActual.Tipo = "Ejecucion de GETDATE(). Class: DataOperations, Function: NowDateTime";
+            }
             return d;
         }
 

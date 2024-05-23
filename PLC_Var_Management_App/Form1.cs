@@ -9,6 +9,7 @@ using System.Windows.Forms;
 using S7.Net;
 using PLC_Var_Management_App.Classes;
 using System.Data.SqlClient;
+using PLC_Var_Management_App.DataSets;
 
 namespace PLC_Var_Management_App
 {
@@ -18,6 +19,8 @@ namespace PLC_Var_Management_App
 
         DataOperations dp = new DataOperations();
         DateTime log_date;
+
+        public ErrorMsjCatch ErrorActual;
 
         #region PLC319
 
@@ -432,9 +435,35 @@ namespace PLC_Var_Management_App
             }
             catch (Exception ex)
             {
-                throw new Exception(ex.Message);
-                //MessageBox.Show("Detalle del Error: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                if (dp.ErrorActual.IsEmpty)
+                {
+                    //throw new Exception(ex.Message);
+                    //MessageBox.Show("Detalle del Error: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    this.ErrorActual.Fecha = DateTime.Now;
+                    this.ErrorActual.IsEmpty = false;
+                    this.ErrorActual.Mensaje = ex.Message;
+                    this.ErrorActual.Tipo = "Ejecucion de SP: SYS_Var_Write_Log_Entry." + " Class: DataOperations, Function: APMS_Exec_SP";
+                    WriteErrorInGrid();
+                }
+                else
+                {
+                    this.ErrorActual = dp.ErrorActual;
+                    dp.ErrorActual = new ErrorMsjCatch();
+                    WriteErrorInGrid();
+                }
             }
+        }
+
+        void WriteErrorInGrid()
+        {
+            dsErroresCatch.errores_listRow row1 = dsErroresCatch1.errores_list.Newerrores_listRow();
+            row1.Fecha = this.ErrorActual.Fecha;
+            row1.Tipo = this.ErrorActual.Tipo;
+            row1.Mensaje = this.ErrorActual.Mensaje;
+
+            dsErroresCatch1.errores_list.Adderrores_listRow(row1);
+            dsErroresCatch1.AcceptChanges();
+            this.ErrorActual = new ErrorMsjCatch();
         }
 
         #endregion
@@ -444,6 +473,7 @@ namespace PLC_Var_Management_App
         public Form1()
         {
             InitializeComponent();
+            ErrorActual = new ErrorMsjCatch();
         }
 
         #endregion
@@ -608,6 +638,12 @@ namespace PLC_Var_Management_App
             catch (Exception ex)
             {
                 //MessageBox.Show("Detalle del Error: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+                this.ErrorActual.Fecha = DateTime.Now;
+                this.ErrorActual.IsEmpty = false;
+                this.ErrorActual.Mensaje = ex.Message;
+                this.ErrorActual.Tipo = "plc319.Write(DB438.DBW112.0, 1) "+ "Class: Formulario Principal, Function: btn_Test1_ItemClick";
+                WriteErrorInGrid();
             }
         }
 
@@ -1040,24 +1076,24 @@ namespace PLC_Var_Management_App
 
                                if (teoric > 0)
                                {
-                                   //db284.dbd106
-                                   double TotalBatch = ((uint)plc319.Read("db284.dbd106")).ConvertToFloat();
-                                   //string s = plc317.Read("db284.dbd106").ToString();
-                                   //int linea = Convert.ToInt32(plc317.Read("db284.dbw108"));
-                                   int linea = Convert.ToInt32(plc319.Read("db284.dbw108"));
-                                   if (linea == 4)
-                                       linea = 3;
+                                   ////db284.dbd106
+                                   //double TotalBatch = ((uint)plc319.Read("db284.dbd106")).ConvertToFloat();
+                                   ////string s = plc317.Read("db284.dbd106").ToString();
+                                   ////int linea = Convert.ToInt32(plc317.Read("db284.dbw108"));
+                                   //int linea = Convert.ToInt32(plc319.Read("db284.dbw108"));
+                                   //if (linea == 4)
+                                   //    linea = 3;
 
-                                   int linea_id = linea;
+                                   //int linea_id = linea;
                                    
-                                   string sql1 = string.Format(@"INSERT INTO [dbo].[op_apply_oil_counter]
-                                                                            ([id_line]
-                                                                            ,[id_mix_op]
-                                                                            ,[cant])
-                                                                        VALUES
-                                                                            ({0},{1},{2})", linea_id, Batch_IdMix, teoric);
-                                   SqlCommand cmd1 = new SqlCommand(sql1, conn);
-                                   cmd1.ExecuteNonQuery();
+                                   //string sql1 = string.Format(@"INSERT INTO [dbo].[op_apply_oil_counter]
+                                   //                                         ([id_line]
+                                   //                                         ,[id_mix_op]
+                                   //                                         ,[cant])
+                                   //                                     VALUES
+                                   //                                         ({0},{1},{2})", linea_id, Batch_IdMix, teoric);
+                                   //SqlCommand cmd1 = new SqlCommand(sql1, conn);
+                                   //cmd1.ExecuteNonQuery();
                                    
                                }
                                 conn.Close();
@@ -1076,14 +1112,14 @@ namespace PLC_Var_Management_App
                        
                             string sql = @"SELECT (SELECT case when ff.especie = 2 then 1
                                                                when ff.especie = 1 then 0 end 
-	                                               FROM [AQFSVR003].[ACS].[dbo].[PP_Plan_Ordenes] po join 
-		                                                [AQFSVR003].[ACS].[dbo].[FML_Formulas_v2] ff on 
+	                                               FROM [AQFSVR010].[ACS].[dbo].[PP_Plan_Ordenes] po join 
+		                                                [AQFSVR010].[ACS].[dbo].[FML_Formulas_v2] ff on 
 		                                                po.id_formula = ff.id
 	                                               where po.id = mm.acs_id)as especie
                                            FROM [APMS].[dbo].[OP_Production_Orders_Main_Mix] mix join
                                                 [APMS].[dbo].[OP_Production_Orders_Main] mm on
 	                                            mix.order_id = mm.id
-                                           where mix.id = " + Batch_IdMix +
+                                           where mix.id = " + Batch_IdMix + //128090
                                          " order by mix.id desc ";
                             SqlConnection conn = new SqlConnection(dp.ConnectionStringAPMS);
                             conn.Open();
@@ -1402,9 +1438,14 @@ namespace PLC_Var_Management_App
 
                 
             }
-            catch (Exception ec)
+            catch (Exception ex)
             {
                 //MessageBox.Show(ec.Message + err, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                this.ErrorActual.Fecha = DateTime.Now;
+                this.ErrorActual.IsEmpty = false;
+                this.ErrorActual.Mensaje = ex.Message;
+                this.ErrorActual.Tipo = "Operaciones combinadas de PLC y SQL Server, Function: conteoBatch_Tick";
+                WriteErrorInGrid();
             }
         }
 
@@ -1428,9 +1469,14 @@ namespace PLC_Var_Management_App
                     cmd.ExecuteNonQuery();
                     conn.Close();
                 }
-                catch (Exception ec)
+                catch (Exception ex)
                 {
-
+                    //MessageBox.Show(ec.Message + err, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    this.ErrorActual.Fecha = DateTime.Now;
+                    this.ErrorActual.IsEmpty = false;
+                    this.ErrorActual.Mensaje = ex.Message;
+                    this.ErrorActual.Tipo = "Operacion SQL Server, Function: GuardarTotalLinea";
+                    WriteErrorInGrid();
                 }
             }
         }
@@ -1449,9 +1495,14 @@ namespace PLC_Var_Management_App
                 r = Convert.ToBoolean(cmd.ExecuteScalar());
                 conn.Close();
             }
-            catch (Exception ec)
+            catch (Exception ex)
             {
-                Console.WriteLine(ec.Message);
+                //Console.WriteLine(ec.Message);
+                this.ErrorActual.Fecha = DateTime.Now;
+                this.ErrorActual.IsEmpty = false;
+                this.ErrorActual.Mensaje = ex.Message;
+                this.ErrorActual.Tipo = "Operacion SQL Server, Function: GetOrdenInPostPellet";
+                WriteErrorInGrid();
             }
             return r;
         }
@@ -1471,9 +1522,14 @@ namespace PLC_Var_Management_App
                 r = Convert.ToInt32(cmd.ExecuteScalar());
                 conn.Close();
             }
-            catch (Exception ec)
+            catch (Exception ex)
             {
-                Console.WriteLine(ec.Message);
+                //Console.WriteLine(ec.Message);
+                this.ErrorActual.Fecha = DateTime.Now;
+                this.ErrorActual.IsEmpty = false;
+                this.ErrorActual.Mensaje = ex.Message;
+                this.ErrorActual.Tipo = "Operacion SQL Server, Function: GetOrdenInPostPelletID";
+                WriteErrorInGrid();
             }
             return r;
         }
@@ -1544,9 +1600,13 @@ namespace PLC_Var_Management_App
                 cmd.ExecuteNonQuery();
                 conn.Close();
             }
-            catch (Exception ec)
+            catch (Exception ex)
             {
-                //MessageBox.Show(ec.Message+ " Error en insert batch", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                this.ErrorActual.Fecha = DateTime.Now;
+                this.ErrorActual.IsEmpty = false;
+                this.ErrorActual.Mensaje = ex.Message;
+                this.ErrorActual.Tipo = "Operacion SQL Server, Function: InsertBatch";
+                WriteErrorInGrid();
             }
         }
 
@@ -1585,9 +1645,13 @@ namespace PLC_Var_Management_App
                 dr.Close();
                 conn.Close();
             }
-            catch (Exception ec)
+            catch (Exception ex)
             {
-                //MessageBox.Show(ec.Message + " Error en get Orden Activa", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                this.ErrorActual.Fecha = DateTime.Now;
+                this.ErrorActual.IsEmpty = false;
+                this.ErrorActual.Mensaje = ex.Message;
+                this.ErrorActual.Tipo = "Operacion SQL Server, Function: InsertBatch";
+                WriteErrorInGrid();
             }
             return rec;
         }
@@ -1624,9 +1688,13 @@ namespace PLC_Var_Management_App
                 dr.Close();
                 conn.Close();
             }
-            catch (Exception ec)
+            catch (Exception ex)
             {
-                //MessageBox.Show(ec.Message+" Error en get Orden Activa", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                this.ErrorActual.Fecha = DateTime.Now;
+                this.ErrorActual.IsEmpty = false;
+                this.ErrorActual.Mensaje = ex.Message;
+                this.ErrorActual.Tipo = "Operacion SQL Server, Function: GetOrdenActiva";
+                WriteErrorInGrid();
             }
             return rec;
         }
@@ -1649,6 +1717,11 @@ namespace PLC_Var_Management_App
             catch (Exception ec)
             {
                 string a = ec.Message;
+                this.ErrorActual.Fecha = DateTime.Now;
+                this.ErrorActual.IsEmpty = false;
+                this.ErrorActual.Mensaje = ec.Message;
+                this.ErrorActual.Tipo = "Operacion SQL Server, Function: LecturaAnterior";
+                WriteErrorInGrid();
             }
             return val;
         }
@@ -1675,7 +1748,11 @@ namespace PLC_Var_Management_App
             }
             catch (Exception ec)
             {
-                
+                this.ErrorActual.Fecha = DateTime.Now;
+                this.ErrorActual.IsEmpty = false;
+                this.ErrorActual.Mensaje = ec.Message;
+                this.ErrorActual.Tipo = "Operacion SQL Server, Function: UpdateLecturaActual";
+                WriteErrorInGrid();
             }
             return a;
         }
@@ -1908,7 +1985,11 @@ namespace PLC_Var_Management_App
             }
             catch (Exception ec)
             {
-                
+                this.ErrorActual.Fecha = DateTime.Now;
+                this.ErrorActual.IsEmpty = false;
+                this.ErrorActual.Mensaje = ec.Message;
+                this.ErrorActual.Tipo = "Operacion SQL Server, Function: AcumularHoras";
+                WriteErrorInGrid();
             }
             return a;
         }
@@ -1929,7 +2010,11 @@ namespace PLC_Var_Management_App
             }
             catch (Exception ec)
             {
-                
+                this.ErrorActual.Fecha = DateTime.Now;
+                this.ErrorActual.IsEmpty = false;
+                this.ErrorActual.Mensaje = ec.Message;
+                this.ErrorActual.Tipo = "Operacion SQL Server, Function: PeriodoAbierto";
+                WriteErrorInGrid();
             }
             return a;
         }
@@ -1956,6 +2041,11 @@ namespace PLC_Var_Management_App
                 {
                     string mesj = ex.Message;
                     Console.WriteLine(mesj);
+                    this.ErrorActual.Fecha = DateTime.Now;
+                    this.ErrorActual.IsEmpty = false;
+                    this.ErrorActual.Mensaje = ex.Message;
+                    this.ErrorActual.Tipo = "Operacion SQL Server, Function: timerHorasmaquina_Tick";
+                    WriteErrorInGrid();
                 }
                 
             }
@@ -1973,8 +2063,13 @@ namespace PLC_Var_Management_App
                     double HorasActual_Extruder1 = ((uint)plc317.Read("DB2.DBD1808")).ConvertToFloat();
                     UpdateLecturaActual(3, HorasActual_Extruder1);
                 }
-                catch
+                catch(Exception ec)
                 {
+                    this.ErrorActual.Fecha = DateTime.Now;
+                    this.ErrorActual.IsEmpty = false;
+                    this.ErrorActual.Mensaje = ec.Message;
+                    this.ErrorActual.Tipo = "Operacion SQL Server, Function: PeriodoAbierto";
+                    WriteErrorInGrid();
                 }
                 
             }
@@ -2613,7 +2708,11 @@ namespace PLC_Var_Management_App
             }
             catch (Exception ec)
             {
-
+                this.ErrorActual.Fecha = DateTime.Now;
+                this.ErrorActual.IsEmpty = false;
+                this.ErrorActual.Mensaje = ec.Message;
+                this.ErrorActual.Tipo = "Operacion SQL Server, Function: GuardarBatchBin";
+                WriteErrorInGrid();
                 return false;
             }
         }
@@ -2835,6 +2934,11 @@ namespace PLC_Var_Management_App
                 }
                 catch (Exception ec)
                 {
+                    this.ErrorActual.Fecha = DateTime.Now;
+                    this.ErrorActual.IsEmpty = false;
+                    this.ErrorActual.Mensaje = ec.Message;
+                    this.ErrorActual.Tipo = "Operacion SQL Server, Function: TimerHorasMolinos_Tick";
+                    WriteErrorInGrid();
                 }
 
                 if (rowopenEncendido)
@@ -4008,6 +4112,11 @@ namespace PLC_Var_Management_App
                 catch(Exception ec)
                 {
                     string ecx = ec.Message;
+                    this.ErrorActual.Fecha = DateTime.Now;
+                    this.ErrorActual.IsEmpty = false;
+                    this.ErrorActual.Mensaje = ec.Message;
+                    this.ErrorActual.Tipo = "Operacion SQL Server, Function: TimerHorasMolinos_Tick";
+                    WriteErrorInGrid();
                 }
 
             }

@@ -31,8 +31,6 @@
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.barManager1 = new DevExpress.XtraBars.BarManager(this.components);
-            this.bar3 = new DevExpress.XtraBars.Bar();
-            this.btn_hide_to_tray = new DevExpress.XtraBars.BarButtonItem();
             this.bar1 = new DevExpress.XtraBars.Bar();
             this.barStaticItem1 = new DevExpress.XtraBars.BarStaticItem();
             this.barHeaderItem1 = new DevExpress.XtraBars.BarHeaderItem();
@@ -40,10 +38,6 @@
             this.txt_ServiceStatus = new DevExpress.XtraBars.BarHeaderItem();
             this.btn_Start_Service = new DevExpress.XtraBars.BarButtonItem();
             this.btn_Stop_Service = new DevExpress.XtraBars.BarButtonItem();
-            this.bar2 = new DevExpress.XtraBars.Bar();
-            this.barHeaderItem4 = new DevExpress.XtraBars.BarHeaderItem();
-            this.barButtonItem2 = new DevExpress.XtraBars.BarButtonItem();
-            this.standaloneBarDockControl1 = new DevExpress.XtraBars.StandaloneBarDockControl();
             this.barDockControlTop = new DevExpress.XtraBars.BarDockControl();
             this.barDockControlBottom = new DevExpress.XtraBars.BarDockControl();
             this.barDockControlLeft = new DevExpress.XtraBars.BarDockControl();
@@ -52,8 +46,11 @@
             this.barStaticItem2 = new DevExpress.XtraBars.BarStaticItem();
             this.barStaticItem3 = new DevExpress.XtraBars.BarStaticItem();
             this.barButtonItem1 = new DevExpress.XtraBars.BarButtonItem();
+            this.barHeaderItem4 = new DevExpress.XtraBars.BarHeaderItem();
             this.btn_Test1 = new DevExpress.XtraBars.BarButtonItem();
             this.btn_Test2 = new DevExpress.XtraBars.BarButtonItem();
+            this.btn_hide_to_tray = new DevExpress.XtraBars.BarButtonItem();
+            this.barButtonItem2 = new DevExpress.XtraBars.BarButtonItem();
             this.groupControl1 = new DevExpress.XtraEditors.GroupControl();
             this.groupControl3 = new DevExpress.XtraEditors.GroupControl();
             this.panelControl2 = new DevExpress.XtraEditors.PanelControl();
@@ -96,7 +93,11 @@
             this.pictureEdit1 = new DevExpress.XtraEditors.PictureEdit();
             this.panelControl3 = new DevExpress.XtraEditors.PanelControl();
             this.grd_data = new DevExpress.XtraGrid.GridControl();
+            this.dsErroresCatch1 = new PLC_Var_Management_App.DataSets.dsErroresCatch();
             this.grdv_data = new DevExpress.XtraGrid.Views.Grid.GridView();
+            this.colFecha = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.colMensaje = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.colTipo = new DevExpress.XtraGrid.Columns.GridColumn();
             this.MainTimer = new System.Windows.Forms.Timer(this.components);
             this.AppNotify = new System.Windows.Forms.NotifyIcon(this.components);
             this.VarReaderMonitor = new System.Windows.Forms.Timer(this.components);
@@ -127,20 +128,18 @@
             ((System.ComponentModel.ISupportInitialize)(this.panelControl3)).BeginInit();
             this.panelControl3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.grd_data)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dsErroresCatch1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.grdv_data)).BeginInit();
             this.SuspendLayout();
             // 
             // barManager1
             // 
             this.barManager1.Bars.AddRange(new DevExpress.XtraBars.Bar[] {
-            this.bar3,
-            this.bar1,
-            this.bar2});
+            this.bar1});
             this.barManager1.DockControls.Add(this.barDockControlTop);
             this.barManager1.DockControls.Add(this.barDockControlBottom);
             this.barManager1.DockControls.Add(this.barDockControlLeft);
             this.barManager1.DockControls.Add(this.barDockControlRight);
-            this.barManager1.DockControls.Add(this.standaloneBarDockControl1);
             this.barManager1.Form = this;
             this.barManager1.Items.AddRange(new DevExpress.XtraBars.BarItem[] {
             this.Logoo,
@@ -159,30 +158,6 @@
             this.btn_hide_to_tray,
             this.barButtonItem2});
             this.barManager1.MaxItemId = 15;
-            this.barManager1.StatusBar = this.bar3;
-            // 
-            // bar3
-            // 
-            this.bar3.BarName = "Status bar";
-            this.bar3.CanDockStyle = DevExpress.XtraBars.BarCanDockStyle.Bottom;
-            this.bar3.DockCol = 0;
-            this.bar3.DockRow = 0;
-            this.bar3.DockStyle = DevExpress.XtraBars.BarDockStyle.Bottom;
-            this.bar3.LinksPersistInfo.AddRange(new DevExpress.XtraBars.LinkPersistInfo[] {
-            new DevExpress.XtraBars.LinkPersistInfo(this.btn_hide_to_tray)});
-            this.bar3.OptionsBar.AllowQuickCustomization = false;
-            this.bar3.OptionsBar.DrawDragBorder = false;
-            this.bar3.OptionsBar.UseWholeRow = true;
-            this.bar3.Text = "Status bar";
-            // 
-            // btn_hide_to_tray
-            // 
-            this.btn_hide_to_tray.Alignment = DevExpress.XtraBars.BarItemLinkAlignment.Right;
-            this.btn_hide_to_tray.Caption = "Hide to tray";
-            this.btn_hide_to_tray.Id = 13;
-            this.btn_hide_to_tray.ImageOptions.Image = ((System.Drawing.Image)(resources.GetObject("btn_hide_to_tray.ImageOptions.Image")));
-            this.btn_hide_to_tray.Name = "btn_hide_to_tray";
-            this.btn_hide_to_tray.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.btn_hide_to_tray_ItemClick);
             // 
             // bar1
             // 
@@ -245,44 +220,6 @@
             this.btn_Stop_Service.Name = "btn_Stop_Service";
             this.btn_Stop_Service.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.btn_Stop_Service_ItemClick);
             // 
-            // bar2
-            // 
-            this.bar2.BarName = "Custom 5";
-            this.bar2.DockCol = 0;
-            this.bar2.DockRow = 0;
-            this.bar2.DockStyle = DevExpress.XtraBars.BarDockStyle.Standalone;
-            this.bar2.FloatLocation = new System.Drawing.Point(338, 452);
-            this.bar2.LinksPersistInfo.AddRange(new DevExpress.XtraBars.LinkPersistInfo[] {
-            new DevExpress.XtraBars.LinkPersistInfo(this.barHeaderItem4),
-            new DevExpress.XtraBars.LinkPersistInfo(this.barButtonItem2)});
-            this.bar2.OptionsBar.AllowQuickCustomization = false;
-            this.bar2.OptionsBar.DrawDragBorder = false;
-            this.bar2.OptionsBar.UseWholeRow = true;
-            this.bar2.StandaloneBarDockControl = this.standaloneBarDockControl1;
-            this.bar2.Text = "Custom 5";
-            // 
-            // barHeaderItem4
-            // 
-            this.barHeaderItem4.Caption = "Service Activity";
-            this.barHeaderItem4.Id = 10;
-            this.barHeaderItem4.Name = "barHeaderItem4";
-            // 
-            // barButtonItem2
-            // 
-            this.barButtonItem2.Caption = "Forzar Valor";
-            this.barButtonItem2.Id = 14;
-            this.barButtonItem2.Name = "barButtonItem2";
-            // 
-            // standaloneBarDockControl1
-            // 
-            this.standaloneBarDockControl1.CausesValidation = false;
-            this.standaloneBarDockControl1.Dock = System.Windows.Forms.DockStyle.Top;
-            this.standaloneBarDockControl1.Location = new System.Drawing.Point(2, 1);
-            this.standaloneBarDockControl1.Manager = this.barManager1;
-            this.standaloneBarDockControl1.Name = "standaloneBarDockControl1";
-            this.standaloneBarDockControl1.Size = new System.Drawing.Size(864, 32);
-            this.standaloneBarDockControl1.Text = "standaloneBarDockControl1";
-            // 
             // barDockControlTop
             // 
             this.barDockControlTop.CausesValidation = false;
@@ -295,9 +232,9 @@
             // 
             this.barDockControlBottom.CausesValidation = false;
             this.barDockControlBottom.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.barDockControlBottom.Location = new System.Drawing.Point(0, 512);
+            this.barDockControlBottom.Location = new System.Drawing.Point(0, 611);
             this.barDockControlBottom.Manager = this.barManager1;
-            this.barDockControlBottom.Size = new System.Drawing.Size(868, 43);
+            this.barDockControlBottom.Size = new System.Drawing.Size(868, 0);
             // 
             // barDockControlLeft
             // 
@@ -305,7 +242,7 @@
             this.barDockControlLeft.Dock = System.Windows.Forms.DockStyle.Left;
             this.barDockControlLeft.Location = new System.Drawing.Point(0, 63);
             this.barDockControlLeft.Manager = this.barManager1;
-            this.barDockControlLeft.Size = new System.Drawing.Size(0, 449);
+            this.barDockControlLeft.Size = new System.Drawing.Size(0, 548);
             // 
             // barDockControlRight
             // 
@@ -313,7 +250,7 @@
             this.barDockControlRight.Dock = System.Windows.Forms.DockStyle.Right;
             this.barDockControlRight.Location = new System.Drawing.Point(868, 63);
             this.barDockControlRight.Manager = this.barManager1;
-            this.barDockControlRight.Size = new System.Drawing.Size(0, 449);
+            this.barDockControlRight.Size = new System.Drawing.Size(0, 548);
             // 
             // Logoo
             // 
@@ -339,6 +276,12 @@
             this.barButtonItem1.Id = 7;
             this.barButtonItem1.Name = "barButtonItem1";
             // 
+            // barHeaderItem4
+            // 
+            this.barHeaderItem4.Caption = "Service Activity";
+            this.barHeaderItem4.Id = 10;
+            this.barHeaderItem4.Name = "barHeaderItem4";
+            // 
             // btn_Test1
             // 
             this.btn_Test1.Caption = "Write 1";
@@ -353,6 +296,22 @@
             this.btn_Test2.Name = "btn_Test2";
             this.btn_Test2.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.btn_Test2_ItemClick);
             // 
+            // btn_hide_to_tray
+            // 
+            this.btn_hide_to_tray.Alignment = DevExpress.XtraBars.BarItemLinkAlignment.Right;
+            this.btn_hide_to_tray.Caption = "Hide to tray";
+            this.btn_hide_to_tray.Id = 13;
+            this.btn_hide_to_tray.ImageOptions.Image = ((System.Drawing.Image)(resources.GetObject("btn_hide_to_tray.ImageOptions.Image")));
+            this.btn_hide_to_tray.Name = "btn_hide_to_tray";
+            this.btn_hide_to_tray.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.btn_hide_to_tray_ItemClick);
+            // 
+            // barButtonItem2
+            // 
+            this.barButtonItem2.Caption = "Forzar Valor";
+            this.barButtonItem2.Id = 14;
+            this.barButtonItem2.Name = "barButtonItem2";
+            this.barButtonItem2.Visibility = DevExpress.XtraBars.BarItemVisibility.Never;
+            // 
             // groupControl1
             // 
             this.groupControl1.AppearanceCaption.Font = new System.Drawing.Font("Consolas", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -363,7 +322,7 @@
             this.groupControl1.Dock = System.Windows.Forms.DockStyle.Top;
             this.groupControl1.Location = new System.Drawing.Point(0, 63);
             this.groupControl1.Name = "groupControl1";
-            this.groupControl1.Size = new System.Drawing.Size(868, 560);
+            this.groupControl1.Size = new System.Drawing.Size(868, 364);
             this.groupControl1.TabIndex = 4;
             this.groupControl1.Text = "Current Devices - Information and Status";
             // 
@@ -373,7 +332,7 @@
             this.groupControl3.Location = new System.Drawing.Point(259, 22);
             this.groupControl3.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.groupControl3.Name = "groupControl3";
-            this.groupControl3.Size = new System.Drawing.Size(262, 536);
+            this.groupControl3.Size = new System.Drawing.Size(262, 340);
             this.groupControl3.TabIndex = 11;
             this.groupControl3.Text = "PLC319";
             // 
@@ -396,7 +355,7 @@
             this.panelControl2.Dock = System.Windows.Forms.DockStyle.Right;
             this.panelControl2.Location = new System.Drawing.Point(527, 22);
             this.panelControl2.Name = "panelControl2";
-            this.panelControl2.Size = new System.Drawing.Size(339, 536);
+            this.panelControl2.Size = new System.Drawing.Size(339, 340);
             this.panelControl2.TabIndex = 1;
             // 
             // groupControl2
@@ -410,7 +369,7 @@
             this.groupControl2.Location = new System.Drawing.Point(6, 201);
             this.groupControl2.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.groupControl2.Name = "groupControl2";
-            this.groupControl2.Size = new System.Drawing.Size(329, 331);
+            this.groupControl2.Size = new System.Drawing.Size(329, 135);
             this.groupControl2.TabIndex = 10;
             this.groupControl2.Text = "PLC319";
             // 
@@ -581,7 +540,7 @@
             this.panelControl1.Dock = System.Windows.Forms.DockStyle.Left;
             this.panelControl1.Location = new System.Drawing.Point(2, 22);
             this.panelControl1.Name = "panelControl1";
-            this.panelControl1.Size = new System.Drawing.Size(257, 536);
+            this.panelControl1.Size = new System.Drawing.Size(257, 340);
             this.panelControl1.TabIndex = 0;
             // 
             // tggLecitinaEncendido
@@ -831,32 +790,73 @@
             // panelControl3
             // 
             this.panelControl3.Controls.Add(this.grd_data);
-            this.panelControl3.Controls.Add(this.standaloneBarDockControl1);
             this.panelControl3.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panelControl3.Location = new System.Drawing.Point(0, 623);
+            this.panelControl3.Location = new System.Drawing.Point(0, 427);
             this.panelControl3.Name = "panelControl3";
-            this.panelControl3.Size = new System.Drawing.Size(868, 0);
+            this.panelControl3.Size = new System.Drawing.Size(868, 184);
             this.panelControl3.TabIndex = 9;
             // 
             // grd_data
             // 
+            this.grd_data.DataMember = "errores_list";
+            this.grd_data.DataSource = this.dsErroresCatch1;
             this.grd_data.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.grd_data.Location = new System.Drawing.Point(2, 33);
+            this.grd_data.Location = new System.Drawing.Point(2, 2);
             this.grd_data.MainView = this.grdv_data;
             this.grd_data.MenuManager = this.barManager1;
             this.grd_data.Name = "grd_data";
-            this.grd_data.Size = new System.Drawing.Size(864, 0);
+            this.grd_data.Size = new System.Drawing.Size(864, 180);
             this.grd_data.TabIndex = 1;
             this.grd_data.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.grdv_data});
             // 
+            // dsErroresCatch1
+            // 
+            this.dsErroresCatch1.DataSetName = "dsErroresCatch";
+            this.dsErroresCatch1.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
+            // 
             // grdv_data
             // 
+            this.grdv_data.Columns.AddRange(new DevExpress.XtraGrid.Columns.GridColumn[] {
+            this.colFecha,
+            this.colMensaje,
+            this.colTipo});
             this.grdv_data.GridControl = this.grd_data;
             this.grdv_data.LevelIndent = 0;
             this.grdv_data.Name = "grdv_data";
             this.grdv_data.OptionsView.ShowGroupPanel = false;
             this.grdv_data.PreviewIndent = 0;
+            this.grdv_data.SortInfo.AddRange(new DevExpress.XtraGrid.Columns.GridColumnSortInfo[] {
+            new DevExpress.XtraGrid.Columns.GridColumnSortInfo(this.colFecha, DevExpress.Data.ColumnSortOrder.Descending)});
+            // 
+            // colFecha
+            // 
+            this.colFecha.DisplayFormat.FormatString = "g";
+            this.colFecha.DisplayFormat.FormatType = DevExpress.Utils.FormatType.DateTime;
+            this.colFecha.FieldName = "Fecha";
+            this.colFecha.Name = "colFecha";
+            this.colFecha.OptionsColumn.ReadOnly = true;
+            this.colFecha.Visible = true;
+            this.colFecha.VisibleIndex = 0;
+            this.colFecha.Width = 162;
+            // 
+            // colMensaje
+            // 
+            this.colMensaje.FieldName = "Mensaje";
+            this.colMensaje.Name = "colMensaje";
+            this.colMensaje.OptionsColumn.ReadOnly = true;
+            this.colMensaje.Visible = true;
+            this.colMensaje.VisibleIndex = 1;
+            this.colMensaje.Width = 542;
+            // 
+            // colTipo
+            // 
+            this.colTipo.FieldName = "Tipo";
+            this.colTipo.Name = "colTipo";
+            this.colTipo.OptionsColumn.ReadOnly = true;
+            this.colTipo.Visible = true;
+            this.colTipo.VisibleIndex = 2;
+            this.colTipo.Width = 142;
             // 
             // MainTimer
             // 
@@ -906,7 +906,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(868, 555);
+            this.ClientSize = new System.Drawing.Size(868, 611);
             this.Controls.Add(this.panelControl3);
             this.Controls.Add(this.groupControl1);
             this.Controls.Add(this.barDockControlLeft);
@@ -944,6 +944,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.panelControl3)).EndInit();
             this.panelControl3.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.grd_data)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dsErroresCatch1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.grdv_data)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -953,7 +954,6 @@
         #endregion
 
         private DevExpress.XtraBars.BarManager barManager1;
-        private DevExpress.XtraBars.Bar bar3;
         private DevExpress.XtraBars.BarDockControl barDockControlTop;
         private DevExpress.XtraBars.BarDockControl barDockControlBottom;
         private DevExpress.XtraBars.BarDockControl barDockControlLeft;
@@ -993,9 +993,7 @@
         private DevExpress.XtraBars.BarHeaderItem barHeaderItem3;
         private DevExpress.XtraBars.BarHeaderItem txt_ServiceStatus;
         private DevExpress.XtraEditors.PanelControl panelControl3;
-        private DevExpress.XtraBars.Bar bar2;
         private DevExpress.XtraBars.BarHeaderItem barHeaderItem4;
-        private DevExpress.XtraBars.StandaloneBarDockControl standaloneBarDockControl1;
         private DevExpress.XtraGrid.GridControl grd_data;
         private DevExpress.XtraGrid.Views.Grid.GridView grdv_data;
         private DevExpress.XtraBars.BarButtonItem btn_Test1;
@@ -1027,6 +1025,10 @@
         private System.Windows.Forms.Timer TimerHorasMolinos;
         private DevExpress.XtraEditors.GroupControl groupControl3;
         private System.Windows.Forms.Timer timerBinActivoAlimentacion;
+        private DataSets.dsErroresCatch dsErroresCatch1;
+        private DevExpress.XtraGrid.Columns.GridColumn colFecha;
+        private DevExpress.XtraGrid.Columns.GridColumn colMensaje;
+        private DevExpress.XtraGrid.Columns.GridColumn colTipo;
     }
 }
 
