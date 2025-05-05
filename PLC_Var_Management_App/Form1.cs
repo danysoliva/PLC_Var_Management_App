@@ -1059,11 +1059,12 @@ namespace PLC_Var_Management_App
                             //insert de valor teorico para postpellet
                             //Acumular valores teoricos por linea de produccion
                            int id = GetOrdenInPostPelletID();
-                           if (id > 0)
-                           {
-                               SqlConnection conn = new SqlConnection(dp.ConnectionStringAPMS);
-                               conn.Open();
-                               string sql = @" SELECT --sum([plan_kg_batch])
+                            if (id > 0)
+                            {
+
+                                SqlConnection conn = new SqlConnection(dp.ConnectionStringAPMS);
+                                conn.Open();
+                                string sql = @" SELECT --sum([plan_kg_batch])
                                                     sum((case when (coalesce(rr.[cant_postpellet],0))>0 then rr.[cant_postpellet] else rr.[plan_kg_batch] end) )
                                         FROM [APMS].[dbo].[OP_Production_Orders_Structure] rr join 
                                              [APMS].[dbo].[MD_Raw_Material] mm on
@@ -1071,46 +1072,58 @@ namespace PLC_Var_Management_App
 	                                         [APMS].[dbo].[OP_Production_Orders_Main_Mix] mix on
 	                                         rr.order_id = mix.order_id
                                         where mm.[apply_pp] = 1 and mix.id =  " + id;
-                               SqlCommand cmd = new SqlCommand(sql, conn);
-                               double teoric = Convert.ToDouble(cmd.ExecuteScalar());
+                                SqlCommand cmd = new SqlCommand(sql, conn);
+                                double teoric = 0;
+                                try
+                                {
+                                    teoric = Convert.ToDouble(cmd.ExecuteScalar());
+                                }
+                                catch (Exception ex)
+                                {
+                                    this.ErrorActual.Fecha = DateTime.Now;
+                                    this.ErrorActual.IsEmpty = false;
+                                    this.ErrorActual.Mensaje = ex.Message;
+                                    this.ErrorActual.Tipo = "Operacion SQL Server, Function: Get Valor teorico pos pellet";
+                                    WriteErrorInGrid();
+                                }
 
-                               if (teoric > 0)
-                               {
-                                   ////db284.dbd106
-                                   //double TotalBatch = ((uint)plc319.Read("db284.dbd106")).ConvertToFloat();
-                                   ////string s = plc317.Read("db284.dbd106").ToString();
-                                   ////int linea = Convert.ToInt32(plc317.Read("db284.dbw108"));
-                                   //int linea = Convert.ToInt32(plc319.Read("db284.dbw108"));
-                                   //if (linea == 4)
-                                   //    linea = 3;
+                                if (teoric > 0)
+                                {
+                                    ////db284.dbd106
+                                    //double TotalBatch = ((uint)plc319.Read("db284.dbd106")).ConvertToFloat();
+                                    ////string s = plc317.Read("db284.dbd106").ToString();
+                                    ////int linea = Convert.ToInt32(plc317.Read("db284.dbw108"));
+                                    //int linea = Convert.ToInt32(plc319.Read("db284.dbw108"));
+                                    //if (linea == 4)
+                                    //    linea = 3;
 
-                                   //int linea_id = linea;
-                                   
-                                   //string sql1 = string.Format(@"INSERT INTO [dbo].[op_apply_oil_counter]
-                                   //                                         ([id_line]
-                                   //                                         ,[id_mix_op]
-                                   //                                         ,[cant])
-                                   //                                     VALUES
-                                   //                                         ({0},{1},{2})", linea_id, Batch_IdMix, teoric);
-                                   //SqlCommand cmd1 = new SqlCommand(sql1, conn);
-                                   //cmd1.ExecuteNonQuery();
-                                   
-                               }
+                                    //int linea_id = linea;
+
+                                    //string sql1 = string.Format(@"INSERT INTO [dbo].[op_apply_oil_counter]
+                                    //                                         ([id_line]
+                                    //                                         ,[id_mix_op]
+                                    //                                         ,[cant])
+                                    //                                     VALUES
+                                    //                                         ({0},{1},{2})", linea_id, Batch_IdMix, teoric);
+                                    //SqlCommand cmd1 = new SqlCommand(sql1, conn);
+                                    //cmd1.ExecuteNonQuery();
+
+                                }
                                 conn.Close();
                             }
 
 
                         }
                     }
-   
+
                     //************************************************************//
                     //***Alarma de Especie en Adicion Manual Micro Ingredientes***//
                     //************************************************************//
                     if (GetOrdenActiva(1))
                     {
                         //get tipo de especie en el primer mezclado
-                       
-                            string sql = @"SELECT (SELECT case when ff.especie = 2 then 1
+
+                        string sql = @"SELECT (SELECT case when ff.especie = 2 then 1
                                                                when ff.especie = 1 then 0 end 
 	                                               FROM [AQFSVR010].[ACS].[dbo].[PP_Plan_Ordenes] po join 
 		                                                [AQFSVR010].[ACS].[dbo].[FML_Formulas_v2] ff on 
@@ -1120,15 +1133,29 @@ namespace PLC_Var_Management_App
                                                 [APMS].[dbo].[OP_Production_Orders_Main] mm on
 	                                            mix.order_id = mm.id
                                            where mix.id = " + Batch_IdMix + //128090
-                                         " order by mix.id desc ";
-                            SqlConnection conn = new SqlConnection(dp.ConnectionStringAPMS);
-                            conn.Open();
-                            SqlCommand cmd = new SqlCommand(sql, conn);
-                            int id_especie = Convert.ToInt32(cmd.ExecuteScalar());
+                                     " order by mix.id desc ";
+                        SqlConnection conn = new SqlConnection(dp.ConnectionStringAPMS);
+                        conn.Open();
+                        SqlCommand cmd = new SqlCommand(sql, conn);
+                        int id_especie = 0;
+                        try
+                        {
+                            id_especie = Convert.ToInt32(cmd.ExecuteScalar());
+                        }
+                        catch (Exception ex)
+                        {
+                            this.ErrorActual.Fecha = DateTime.Now;
+                            this.ErrorActual.IsEmpty = false;
+                            this.ErrorActual.Mensaje = ex.Message;
+                            this.ErrorActual.Tipo = "Operacion SQL Server, Function: get tipo de especie en el primer mezclado";
+                            WriteErrorInGrid();
+                        }
 
-                            plc319.Write(AlarmaMicro, id_especie);
-                            conn.Close();
-                        
+
+
+                        plc319.Write(AlarmaMicro, id_especie);
+                        conn.Close();
+
                     }
 
 
@@ -1136,133 +1163,155 @@ namespace PLC_Var_Management_App
                     //Verificar si hay una orden en pellet
                     if (GetOrdenInPostPellet())
                     {
-                        //Actualizar valor teorico
-                        int id = GetOrdenInPostPelletID();
-                        if (id > 0)
+                        try
                         {
-                            err = "Error en get Orden Activa (2)";
-                            SqlConnection conn = new SqlConnection(dp.ConnectionStringAPMS);
-                            conn.Open();
+                            //Actualizar valor teorico
+                            int id = GetOrdenInPostPelletID();
+                            if (id > 0)
+                            {
+                                err = "Error en get Orden Activa (2)";
+                                SqlConnection conn = new SqlConnection(dp.ConnectionStringAPMS);
+                                conn.Open();
 
-                            //Linea PELLET1
-                            string sqla = @"SELECT coalesce(sum([cant]),0)
+                                //Linea PELLET1
+                                string sqla = @"SELECT coalesce(sum([cant]),0)
                                               FROM [APMS].[dbo].[op_apply_oil_counter] as val join
                                                    [APMS].[dbo].[OP_Production_Orders_Main_Mix] as mix on
 	                                               val.id_mix_op = mix.id
                                             where id_line = 1 and mix.id =" + id;
-                            SqlCommand cmd = new SqlCommand(sqla, conn);
-                            double Pellet1 = Convert.ToDouble(cmd.ExecuteScalar());
+                                SqlCommand cmd = new SqlCommand(sqla, conn);
+                                double Pellet1 = Convert.ToDouble(cmd.ExecuteScalar());
 
-                            plc319.Write("DB524.DBX24.0", true);
-                            err = "Error writte batch teorico";
-                            plc319.Write(DataType.DataBlock, 524, 20, Pellet1);
+                                plc319.Write("DB524.DBX24.0", true);
+                                err = "Error writte batch teorico";
+                                plc319.Write(DataType.DataBlock, 524, 20, Pellet1);
 
-                            //Linea PELLET2
-                            string sqlb = @"SELECT coalesce(sum([cant]),0)
+                                //Linea PELLET2
+                                string sqlb = @"SELECT coalesce(sum([cant]),0)
                                               FROM [APMS].[dbo].[op_apply_oil_counter] as val join
                                                    [APMS].[dbo].[OP_Production_Orders_Main_Mix] as mix on
 	                                               val.id_mix_op = mix.id
                                             where id_line = 2 and mix.id =" + id;
-                            SqlCommand cmdb = new SqlCommand(sqlb, conn);
-                            double Pellet2 = Convert.ToDouble(cmdb.ExecuteScalar());
+                                SqlCommand cmdb = new SqlCommand(sqlb, conn);
+                                double Pellet2 = Convert.ToDouble(cmdb.ExecuteScalar());
 
-                            plc319.Write("DB528.DBX24.0", true);
-                            err = "Error writte batch teorico";
-                            plc319.Write(DataType.DataBlock, 528, 20, Pellet2);
+                                plc319.Write("DB528.DBX24.0", true);
+                                err = "Error writte batch teorico";
+                                plc319.Write(DataType.DataBlock, 528, 20, Pellet2);
 
-                            //Linea Extruder
-                            string sqlc = @"SELECT coalesce(sum([cant]),0)
+                                //Linea Extruder
+                                string sqlc = @"SELECT coalesce(sum([cant]),0)
                                               FROM [APMS].[dbo].[op_apply_oil_counter] as val join
                                                    [APMS].[dbo].[OP_Production_Orders_Main_Mix] as mix on
 	                                               val.id_mix_op = mix.id
                                             where id_line = 3 and mix.id =" + id;
-                            SqlCommand cmdc = new SqlCommand(sqlc, conn);
-                            double Extruder = Convert.ToDouble(cmdc.ExecuteScalar());
+                                SqlCommand cmdc = new SqlCommand(sqlc, conn);
+                                double Extruder = Convert.ToDouble(cmdc.ExecuteScalar());
 
-                            if (plc317.IsConnected)
-                            {
-                                if (!plc317.IsConnected)
-                                    Connect_PLC();
+                                if (plc317.IsConnected)
+                                {
+                                    if (!plc317.IsConnected)
+                                        Connect_PLC();
 
-                                plc317.Write("DB528.DBX24.0", true);
-                                err = "Error writte batch teorico";
-                                plc317.Write(DataType.DataBlock, 528, 20, Extruder);
+                                    plc317.Write("DB528.DBX24.0", true);
+                                    err = "Error writte batch teorico";
+                                    plc317.Write(DataType.DataBlock, 528, 20, Extruder);
 
+                                }
+                                #region comentado
+                                //                            string sql = @" SELECT --sum([plan_kg_batch]* mix.real_batch)
+                                //                                                    sum((case when (coalesce(rr.[cant_postpellet],0))>0 then rr.[cant_postpellet] else rr.[plan_kg_batch] end) * mix.real_batch)
+                                //                                        FROM [APMS].[dbo].[OP_Production_Orders_Structure] rr join 
+                                //                                             [APMS].[dbo].[MD_Raw_Material] mm on
+                                //	                                         rr.rm_id = mm.id join 
+                                //	                                         [APMS].[dbo].[OP_Production_Orders_Main_Mix] mix on
+                                //	                                         rr.order_id = mix.order_id
+                                //                                        where mm.[apply_pp] = 1 and mix.id =  " + id;
+                                //SqlCommand cmd = new SqlCommand(sql, conn);
+                                //double teoric = Convert.ToDouble(cmd.ExecuteScalar());
+
+
+
+
+                                //                            //Update de la cantidad acumulada
+                                //                            OrdenPostPellet OPP = new OrdenPostPellet() { id_mix = Batch_IdMix };
+                                //                            if (OPP.RecuperarUltimaOrden())
+                                //                            {
+                                //                                if (conn.State != ConnectionState.Open)
+                                //                                    conn.Open();
+
+                                //                                if (!plc317.IsConnected)
+                                //                                    Connect_PLC();
+
+                                //                                err = "Error en obtener el valor dispensado";
+                                //                                //Obtener el valor real dispensado
+                                //                                double TotalAcumulado = ((uint)plc317.Read("DB524.DBD12")).ConvertToFloat();
+                                //                                string sqlz = @"UPDATE [dbo].[oil_get_out]
+                                //                                            SET [cant] = cast('" + TotalAcumulado + "' as decimal(10,2)) " +
+                                //                                                " WHERE id = " + OPP.id;
+                                //                                SqlCommand cc = new SqlCommand(sqlz, conn);
+                                //                                cc.ExecuteNonQuery();
+                                //                            }
+                                //                            else
+                                //                            {
+                                //                                if (conn.State != ConnectionState.Open)
+                                //                                    conn.Open();
+
+                                //                                if (!plc317.IsConnected)
+                                //                                    Connect_PLC();
+
+                                //                                err = "Error en obtener el valor dispensado";
+                                //                                //Obtener el valor real dispensado
+                                //                                double TotalAcumulado = ((uint)plc317.Read("DB524.DBD12")).ConvertToFloat();
+                                //                                string sqlz = @"insert into [dbo].[oil_get_out]
+                                //                                                       ([id_mix]
+                                //                                                       ,[cant])
+                                //                                                 VALUES
+                                //                                                       (" + Batch_IdMix + ", cast('" + TotalAcumulado + "' as decimal(10,2)))";
+
+                                //                                SqlCommand cc = new SqlCommand(sqlz, conn);
+                                //                                cc.ExecuteNonQuery();
+                                //                            }
+                                #endregion
+                                conn.Close();
                             }
-                            #region comentado
-                            //                            string sql = @" SELECT --sum([plan_kg_batch]* mix.real_batch)
-//                                                    sum((case when (coalesce(rr.[cant_postpellet],0))>0 then rr.[cant_postpellet] else rr.[plan_kg_batch] end) * mix.real_batch)
-//                                        FROM [APMS].[dbo].[OP_Production_Orders_Structure] rr join 
-//                                             [APMS].[dbo].[MD_Raw_Material] mm on
-//	                                         rr.rm_id = mm.id join 
-//	                                         [APMS].[dbo].[OP_Production_Orders_Main_Mix] mix on
-//	                                         rr.order_id = mix.order_id
-//                                        where mm.[apply_pp] = 1 and mix.id =  " + id;
-                            //SqlCommand cmd = new SqlCommand(sql, conn);
-                            //double teoric = Convert.ToDouble(cmd.ExecuteScalar());
-
-
-                          
-
-//                            //Update de la cantidad acumulada
-//                            OrdenPostPellet OPP = new OrdenPostPellet() { id_mix = Batch_IdMix };
-//                            if (OPP.RecuperarUltimaOrden())
-//                            {
-//                                if (conn.State != ConnectionState.Open)
-//                                    conn.Open();
-
-//                                if (!plc317.IsConnected)
-//                                    Connect_PLC();
-
-//                                err = "Error en obtener el valor dispensado";
-//                                //Obtener el valor real dispensado
-//                                double TotalAcumulado = ((uint)plc317.Read("DB524.DBD12")).ConvertToFloat();
-//                                string sqlz = @"UPDATE [dbo].[oil_get_out]
-//                                            SET [cant] = cast('" + TotalAcumulado + "' as decimal(10,2)) " +
-//                                                " WHERE id = " + OPP.id;
-//                                SqlCommand cc = new SqlCommand(sqlz, conn);
-//                                cc.ExecuteNonQuery();
-//                            }
-//                            else
-//                            {
-//                                if (conn.State != ConnectionState.Open)
-//                                    conn.Open();
-
-//                                if (!plc317.IsConnected)
-//                                    Connect_PLC();
-
-//                                err = "Error en obtener el valor dispensado";
-//                                //Obtener el valor real dispensado
-//                                double TotalAcumulado = ((uint)plc317.Read("DB524.DBD12")).ConvertToFloat();
-//                                string sqlz = @"insert into [dbo].[oil_get_out]
-//                                                       ([id_mix]
-//                                                       ,[cant])
-//                                                 VALUES
-//                                                       (" + Batch_IdMix + ", cast('" + TotalAcumulado + "' as decimal(10,2)))";
-                                                
-//                                SqlCommand cc = new SqlCommand(sqlz, conn);
-//                                cc.ExecuteNonQuery();
-                            //                            }
-                            #endregion
-                            conn.Close();
+                        }
+                        catch (Exception ex)
+                        {
+                            this.ErrorActual.Fecha = DateTime.Now;
+                            this.ErrorActual.IsEmpty = false;
+                            this.ErrorActual.Mensaje = ex.Message;
+                            this.ErrorActual.Tipo = "Operacion SQL Server, Function: get Cantidad aceite post pellet";
+                            WriteErrorInGrid();
                         }
                     }
                     else
                     {
-                        //poner la orden activa en pellet
-                        plc319.Write("DB524.DBX24.0", false);
-
-                        if (GetOrdenActiva(2))
+                        try
                         {
-                            SqlConnection conn = new SqlConnection(dp.ConnectionStringAPMS);
-                            conn.Open();
-                            plc319.Write("DB524.DBX24.0", true);
-                            string sql1 = @"UPDATE [dbo].[OP_Production_Orders_Main_Mix]
+                            //poner la orden activa en pellet
+                            plc319.Write("DB524.DBX24.0", false);
+
+                            if (GetOrdenActiva(2))
+                            {
+                                SqlConnection conn = new SqlConnection(dp.ConnectionStringAPMS);
+                                conn.Open();
+                                plc319.Write("DB524.DBX24.0", true);
+                                string sql1 = @"UPDATE [dbo].[OP_Production_Orders_Main_Mix]
                                                                    SET [activa_post_pellet] = 1
                                                                  WHERE id = " + Batch_IdMix;
-                            SqlCommand cc1 = new SqlCommand(sql1, conn);
-                            cc1.ExecuteNonQuery();
-                            conn.Close();
+                                SqlCommand cc1 = new SqlCommand(sql1, conn);
+                                cc1.ExecuteNonQuery();
+                                conn.Close();
+                            }
+                        }
+                        catch (Exception ex)
+                        {
+                            this.ErrorActual.Fecha = DateTime.Now;
+                            this.ErrorActual.IsEmpty = false;
+                            this.ErrorActual.Mensaje = ex.Message;
+                            this.ErrorActual.Tipo = "Operacion SQL Server, Function: poner la orden activa en pellet";
+                            WriteErrorInGrid();
                         }
                     }
 
@@ -1281,6 +1330,13 @@ namespace PLC_Var_Management_App
                         OrdenPostPellet OPP = new OrdenPostPellet() { id_mix = Batch_IdMix };
                         if (OPP.RecuperarUltimaOrden())
                         {
+                            if (!OPP.ErrorActual.IsEmpty)
+                            {
+                                this.ErrorActual = OPP.ErrorActual;
+                                WriteErrorInGrid();
+                            }
+
+
 //                            string sqlv = @"UPDATE [dbo].[oil_get_out]
 //                                            SET finish = 1
 //                                        WHERE id = " + OPP.id;
@@ -1312,11 +1368,30 @@ namespace PLC_Var_Management_App
                                          WHERE id = " + Batch_IdMix;
                                 SqlCommand cc = new SqlCommand(sql1, conn);
                                 err = "Error update orden finalizada";
-                                cc.ExecuteNonQuery();
+                                try
+                                {
+                                    cc.ExecuteNonQuery();
+                                }
+                                catch(Exception ex)
+                                {
+                                    this.ErrorActual.Fecha = DateTime.Now;
+                                    this.ErrorActual.IsEmpty = false;
+                                    this.ErrorActual.Mensaje = ex.Message;
+                                    this.ErrorActual.Tipo = "Operacion SQL Server, Function: poner la orden activa en pellet";
+                                    WriteErrorInGrid();
+                                }
                             }
 
                             
 
+                        }
+                        else
+                        {
+                            if (!OPP.ErrorActual.IsEmpty)
+                            {
+                                this.ErrorActual = OPP.ErrorActual;
+                                WriteErrorInGrid();
+                            }
                         }
                         conn.Close();
                     }
@@ -1335,12 +1410,18 @@ namespace PLC_Var_Management_App
                         OrdenPostPellet OPP = new OrdenPostPellet() { id_mix = Batch_IdMix };
                         if (OPP.RecuperarUltimaOrden())
                         {
-//                            string sqlv = @"UPDATE [dbo].[oil_get_out]
-//                                            SET finish = 1
-//                                        WHERE id = " + OPP.id;
-//                            SqlCommand sxe = new SqlCommand(sqlv, conn);
-//                            err = "Error update orden finalizada";
-//                            sxe.ExecuteNonQuery();
+                            if (!OPP.ErrorActual.IsEmpty)
+                            {
+                                this.ErrorActual = OPP.ErrorActual;
+                                WriteErrorInGrid();
+                            }
+
+                            //                            string sqlv = @"UPDATE [dbo].[oil_get_out]
+                            //                                            SET finish = 1
+                            //                                        WHERE id = " + OPP.id;
+                            //                            SqlCommand sxe = new SqlCommand(sqlv, conn);
+                            //                            err = "Error update orden finalizada";
+                            //                            sxe.ExecuteNonQuery();
 
                             //Reset de la señal de finalizar orden
                             plc319.Write("DB528.DBX24.2", false);
@@ -1366,10 +1447,29 @@ namespace PLC_Var_Management_App
                                          WHERE id = " + Batch_IdMix;
                                 SqlCommand cc = new SqlCommand(sql1, conn);
                                 err = "Error update orden finalizada";
-                                cc.ExecuteNonQuery();
+                                try
+                                {
+                                    cc.ExecuteNonQuery();
+                                }
+                                catch(Exception ex)
+                                {
+                                    this.ErrorActual.Fecha = DateTime.Now;
+                                    this.ErrorActual.IsEmpty = false;
+                                    this.ErrorActual.Mensaje = ex.Message;
+                                    this.ErrorActual.Tipo = "Operacion SQL Server, Function: poner la orden activa en pellet";
+                                    WriteErrorInGrid();
+                                }
                             }
 
                             
+                        }
+                        else
+                        {
+                            if (!OPP.ErrorActual.IsEmpty)
+                            {
+                                this.ErrorActual = OPP.ErrorActual;
+                                WriteErrorInGrid();
+                            }
                         }
                         conn.Close();
                     }
@@ -1392,12 +1492,19 @@ namespace PLC_Var_Management_App
                             OrdenPostPellet OPP = new OrdenPostPellet() { id_mix = Batch_IdMix };
                             if (OPP.RecuperarUltimaOrden())
                             {
-//                                string sqlv = @"UPDATE [dbo].[oil_get_out]
-//                                            SET finish = 1
-//                                        WHERE id = " + OPP.id;
-//                                SqlCommand sxe = new SqlCommand(sqlv, conn);
-//                                err = "Error update orden finalizada";
-//                                sxe.ExecuteNonQuery();
+
+                                if (!OPP.ErrorActual.IsEmpty)
+                                {
+                                    this.ErrorActual = OPP.ErrorActual;
+                                    WriteErrorInGrid();
+                                }
+
+                                //                                string sqlv = @"UPDATE [dbo].[oil_get_out]
+                                //                                            SET finish = 1
+                                //                                        WHERE id = " + OPP.id;
+                                //                                SqlCommand sxe = new SqlCommand(sqlv, conn);
+                                //                                err = "Error update orden finalizada";
+                                //                                sxe.ExecuteNonQuery();
 
                                 //Reset de la señal de finalizar orden
                                 plc317.Write("DB528.DBX24.2", false);
@@ -1423,11 +1530,31 @@ namespace PLC_Var_Management_App
                                          WHERE id = " + Batch_IdMix;
                                     SqlCommand cc = new SqlCommand(sql1, conn);
                                     err = "Error update orden finalizada";
-                                    cc.ExecuteNonQuery();
+
+                                    try
+                                    {
+                                        cc.ExecuteNonQuery();
+                                    }
+                                    catch(Exception ex)
+                                    {
+                                        this.ErrorActual.Fecha = DateTime.Now;
+                                        this.ErrorActual.IsEmpty = false;
+                                        this.ErrorActual.Mensaje = ex.Message;
+                                        this.ErrorActual.Tipo = "Operacion SQL Server, Function: poner la orden activa en pellet";
+                                        WriteErrorInGrid();
+                                    }
                                 }
 
 
                                 
+                            }
+                            else
+                            {
+                                if (!OPP.ErrorActual.IsEmpty)
+                                {
+                                    this.ErrorActual = OPP.ErrorActual;
+                                    WriteErrorInGrid();
+                                }
                             }
                             conn.Close();
                         }
@@ -2013,7 +2140,7 @@ namespace PLC_Var_Management_App
                 this.ErrorActual.Fecha = DateTime.Now;
                 this.ErrorActual.IsEmpty = false;
                 this.ErrorActual.Mensaje = ec.Message;
-                this.ErrorActual.Tipo = "Operacion SQL Server, Function: PeriodoAbierto";
+                this.ErrorActual.Tipo = "Operacion SQL Server, Function: PeriodoAbierto. Conexion a APMS db";
                 WriteErrorInGrid();
             }
             return a;

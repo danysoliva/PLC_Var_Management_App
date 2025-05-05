@@ -10,6 +10,7 @@ namespace PLC_Var_Management_App.Classes
 {
     public class OrdenPostPellet
     {
+
         public OrdenPostPellet()
         {
             dp = new DataOperations();
@@ -20,6 +21,7 @@ namespace PLC_Var_Management_App.Classes
         int cant;
         int finish;
         DataOperations dp;
+        public ErrorMsjCatch ErrorActual;
 
         public bool RecuperarUltimaOrden()
         {
@@ -44,7 +46,7 @@ namespace PLC_Var_Management_App.Classes
                                     where finish = 0
                                     order by id asc";
                     SqlCommand cmd1 = new SqlCommand(sql1, conn);
-                    
+
                     vid = Convert.ToInt32(cmd.ExecuteScalar());
                 }
                 else
@@ -64,7 +66,14 @@ namespace PLC_Var_Management_App.Classes
             }
             catch (Exception ec)
             {
-                MessageBox.Show(error + ec.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                //MessageBox.Show(error + ec.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+                this.ErrorActual.Fecha = DateTime.Now;
+                this.ErrorActual.IsEmpty = false;
+                this.ErrorActual.Mensaje = ec.Message;
+                this.ErrorActual.Tipo = "Operacion SQL Server, Function: poner la orden activa en pellet";
+                //WriteErrorInGrid();
+
             }
             this.id = vid;
             return encontrado;

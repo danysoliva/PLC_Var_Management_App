@@ -879,7 +879,7 @@
             // 
             // conteoBatch
             // 
-            this.conteoBatch.Interval = 10000;
+            this.conteoBatch.Interval = 25000;
             this.conteoBatch.Tick += new System.EventHandler(this.conteoBatch_Tick);
             // 
             // timerHorasMaquina
