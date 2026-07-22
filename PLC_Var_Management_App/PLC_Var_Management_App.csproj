@@ -194,6 +194,11 @@
     <Compile Include="Classes\OrdenActiva.cs" />
     <Compile Include="Classes\OrdenPostPellet.cs" />
     <Compile Include="Classes\PLCOPS.cs" />
+    <Compile Include="DataSets\dsErroresCatch.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>dsErroresCatch.xsd</DependentUpon>
+    </Compile>
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -224,6 +229,7 @@
     <None Include="DataSets\dsErroresCatch.xsd">
       <SubType>Designer</SubType>
       <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>dsErroresCatch.Designer.cs</LastGenOutput>
     </None>
     <None Include="DataSets\dsErroresCatch.xss">
       <DependentUpon>dsErroresCatch.xsd</DependentUpon>
