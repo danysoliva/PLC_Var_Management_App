@@ -889,13 +889,13 @@
             this.timerHorasMaquina.Tick += new System.EventHandler(this.timerHorasMaquina_Tick);
             // 
             // TimerGuardadoBines
-            //
+            // 
             this.TimerGuardadoBines.Interval = 600;
             this.TimerGuardadoBines.Tick += new System.EventHandler(this.GuardadoBines_Tick);
             // 
             // TimerBinIntakeTriggers
             // 
-            this.TimerBinIntakeTriggers.Interval = 90000;
+            this.TimerBinIntakeTriggers.Interval = 15000;
             this.TimerBinIntakeTriggers.Tick += new System.EventHandler(this.TimerBinIntakeTriggers_Tick);
             // 
             // TimerHorasMolinos
