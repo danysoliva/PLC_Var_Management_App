@@ -38,6 +38,9 @@ namespace PLC_Var_Management_App.Classes
 
                     if (SaveReading(bin))
                     {
+                        // Reinicia la variable real para cumplir ciclo de lectura/escritura
+                        plc.Write(bin.AddrIntakeReal, 0f);
+
                         // Reset del trigger para no re-guardar el mismo ciclo
                         plc.Write(bin.AddrTrigger, (ushort)0);
                         saved++;
