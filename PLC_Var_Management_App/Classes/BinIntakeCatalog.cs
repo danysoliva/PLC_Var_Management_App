@@ -20,11 +20,11 @@ namespace PLC_Var_Management_App.Classes
             "WL1","WL2","WL3","WL4","WL5","WL6",
             "FYLAX",
             "WL7","WL8","WL7","WL8",
-            "OIL1","OIL2","OIL3","OIL4",
+            "OIL1","OIL2","OIL3","OIL5",
             "TQCOL","TQAGUA1","TQAGUA2","Fylax1",
             "C1_Tanque_2","C1_Tanque_3","C1_Tanque_5","C1_Hacienda",
             "C2_Tanque_2","C2_Tanque_3","C2_Tanque_5","C2_Hacienda",
-            "Lecitina"
+            "OIL4"
         };
 
         private static List<BinIntakePoint> _points;
