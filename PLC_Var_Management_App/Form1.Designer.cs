@@ -104,6 +104,7 @@
             this.conteoBatch = new System.Windows.Forms.Timer(this.components);
             this.timerHorasMaquina = new System.Windows.Forms.Timer(this.components);
             this.TimerGuardadoBines = new System.Windows.Forms.Timer(this.components);
+            this.TimerBinIntakeTriggers = new System.Windows.Forms.Timer(this.components);
             this.TimerHorasMolinos = new System.Windows.Forms.Timer(this.components);
             this.timerBinActivoAlimentacion = new System.Windows.Forms.Timer(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.barManager1)).BeginInit();
@@ -888,9 +889,14 @@
             this.timerHorasMaquina.Tick += new System.EventHandler(this.timerHorasMaquina_Tick);
             // 
             // TimerGuardadoBines
-            // 
+            //
             this.TimerGuardadoBines.Interval = 600;
             this.TimerGuardadoBines.Tick += new System.EventHandler(this.GuardadoBines_Tick);
+            // 
+            // TimerBinIntakeTriggers
+            // 
+            this.TimerBinIntakeTriggers.Interval = 90000;
+            this.TimerBinIntakeTriggers.Tick += new System.EventHandler(this.TimerBinIntakeTriggers_Tick);
             // 
             // TimerHorasMolinos
             // 
@@ -1022,6 +1028,7 @@
         private DevExpress.XtraEditors.ToggleSwitch tggGuardadoBines;
         private DevExpress.XtraEditors.LabelControl labelControl10;
         private System.Windows.Forms.Timer TimerGuardadoBines;
+        private System.Windows.Forms.Timer TimerBinIntakeTriggers;
         private System.Windows.Forms.Timer TimerHorasMolinos;
         private DevExpress.XtraEditors.GroupControl groupControl3;
         private System.Windows.Forms.Timer timerBinActivoAlimentacion;

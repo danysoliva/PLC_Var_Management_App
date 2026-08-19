@@ -22,6 +22,9 @@ namespace PLC_Var_Management_App
 
         public ErrorMsjCatch ErrorActual;
 
+        /// <summary>Poller de triggers DB301 (Excel Trigger/Lote/Intake_Real), cada 90s.</summary>
+        BinTriggerPoller binTriggerPoller = new BinTriggerPoller();
+
         #region PLC319
 
         Plc plc319;
@@ -581,6 +584,9 @@ namespace PLC_Var_Management_App
 
                 timerHorasMaquina.Enabled = true;
                 timerHorasMaquina.Start();
+
+                TimerBinIntakeTriggers.Enabled = true;
+                TimerBinIntakeTriggers.Start();
             }
             catch (Exception ex)
             {
@@ -619,6 +625,9 @@ namespace PLC_Var_Management_App
 
                 timerHorasMaquina.Enabled = false;
                 timerHorasMaquina.Stop();
+
+                TimerBinIntakeTriggers.Enabled = false;
+                TimerBinIntakeTriggers.Stop();
 
             }
             catch (Exception ex)
@@ -2199,6 +2208,25 @@ namespace PLC_Var_Management_App
                     WriteErrorInGrid();
                 }
                 
+            }
+        }
+
+        private void TimerBinIntakeTriggers_Tick(object sender, EventArgs e)
+        {
+            try
+            {
+                if (plc319 == null || !plc319.IsConnected)
+                    return;
+
+                binTriggerPoller.ProcessAll(plc319);
+            }
+            catch (Exception ec)
+            {
+                this.ErrorActual.Fecha = DateTime.Now;
+                this.ErrorActual.IsEmpty = false;
+                this.ErrorActual.Mensaje = ec.Message;
+                this.ErrorActual.Tipo = "Operaciones PLC/SQL, Function: TimerBinIntakeTriggers_Tick";
+                WriteErrorInGrid();
             }
         }
 
