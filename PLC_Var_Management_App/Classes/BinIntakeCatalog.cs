@@ -18,7 +18,7 @@ namespace PLC_Var_Management_App.Classes
             "SD1","SD2","SD3",
             "WL1","WL2","WL3","WL4","WL5","WL6",
             "WL1","WL2","WL3","WL4","WL5","WL6",
-            "FYLAX",
+            "Fylax1",
             "WL7","WL8","WL7","WL8",
             "OIL1","OIL2","OIL3","OIL5",
             "TQCOL","TQAGUA1","TQAGUA2","Fylax1",
