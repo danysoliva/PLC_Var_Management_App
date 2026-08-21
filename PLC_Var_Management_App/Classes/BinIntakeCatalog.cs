@@ -13,6 +13,19 @@ namespace PLC_Var_Management_App.Classes
         /// <summary>Orden exacto del Excel (54 bines).</summary>
         private static readonly string[] BinCodes = new string[]
         {
+            //"FD1","FD2","FD3","FD4","FD5","FD6","FD7","FD8","FD9","FD10",
+            //"FD11","FD12","FD13","FD14","FD15","FD16","FD17",
+            //"SD1","SD2","SD3",
+            //"WL1","WL2","WL3","WL4","WL5","WL6",
+            //"WL1","WL2","WL3","WL4","WL5","WL6",
+            //"Fylax1",
+            //"WL7","WL8","WL7","WL8",
+            //"OIL1","OIL2","OIL3","OIL5",
+            //"TQCOL","TQAGUA1","TQAGUA2","Fylax1",
+            //"C1_Tanque_2","C1_Tanque_3","C1_Tanque_5","C1_Hacienda",
+            //"C2_Tanque_2","C2_Tanque_3","C2_Tanque_5","C2_Hacienda",
+            //"OIL4"
+
             "FD1","FD2","FD3","FD4","FD5","FD6","FD7","FD8","FD9","FD10",
             "FD11","FD12","FD13","FD14","FD15","FD16","FD17",
             "SD1","SD2","SD3",
@@ -22,8 +35,8 @@ namespace PLC_Var_Management_App.Classes
             "WL7","WL8","WL7","WL8",
             "OIL1","OIL2","OIL3","OIL5",
             "TQCOL","TQAGUA1","TQAGUA2","Fylax1",
-            "C1_Tanque_2","C1_Tanque_3","C1_Tanque_5","C1_Hacienda",
-            "C2_Tanque_2","C2_Tanque_3","C2_Tanque_5","C2_Hacienda",
+            "C1TQ2","C1TQ3","C1TQ5","C1TQ6",
+            "C2TQ2","C2TQ3","C2TQ5","C2TQ6",
             "OIL4"
         };
 
